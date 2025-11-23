@@ -42,27 +42,25 @@ class WorldModelTeacher(nn.Module):
     else:
       raise NotImplemented(f"{config.size} is not applicable now")
 
-
-    
     # Task-conditional encoder
-    if config.encoder_mode == 'original_cnn':
+    if config.teacher_encoder_mode == 'original_cnn':
       self.encoder = networks.ConvEncoder(
           config.grayscale, teacher_cnn_depth, config.act, 
           config.encoder_kernels, label_num=config.num_teachers)
-    elif config.encoder_mode == 'moe':
+    elif config.teacher_encoder_mode == 'moe':
       self.encoder = networks.MoEOrthogonalConvEncoder(
           n_experts=config.n_experts,
-          grayscale=False,
+          grayscale=config.grayscale,
           depth=teacher_cnn_depth,
           act= config.act,
-          kernels=(4, 4, 4, 4),
-          label_num=3,
-          use_orthogonal=True
+          kernels=config.encoder_kernels,
+          label_num=len(config.source_tasks),
+          use_orthogonal=config.use_orthogonal
       )
 
     
     # Task-conditional dynamics
-    if config.encoder_mode == 'original_cnn':
+    if config.teacher_encoder_mode == 'original_cnn':
       self.dynamics = networks.RSSM(
         teacher_dyn_stoch, teacher_dyn_deter, teacher_dyn_hidden,
         config.dyn_input_layers, config.dyn_output_layers,
@@ -71,7 +69,7 @@ class WorldModelTeacher(nn.Module):
         config.dyn_temp_post, config.dyn_min_std, config.dyn_cell,
         config.num_actions, embed_size, config.device, label_num=config.num_teachers)
     
-    elif config.encoder_mode == 'moe':
+    elif config.teacher_encoder_mode == 'moe':
       self.dynamics = networks.RSSM_Teacher(
         teacher_dyn_stoch, teacher_dyn_deter, teacher_dyn_hidden,
         config.dyn_input_layers, config.dyn_output_layers,

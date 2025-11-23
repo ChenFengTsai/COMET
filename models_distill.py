@@ -47,20 +47,64 @@ class WorldModelStudent(nn.Module):
 
         # Store teacher config object
         self._teacher_config = SimpleNamespace(**teacher_cfg_dict)
+        
+        # SAVE TEACHER CONFIG INTO STUDENT CONFIG
+        for key, value in teacher_cfg_dict.items():
+          setattr(config, f"teacher_{key}", value)
 
-        # Copy the relevant hyperparameters to config as "teacher_*"
-        # so the teacher networks use teacher’s own sizes.
-        for name in ["teacher_cnn_depth", "teacher_dyn_hidden", "teacher_dyn_deter", "teacher_dyn_stoch"]:
-          if hasattr(self._teacher_config, name):
-            setattr(config, f"{name}", getattr(self._teacher_config, name))
+        print(f"[WorldModelStudent] Teacher config loaded successfully")
       else:
         print(f"[WorldModelStudent] WARNING: teacher config not found at {teacher_config_path}")
 
-    # Calculate embed size
+    def get_teacher_param(param_name, default_param_name=None):
+      teacher_param_name = f"teacher_{param_name}"
+      if hasattr(config, teacher_param_name):
+        return getattr(config, teacher_param_name)
+      
+      fallback_name = default_param_name or param_name
+      return getattr(config, fallback_name)
+
+    # Extract teacher parameters using the helper function
+    teacher_cnn_depth = get_teacher_param('cnn_depth')
+    teacher_dyn_hidden = get_teacher_param('dyn_hidden')
+    teacher_dyn_deter = get_teacher_param('dyn_deter')
+    teacher_dyn_stoch = get_teacher_param('dyn_stoch')
+    teacher_dyn_input_layers = get_teacher_param('dyn_input_layers')
+    teacher_dyn_output_layers = get_teacher_param('dyn_output_layers')
+    teacher_dyn_rec_depth = get_teacher_param('dyn_rec_depth')
+    teacher_dyn_shared = get_teacher_param('dyn_shared')
+    teacher_dyn_discrete = get_teacher_param('dyn_discrete')
+    teacher_dyn_mean_act = get_teacher_param('dyn_mean_act')
+    teacher_dyn_std_act = get_teacher_param('dyn_std_act')
+    teacher_dyn_temp_post = get_teacher_param('dyn_temp_post')
+    teacher_dyn_min_std = get_teacher_param('dyn_min_std')
+    teacher_dyn_cell = get_teacher_param('dyn_cell')
+    teacher_encoder_kernels = get_teacher_param('encoder_kernels')
+    teacher_grayscale = get_teacher_param('grayscale')
+    teacher_act = get_teacher_param('act')
+    teacher_act = teacher_act.split(".")[-1].rstrip("'>")
+    teacher_act = getattr(torch.nn, teacher_act)
+    teacher_num_actions = get_teacher_param('num_actions')
+    teacher_source_tasks = get_teacher_param('source_tasks')
+    # teacher_moe_temperature = get_teacher_param('moe_temperature')
+    # print('hi', type(teacher_moe_temperature))
+    teacher_encoder_mode = get_teacher_param('encoder_mode')
+
+    assert len(teacher_source_tasks) == config.num_teachers, \
+      f"Number of teacher source tasks ({len(teacher_source_tasks)}) must match " \
+      f"config.num_teachers ({config.num_teachers})"
+    
+    # For MoE-specific parameters
+    if teacher_encoder_mode == 'moe':
+      teacher_n_experts = get_teacher_param('n_experts', 'n_experts')
+      teacher_use_orthogonal = get_teacher_param('use_orthogonal', 'use_orthogonal')
+
+    # Calculate embed size for both student and teacher
     if config.size[0] == 64 and config.size[1] == 64:
       student_embed_size = 2 ** (len(config.encoder_kernels)-1) * config.cnn_depth
       student_embed_size *= 2 * 2
-      teacher_embed_size = 2 ** (len(config.encoder_kernels)-1) * getattr(config, 'teacher_cnn_depth', config.cnn_depth)
+      
+      teacher_embed_size = 2 ** (len(teacher_encoder_kernels)-1) * teacher_cnn_depth
       teacher_embed_size *= 2 * 2
     # elif config.size[0] == 84 and config.size[1] == 84:
     #   def conv_down(h, k, s=2, p=0, d=1):
@@ -75,23 +119,82 @@ class WorldModelStudent(nn.Module):
       raise NotImplemented(f"{config.size} is not applicable now")
 
     # ========== TEACHER MODELS (Frozen) ==========
-    # NEW (Solution - separate configs):
-    teacher_cnn_depth = getattr(config, 'teacher_cnn_depth', config.cnn_depth)
-    teacher_dyn_hidden = getattr(config, 'teacher_dyn_hidden', config.dyn_hidden)
-    teacher_dyn_deter = getattr(config, 'teacher_dyn_deter', config.dyn_deter)
-    teacher_dyn_stoch = getattr(config, 'teacher_dyn_stoch', config.dyn_stoch)
+    # Determine teacher encoder mode
     
-    self.encoder_teachers = networks.ConvEncoder(
-        config.grayscale, teacher_cnn_depth, config.act, 
-        config.encoder_kernels, label_num=config.num_teachers)
+    if teacher_encoder_mode == 'original_cnn':
+      self.encoder_teachers = networks.ConvEncoder(
+        teacher_grayscale, 
+        teacher_cnn_depth, 
+        teacher_act, 
+        teacher_encoder_kernels, 
+        label_num=len(teacher_source_tasks)
+      )
+    elif teacher_encoder_mode == 'moe':
+      self.encoder_teachers = networks.MoEOrthogonalConvEncoder(
+        n_experts=teacher_n_experts,
+        grayscale=teacher_grayscale,
+        depth=teacher_cnn_depth,
+        act=teacher_act,
+        kernels=teacher_encoder_kernels,
+        label_num=len(teacher_source_tasks),
+        use_orthogonal=teacher_use_orthogonal,
+        temperature=config.moe_temperature()
+      )
+    else:
+      raise ValueError(f"Unknown teacher_encoder_mode: {teacher_encoder_mode}")
+
+    # Task-conditional dynamics
+    if teacher_encoder_mode == 'original_cnn':
+      self.dynamics_teachers = networks.RSSM(
+        teacher_dyn_stoch, 
+        teacher_dyn_deter, 
+        teacher_dyn_hidden,
+        teacher_dyn_input_layers, 
+        teacher_dyn_output_layers,
+        teacher_dyn_rec_depth, 
+        teacher_dyn_shared, 
+        teacher_dyn_discrete,
+        teacher_act, 
+        teacher_dyn_mean_act, 
+        teacher_dyn_std_act,
+        teacher_dyn_temp_post, 
+        teacher_dyn_min_std, 
+        teacher_dyn_cell,
+        teacher_num_actions, 
+        teacher_embed_size, 
+        config.device, 
+        label_num=config.num_teachers
+      )
     
-    self.dynamics_teachers = networks.RSSM(
-        teacher_dyn_stoch, teacher_dyn_deter, teacher_dyn_hidden,
-        config.dyn_input_layers, config.dyn_output_layers,
-        config.dyn_rec_depth, config.dyn_shared, config.dyn_discrete,
-        config.act, config.dyn_mean_act, config.dyn_std_act,
-        config.dyn_temp_post, config.dyn_min_std, config.dyn_cell,
-        config.num_actions, teacher_embed_size, config.device, label_num=config.num_teachers)
+    elif teacher_encoder_mode == 'moe':
+      self.dynamics_teachers = networks.RSSM_Teacher(
+        teacher_dyn_stoch, 
+        teacher_dyn_deter, 
+        teacher_dyn_hidden,
+        teacher_dyn_input_layers, 
+        teacher_dyn_output_layers,
+        teacher_dyn_rec_depth, 
+        teacher_dyn_shared, 
+        teacher_dyn_discrete,
+        teacher_act, 
+        teacher_dyn_mean_act, 
+        teacher_dyn_std_act,
+        teacher_dyn_temp_post, 
+        teacher_dyn_min_std, 
+        teacher_dyn_cell,
+        teacher_num_actions, 
+        teacher_embed_size, 
+        config.device, 
+        label_num=config.num_teachers
+      )
+    else:
+      raise ValueError(f"Unknown teacher_encoder_mode: {teacher_encoder_mode}")
+
+    print(f"[WorldModelTeacher] Teacher models initialized with:")
+    print(f"  - Encoder mode: {teacher_encoder_mode}")
+    print(f"  - CNN depth: {teacher_cnn_depth}")
+    print(f"  - Dyn stoch: {teacher_dyn_stoch}, Dyn deter: {teacher_dyn_deter}, Dyn hidden: {teacher_dyn_hidden}")
+    print(f"  - Embed size: {teacher_embed_size}")
     
     # Freeze teacher parameters
     for param in self.encoder_teachers.parameters():
@@ -108,21 +211,23 @@ class WorldModelStudent(nn.Module):
     teacher_feat_dim = teacher_dyn_stoch + teacher_dyn_deter
     student_feat_dim = config.dyn_stoch + config.dyn_deter
     
+    imp_latent_dim = getattr(config, 'imp_latent_dim', 256)
     self.imp = nn.Sequential(
-    nn.Linear(teacher_feat_dim + student_feat_dim, 256),
-    nn.ReLU(),
-    nn.Linear(256, 128),
-    nn.ReLU(),
-    nn.Linear(128, 1)
+      nn.Linear(teacher_feat_dim + student_feat_dim, imp_latent_dim),
+      nn.ReLU(),
+      nn.Linear(imp_latent_dim, imp_latent_dim//2),
+      nn.ReLU(),
+      nn.Linear(imp_latent_dim//2, 1)
     )
     
+    distiller_latent_dim = getattr(config, 'distiller_latent_dim', 256)
     if self._config.use_distill:
       self.distiller = nn.Sequential(
-          nn.Linear(teacher_feat_dim, 256),
+          nn.Linear(teacher_feat_dim, distiller_latent_dim),
           nn.ReLU(),
-          # nn.Linear(256, 256),
-          # nn.ReLU(),
-          nn.Linear(256, student_feat_dim)
+          nn.Linear(distiller_latent_dim, distiller_latent_dim),
+          nn.ReLU(),
+          nn.Linear(distiller_latent_dim, student_feat_dim)
       )
 
     vae_latent = getattr(config, 'vae_latent_dim', 32)
@@ -179,30 +284,20 @@ class WorldModelStudent(nn.Module):
     for name in config.grad_heads:
       assert name in self.heads, name
     
-    # # Student optimizer
-    # self.module_para = (
-    #     list(self.encoder.parameters()) + 
-    #     list(self.dynamics.parameters()) +
-    #     list(self.imp.parameters()) +
-    #     # list(self.distiller.parameters()) +
-    #     # list(self.vae.parameters()) +
-    #     list(self.heads['image'].parameters()) +
-    #     list(self.heads['reward'].parameters())
-    # )
-    
-    # if self._config.use_distill:
-    #   self.module_para += list(self.distiller.parameters())
-    
+ 
+    # Student optimizer
     self.modules_to_optimize = nn.ModuleList([
       self.encoder,
       self.dynamics,
       self.imp,
+      self.distiller,
       self.heads['image'],
       self.heads['reward']
     ])
 
+    # add distiller 
     if self._config.use_distill:
-        self.modules_to_optimize.append(self.distiller)
+      self.modules_to_optimize.append(self.distiller)
 
     self.module_para = list(self.modules_to_optimize.parameters())
     
@@ -319,7 +414,6 @@ class WorldModelStudent(nn.Module):
             weight = imp_weights[index]
             
             weight = torch.max(self.m, weight)
-            # print(weight)
             d_loss_val += torch.mean(mse * weight)
 
           d_loss = d_loss_val
@@ -432,7 +526,7 @@ class ImagBehavior(nn.Module):
     self._stop_grad_actor = stop_grad_actor
     self._reward = reward
 
-    self._incident_counts_running = torch.zeros(3, dtype=torch.long)
+    self._incident_counts_running = torch.zeros(len(self._config.source_tasks), dtype=torch.long)
     self._local_step = 0
     
     if config.dyn_discrete:
@@ -494,11 +588,25 @@ class ImagBehavior(nn.Module):
         actor_loss, mets = self._compute_actor_loss(
             imag_feat, imag_feat_action, imag_state, imag_action, target, actor_ent, state_ent,
             weights)
+        
+        # NEW: Add minimum entropy constraint
+        # policy = self.actor(imag_feat[:-1].detach())
+        # min_entropy = 0.05  # Minimum entropy target
+        # entropy = policy.entropy()
+        # entropy_bonus = self._config.actor_entropy() * entropy
+        
+        # # Penalize if entropy drops below threshold
+        # entropy_penalty = torch.clamp(min_entropy - entropy.mean(), min=0.0)
+        # actor_loss = actor_loss + 0.1 * entropy_penalty
+        
+        # metrics['entropy'] = entropy.mean().item()
+        # metrics['entropy_penalty'] = entropy_penalty.item()
+        
         metrics.update(mets)
         if self._config.slow_value_target != self._config.slow_actor_target:
           target, weights = self._compute_target(
-              imag_feat, imag_state, imag_action, reward, actor_ent, state_ent,
-              self._config.slow_value_target)
+            imag_feat, imag_state, imag_action, reward, actor_ent, state_ent,
+            self._config.slow_value_target)
         value_input = imag_feat
 
     with tools.RequiresGrad(self.value):
@@ -529,8 +637,6 @@ class ImagBehavior(nn.Module):
       # state, _, _, _ = prev
       state, _, _= prev
       feat = dynamics.get_feat(state)
-      # print(weight)
-    
     
       sampled_actions, sampled_feat = self._world_model.vae.decode(feat, weight)
       # inp = torch.cat([feat, sampled_feat], -1)
@@ -550,14 +656,12 @@ class ImagBehavior(nn.Module):
     # succ, feats, feat_actions, actions = tools.static_scan(
     #     step, [torch.arange(horizon)], (start, feat, feat_action, action))
     
-    
-    
     # ---------- NEW: count & save incidents ----------
+    
     if weight is not None:
-      if not isinstance(weight, torch.Tensor):
-        t = torch.tensor(weight)
+      t = torch.tensor(weight)
       # Make sure it’s a 1D integer array. Adjust dtype / reshape if needed.
-      self._incident_counts_running += torch.bincount(t, minlength=3)
+      self._incident_counts_running += torch.bincount(t, minlength=len(self._config.source_tasks))
       if self._local_step % 100 == 0:
         incident_list = self._incident_counts_running.tolist()
         total_sum = sum(incident_list)

@@ -4,21 +4,21 @@
 
 BASE_CMD="python dreamer_distill.py"
 CONFIGS="--configs defaults metaworld"
-LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/open3/window_close/new_moe/original"
-ENCODER_MODE="original_conv"
-TASK="metaworld_window_close"
-DEVICE="cuda:4"
-TEACHER_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/original_teacher/teacher_model.pt"
-VAE_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/original_teacher/vae_model.pt"
+LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/drawer_open/moe_multihead"
+TEACHER_ENCODER_MODE="moe" # moe or original_cnn
+TASK="metaworld_drawer_open"
+DEVICE="cuda:1"
+TEACHER_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6/moe_multihead/teacher_model.pt"
+VAE_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6/moe_multihead/vae_model.pt"
 
 # BASE_CMD="python dreamer_distill.py"
 # CONFIGS="--configs defaults metaworld"
-# LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/open3/window_close/new_moe/moe"
-# ENCODER_MODE="moe_conv"
-# TASK="metaworld_window_close"
-# DEVICE="cuda:1"
-# TEACHER_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/moe_teacher_new/teacher_model.pt"
-# VAE_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/moe_teacher_new/vae_model.pt"
+# LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/drawer_open/original"
+# TEACHER_ENCODER_MODE="original_cnn" # moe or original_cnn
+# TASK="metaworld_drawer_open"
+# DEVICE="cuda:4"
+# TEACHER_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6/original/teacher_model.pt"
+# VAE_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6/original/vae_model.pt"
 
 # Fixed random seeds
 SEEDS=(0 123 456 789 2024)
@@ -37,7 +37,7 @@ do
     LOGDIR="${LOGDIR_BASE}_seed${seed}"
     
     # Run the command with proper quoting
-    $BASE_CMD $CONFIGS --logdir "$LOGDIR" --encoder_mode $ENCODER_MODE --device $DEVICE --teacher_model_path "$TEACHER_MODEL_PATH" --vae_model_path "$VAE_MODEL_PATH" --task "$TASK" --seed $seed
+    $BASE_CMD $CONFIGS --logdir "$LOGDIR" --teacher_encoder_mode $TEACHER_ENCODER_MODE --device $DEVICE --teacher_model_path "$TEACHER_MODEL_PATH" --vae_model_path "$VAE_MODEL_PATH" --task "$TASK" --seed $seed
 
     
     # Check if the command succeeded

@@ -36,12 +36,12 @@ class DreamerPretrain(nn.Module):
     self._step = 0
     
     # Schedules
-    config.actor_entropy = (
-        lambda x=config.actor_entropy: tools.schedule(x, self._step))
-    config.actor_state_entropy = (
-        lambda x=config.actor_state_entropy: tools.schedule(x, self._step))
-    config.imag_gradient_mix = (
-        lambda x=config.imag_gradient_mix: tools.schedule(x, self._step))
+    # config.actor_entropy = (
+    #     lambda x=config.actor_entropy: tools.schedule(x, self._step))
+    # config.actor_state_entropy = (
+    #     lambda x=config.actor_state_entropy: tools.schedule(x, self._step))
+    # config.imag_gradient_mix = (
+    #     lambda x=config.imag_gradient_mix: tools.schedule(x, self._step))
     
     self._offline_datasets = offline_datasets
     self._wm = models_pretrain.WorldModelTeacher(self._step, config, action_space)
@@ -180,7 +180,6 @@ def main(config):
   config.act = getattr(torch.nn, config.act)
   
   # Save configuration and command info
-  setup_utils.save_config_to_json(config, logdir)
   setup_utils.save_cmd(str(logdir))
   setup_utils.save_git(str(logdir))
 
@@ -223,6 +222,9 @@ def main(config):
   print('Initialize DreamerPretrain agent.')
   agent = DreamerPretrain(config, logger, offline_datasets, acts).to(config.device)
   # agent.requires_grad_(requires_grad=False)
+  
+  # save config
+  setup_utils.save_config_to_json(config, logdir)
   
   if (logdir / 'teacher_model.pt').exists():
     print('Loading existing teacher model checkpoint.')
@@ -292,3 +294,4 @@ if __name__ == '__main__':
   main(parser.parse_args(remaining))
   
 # python -u dreamer_pretrain.py --configs defaults metaworld --logdir ./logs/moe_teacher_new
+# python dreamer_pretrain.py --configs defaults metaworld metaworld_teacher_moe_pretrain --logdir /storage/ssd1/richtsai1103/vid2act/models/mt6/moe_multihead --device cuda:4 --seed 0

@@ -44,6 +44,11 @@ class DreamerDistill(nn.Module):
     self._logdir = pathlib.Path(config.logdir).expanduser()
     self._csv_file = self._logdir / "incident_counts.csv"
     
+    scheduled_params = ['actor_entropy', 'actor_state_entropy', 'imag_gradient_mix', 'moe_temperature']
+    for param in scheduled_params:
+        if param in config:
+            setattr(config, f'{param}_str', getattr(config, param))
+            
     # Schedules
     config.actor_entropy = (
         lambda x=config.actor_entropy: tools.schedule(x, self._step))
@@ -51,7 +56,9 @@ class DreamerDistill(nn.Module):
         lambda x=config.actor_state_entropy: tools.schedule(x, self._step))
     config.imag_gradient_mix = (
         lambda x=config.imag_gradient_mix: tools.schedule(x, self._step))
-    
+    config.moe_temperature = (
+        lambda x=config.moe_temperature: tools.schedule(x, self._step))
+      
     self._dataset = dataset
     # self._offline_datasets = offline_datasets  # For VAE training
     
@@ -76,9 +83,16 @@ class DreamerDistill(nn.Module):
       if hasattr(config, 'vae_model_path') and config.vae_model_path:
         print(f'Loading pretrained VAE from {config.vae_model_path}')
         vae_checkpoint = torch.load(config.vae_model_path, map_location=config.device)
+        
       self._wm.load_teacher(teacher_checkpoint, vae_checkpoint)
     else:
       raise ValueError("Must provide teacher_model_path for distillation")
+    
+    print("\n===== TEACHER ENCODER =====")
+    print(self._wm.encoder_teachers)
+
+    print("\n===== TEACHER DYNAMICS =====")
+    print(self._wm.dynamics_teachers)
     
     # Behavior learning
     if config.use_distill:
@@ -539,8 +553,8 @@ if __name__ == '__main__':
     arg_type = tools.args_type(value)
     parser.add_argument(f'--{key}', type=arg_type, default=arg_type(value))
   main(parser.parse_args(remaining))
-  # python dreamer_distill.py --configs defaults metaworld --logdir /storage/ssd1/richtsai1103/vid2act/log/metaworld/open3/window_close/new_moe/original --encoder_mode original_conv --device cuda:4 --teacher_model_path /storage/ssd1/richtsai1103/vid2act/models/original_teacher/teacher_model.pt --vae_model_path /storage/ssd1/richtsai1103/vid2act/models/original_teacher/vae_model.pt --task metaworld_window_close --seed 0
-  # python dreamer_distill.py --configs defaults metaworld --logdir debug --encoder_mode original_conv --device cuda:4 --teacher_model_path /home/richtsai1103/CRL/Vid2Act/logs/original_teacher/teacher_model.pt --vae_model_path /home/richtsai1103/CRL/Vid2Act/logs/original_teacher/vae_model.pt --task metaworld_drawer_close --seed 0
+  # python dreamer_distill.py --configs defaults metaworld --logdir /storage/ssd1/richtsai1103/vid2act/log/metaworld/open3/window_close/new_moe/original --teacher_encoder_mode original_conv --device cuda:4 --teacher_model_path /storage/ssd1/richtsai1103/vid2act/models/original_teacher/teacher_model.pt --vae_model_path /storage/ssd1/richtsai1103/vid2act/models/original_teacher/vae_model.pt --task metaworld_window_close --seed 0
+  # python dreamer_distill.py --configs defaults metaworld --logdir debug --teacher_encoder_mode original_conv --device cuda:4 --teacher_model_path /home/richtsai1103/CRL/Vid2Act/logs/original_teacher/teacher_model.pt --vae_model_path /home/richtsai1103/CRL/Vid2Act/logs/original_teacher/vae_model.pt --task metaworld_drawer_close --seed 0
 
   # Total: 7.74M
 # Trainable: 5.41M

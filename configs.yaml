@@ -10,11 +10,12 @@ defaults:
   offline_traindir: ''
   offline_evaldir: ''
   
-  # remember to modify this everytime you change model type
+  # remember to modify this everytime you change model type when doing distillation
   # teacher_model_path: /home/richtsai1103/CRL/Vid2Act/logs/original_teacher/teacher_model.pt  # Required
   # vae_model_path: /home/richtsai1103/CRL/Vid2Act/logs/original_teacher/vae_model.pt       # Optional (but recommended)
   teacher_model_path: /home/richtsai1103/CRL/Vid2Act/logs/moe_teacher/teacher_model.pt  # Required
   vae_model_path: /home/richtsai1103/CRL/Vid2Act/logs/moe_teacher/vae_model.pt       # Optional (but recommended)
+  teacher_encoder_mode: 'original_cnn'
 
   seed: 0
   steps: 1e7
@@ -27,14 +28,14 @@ defaults:
   debug: False
   expl_gifs: False
   camera: corner2
-  num_teachers: 0
+  num_teachers: 6
   eval_num: 10
   is_adaptive: True
   source_tasks: null
   use_distill: True
   # distill_weight: 0.0
   online_mode: True
-  encoder_mode: 'moe' # original_cnn or moe
+  moe_temperature: '1.0'
 
 
   # Environment
@@ -76,7 +77,7 @@ defaults:
   value_head: 'normal'
   kl_scale: '1.0'
   kl_balance: '0.8'
-  kl_free: '1.0'
+  kl_free: '2.0'
   kl_forward: False
   pred_discount: False
   discount_scale: 1.0
@@ -311,20 +312,32 @@ metaworld:
   dataset_size: 500000
   # pretrain: 3000
   eval_num: 5 # original 10
-  num_teachers: 3
+  num_teachers: 6 # teacher and expert are different, teacher are based on task number, expert does not
 
-  # source_tasks: ['door_close', 'faucet_open', 'handle_press', 'plate_slide', 'reach_wall', 'window_close']
-  source_tasks: ['door_open', 'drawer_open', 'window_open']
+  # target_tasks: ['door_close', 'faucet_open', 'handle_press', 'plate_slide', 'reach_wall', 'window_close']
+  source_tasks: ['button_press_topdown', 'door_open', 'drawer_close', 'peg_insert_side', 'pick_place', 'push']
   source_task_dirs: [
-    '/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_0',
-    '/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_1',
-    '/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_2',
-    # '/path/to/plate_slide/train_eps',
-    # '/path/to/reach_wall/train_eps',
-    # '/path/to/window_close/train_eps'
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/top50/dreamer_button-press-topdown',
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/top50/dreamer_door-open',
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/top50/dreamer_drawer-close',
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/top50/dreamer_peg-insert-side',
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/top50/dreamer_pick-place',
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/top50/dreamer_push'
   ]
-  pretrain_iterations: 200000
+  
+  # source_tasks: [
+  #   "door_open",
+  #   "drawer_open",
+  #   "window_open"
+  # ]
 
+  # source_task_dirs: [
+  #   "/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_0",
+  #   "/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_1",
+  #   "/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_2"
+  # ]
+
+  
   # Environment
   time_limit: 300
   action_repeat: 2
@@ -349,15 +362,15 @@ metaworld:
   teacher_dyn_hidden: 200     # Full original size
   teacher_dyn_deter: 200      # Full original size
   teacher_dyn_stoch: 50       # Full original size
-  n_experts: 3
-
+ 
   # Behavior
   actor_dist: 'trunc_normal'
   expl_amount: 0.0
   actor_entropy: '1e-4'
+  # actor_entropy: '10e-4'
   discount: 0.99
   imag_gradient: 'dynamics'
-  imag_gradient_mix: 1.0
+  imag_gradient_mix: '1.0'
 
   # Training
   reward_scale: 2
@@ -369,44 +382,15 @@ metaworld:
   kl_free: '1.0'
   kl_scale: '1.0'
 
-metaworld_student_scale_down:
+metaworld_teacher_moe_pretrain: # assume multi-head
 
-  task: metaworld_door_lock
-
-  # General
-  steps: 1.5e5
-  eval_every: 6e3
-  log_every: 2e3
-  prefill: 3000
-  dataset_size: 500000
-  eval_num: 5
-  num_teachers: 3
-
-  source_tasks: ['door_open', 'drawer_open', 'window_open']
-  source_task_dirs: [
-    '/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_0',
-    '/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_1',
-    '/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_2',
-  ]
+  teacher_encoder_mode: 'moe'
+  n_experts: 6
+  use_orthogonal: True
   pretrain_iterations: 200000
+  moe_temperature: '1.0'
 
-  # Environment
-  time_limit: 300
-  action_repeat: 2
-  train_every: 5
-  train_steps: 1
-
-  # Model
-  grad_heads: ['image', 'reward']
-  dyn_cell: 'gru_layer_norm'
-  pred_discount: False
-  dyn_deter: 200
-  dyn_stoch: 50
-  dyn_discrete: 0
-  reward_layers: 2
-  discount_layers: 3
-  value_layers: 3
-  actor_layers: 4
+metaworld_student_scale_down:
   
   # ========== SCALE DOWN VERSION ==========
   cnn_depth: 16              # SCALED DOWN from 32 → 16
@@ -418,25 +402,7 @@ metaworld_student_scale_down:
   teacher_dyn_hidden: 200     # Full original size
   teacher_dyn_deter: 200      # Full original size
   teacher_dyn_stoch: 50       # Full original size
-  n_experts: 3
 
-  # Behavior
-  actor_dist: 'trunc_normal'
-  expl_amount: 0.0
-  actor_entropy: '1e-4'
-  discount: 0.99
-  imag_gradient: 'dynamics'
-  imag_gradient_mix: 1.0
-
-  # Training
-  reward_scale: 2
-  weight_decay: 0.0
-  model_lr: 3e-4
-  value_lr: 8e-5
-  actor_lr: 8e-5
-  opt_eps: 1e-5
-  kl_free: '1.0'
-  kl_scale: '1.0'
 
 debug:
 

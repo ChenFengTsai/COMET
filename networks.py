@@ -427,7 +427,6 @@ class RSSM(nn.Module):
     return state
 
   def observe(self, embed, action, state=None, label=None):
-    print(embed.shape)
     swap = lambda x: x.permute([1, 0] + list(range(2, len(x.shape))))
     if state is None:
       state = self.initial(action.shape[0])
@@ -557,6 +556,7 @@ class RSSM(nn.Module):
           'sigmoid2': lambda: 2 * torch.sigmoid(std / 2),
       }[self._std_act]()
       std = std + self._min_std
+      # print(std)
       return {'mean': mean, 'std': std}
 
   def kl_loss(self, post, prior, forward, balance, free, scale):
@@ -776,8 +776,8 @@ class RSSM(nn.Module):
 class OrthogonalLayer(nn.Module):
     """
     Orthogonalize expert features along the expert axis using Gram–Schmidt.
-    Input:  feats  [B, N, F]  (batch, n_experts, feature_dim)
-    Output: ortho  [B, N, F]  where experts for each batch are orthonormal
+    Input:  feats  [B, N, F]  (batch, n_experts, feature_dim) or [B*T, N, F]
+    Output: ortho  [B, N, F]  where experts for each batch are orthonormal or [B*T, N, F]
     """
     def __init__(self, eps: float = 1e-8):
         super().__init__()
@@ -831,6 +831,7 @@ class MoEOrthogonalConvEncoder(nn.Module):
       label_num=1,
       agg_activation=('ReLU', 'ReLU'),
       use_orthogonal: bool = True,
+      temperature=2.0
       ):
       super().__init__()
       self.n_experts = n_experts
@@ -840,6 +841,7 @@ class MoEOrthogonalConvEncoder(nn.Module):
       self.depth = depth
       self.label_num = label_num
       self.use_orthogonal = use_orthogonal
+      self.temperature = temperature # fix this
 
       # Expert encoders
       self.experts = nn.ModuleList(
@@ -868,22 +870,7 @@ class MoEOrthogonalConvEncoder(nn.Module):
         label_num=label_num,
         include_label=False
       )
-      # layers = []
-      
-      # for i, kernel in enumerate(self.kernels):
-      #   if i == 0:
-      #     if grayscale:
-      #       inp_dim = 1
-      #     else:
-      #         inp_dim = 3
-      #   else:
-      #     inp_dim = 2 ** (i-1) * self.depth
-      #   d = 2 ** i * self.depth
-      #   layers.append(nn.Conv2d(inp_dim, d, kernel, 2))
-      #   layers.append(act())
-      # self.layers = nn.Sequential(*layers)
 
-      # return self.layers
 
     def forward(self, obs: dict, label=None, return_expert_outputs: bool = False):
       # obs['image']: [..., H, W, C]  ->  [B, C, H, W]
@@ -900,14 +887,18 @@ class MoEOrthogonalConvEncoder(nn.Module):
       if self._agg_activation and self._agg_activation[0] and self._agg_activation[0].lower() != 'linear':
         feats = getattr(torch, self._agg_activation[0].lower())(feats)
 
-      # ------- ORTHOGONALIZE PER (B, T) --------     
+      # ------- ORTHOGONALIZE PER (B, T) --------      
       if self.orthogonal_layer is not None:
-        B, N, T, Fdim = feats.shape
-        # Flatten (B, T) into batch: [B*T, N, F]
-        feats_bt = feats.permute(0, 2, 1, 3).contiguous().view(B * T, N, Fdim)
-        feats_bt = self.orthogonal_layer(feats_bt)          # [B*T, N, F]
-        # Back to [B, N, T, F]
-        feats = feats_bt.view(B, T, N, Fdim).permute(0, 2, 1, 3).contiguous()
+        if len(feats.shape) == 4: # [B, N, T, F]
+          B, N, T, Fdim = feats.shape
+          # Flatten (B, T) into batch: [B*T, N, F]
+          feats_bt = feats.permute(0, 2, 1, 3).contiguous().view(B * T, N, Fdim)
+          feats_bt = self.orthogonal_layer(feats_bt)          # [B*T, N, F]
+          # Back to [B, N, T, F]
+          feats = feats_bt.view(B, T, N, Fdim).permute(0, 2, 1, 3).contiguous()
+        elif len(feats.shape) == 3: # [B, N, F]
+          B, N, Fdim = feats.shape
+          feats_bt = self.orthogonal_layer(feats)          # [B*T, N, F]
       # -----------------------------------------
 
       # Compute task weights w: [B, N]
@@ -916,16 +907,19 @@ class MoEOrthogonalConvEncoder(nn.Module):
           label = torch.tensor(label, device=feats.device)
         label = label.long().view(-1)
         c_onehot = F.one_hot(label, num_classes=self.label_num).float()
-        w = self._task_encoder(c_onehot)  # [B, N]
+        # w = self._task_encoder(c_onehot)  # [B, N]
+        logits = self._task_encoder(c_onehot)
+        w = F.softmax(logits / self.temperature, dim=-1)  
       else:
         w = torch.ones(B, self.n_experts, device=feats.device) / float(self.n_experts)
 
-      # Weighted sum across experts: [B, 1, N] @ [B, N, F] -> [B, F]
-      # out = torch.bmm(w.unsqueeze(1), feats).squeeze(1)
-      
+      if len(feats.shape) == 4:
       # feats: [B, N, T, F]; w: [B, N]
       # Weighted sum over experts -> out: [B, T, F]
-      out = torch.einsum('bn,bntf->btf', w, feats)
+        out = torch.einsum('bn,bntf->btf', w, feats)
+      elif len(feats.shape) == 3:
+        # Weighted sum across experts: [B, 1, N] @ [B, N, F] -> [B, F]
+        out = torch.bmm(w.unsqueeze(1), feats).squeeze(1)
 
       # Post-aggregation activation
       if self._agg_activation and self._agg_activation[1] and self._agg_activation[1].lower() != 'linear':
