@@ -383,7 +383,7 @@ metaworld:
   kl_free: '1.0'
   kl_scale: '1.0'
 
-metaworld_teacher_moe_pretrain: # assume multi-head
+metaworld_teacher_moe_pretrain: # assume multi-head, and this is for pretrain teacher model only
 
   teacher_encoder_mode: 'moe'
   n_experts: 6
