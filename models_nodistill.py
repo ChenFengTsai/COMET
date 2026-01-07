@@ -20,7 +20,6 @@ class WorldModelStudent(nn.Module):
     self._step = step
     self._use_amp = True if config.precision==16 else False
     self._config = config
-    # self._offline_dataset = offline_dataset  # List of datasets for VAE
 
     # Calculate embed size
     if config.size[0] == 64 and config.size[1] == 64:
@@ -28,55 +27,40 @@ class WorldModelStudent(nn.Module):
       student_embed_size *= 2 * 2
       teacher_embed_size = 2 ** (len(config.encoder_kernels)-1) * getattr(config, 'teacher_cnn_depth', config.cnn_depth)
       teacher_embed_size *= 2 * 2
-    # elif config.size[0] == 84 and config.size[1] == 84:
-    #   def conv_down(h, k, s=2, p=0, d=1):
-    #     return (h + 2*p - d*(k-1) - 1)//s + 1
-    #   H, W = int(config.size[0]), int(config.size[1])
-    #   for k in config.encoder_kernels:
-    #       H = conv_down(H, k, s=2, p=0)
-    #       W = conv_down(W, k, s=2, p=0)
-    #   channels_last = (2 ** (len(config.encoder_kernels)-1)) * config.cnn_depth
-    #   embed_size = channels_last * H * W
     else:
       raise NotImplemented(f"{config.size} is not applicable now")
 
-    # ========== TEACHER MODELS (Frozen) ==========
-    # NEW (Solution - separate configs):
-    teacher_cnn_depth = getattr(config, 'teacher_cnn_depth', config.cnn_depth)
-    teacher_dyn_hidden = getattr(config, 'teacher_dyn_hidden', config.dyn_hidden)
-    teacher_dyn_deter = getattr(config, 'teacher_dyn_deter', config.dyn_deter)
-    teacher_dyn_stoch = getattr(config, 'teacher_dyn_stoch', config.dyn_stoch)
     
-    self.encoder_teachers = networks.ConvEncoder(
-        config.grayscale, teacher_cnn_depth, config.act, 
-        config.encoder_kernels, label_num=config.num_teachers)
+    # self.encoder_teachers = networks.ConvEncoder(
+    #     config.grayscale, teacher_cnn_depth, config.act, 
+    #     config.encoder_kernels, label_num=config.num_teachers)
     
-    self.dynamics_teachers = networks.RSSM(
-        teacher_dyn_stoch, teacher_dyn_deter, teacher_dyn_hidden,
-        config.dyn_input_layers, config.dyn_output_layers,
-        config.dyn_rec_depth, config.dyn_shared, config.dyn_discrete,
-        config.act, config.dyn_mean_act, config.dyn_std_act,
-        config.dyn_temp_post, config.dyn_min_std, config.dyn_cell,
-        config.num_actions, teacher_embed_size, config.device, label_num=config.num_teachers)
+    # self.dynamics_teachers = networks.RSSM(
+    #     teacher_dyn_stoch, teacher_dyn_deter, teacher_dyn_hidden,
+    #     config.dyn_input_layers, config.dyn_output_layers,
+    #     config.dyn_rec_depth, config.dyn_shared, config.dyn_discrete,
+    #     config.act, config.dyn_mean_act, config.dyn_std_act,
+    #     config.dyn_temp_post, config.dyn_min_std, config.dyn_cell,
+    #     config.num_actions, teacher_embed_size, config.device, label_num=config.num_teachers)
     
-    # Freeze teacher parameters
-    for param in self.encoder_teachers.parameters():
-      param.requires_grad = False
-    for param in self.dynamics_teachers.parameters():
-      param.requires_grad = False
+    # # Freeze teacher parameters
+    # for param in self.encoder_teachers.parameters():
+    #   param.requires_grad = False
+    # for param in self.dynamics_teachers.parameters():
+    #   param.requires_grad = False
 
     # ========== DISTILLATION COMPONENTS ==========
     # self.imp = nn.Linear(2*(config.dyn_stoch+config.dyn_deter), 1)
     # self.distiller = nn.Linear(config.dyn_stoch+config.dyn_deter, 
     #                            config.dyn_stoch+config.dyn_deter)
     
-    self.imp = nn.Sequential(
-    nn.Linear(2*(config.dyn_stoch+config.dyn_deter), 256),
-    nn.ReLU(),
-    nn.Linear(256, 128),
-    nn.ReLU(),
-    nn.Linear(128, 1)
-    )
+    # self.imp = nn.Sequential(
+    # nn.Linear(2*(config.dyn_stoch+config.dyn_deter), 256),
+    # nn.ReLU(),
+    # nn.Linear(256, 128),
+    # nn.ReLU(),
+    # nn.Linear(128, 1)
+    # )
 
     # self.distiller = nn.Sequential(
     #     nn.Linear(config.dyn_stoch+config.dyn_deter, 256),
@@ -86,21 +70,18 @@ class WorldModelStudent(nn.Module):
     #     nn.Linear(256, config.dyn_stoch+config.dyn_deter)
     # )
 
-    vae_latent = getattr(config, 'vae_latent_dim', 32)
-    vae_action_dim = config.num_actions
-    self.vae = networks.VAE(
-        state_dim=teacher_dyn_stoch+teacher_dyn_deter,
-        action_dim=vae_action_dim,
-        latent_dim=vae_latent,
-        max_action=action_space.high[0],
-        device=config.device,
-        config=config
-    )
+    # vae_latent = getattr(config, 'vae_latent_dim', 32)
+    # vae_action_dim = config.num_actions
+    # self.vae = networks.VAE(
+    #     state_dim=teacher_dyn_stoch+teacher_dyn_deter,
+    #     action_dim=vae_action_dim,
+    #     latent_dim=vae_latent,
+    #     max_action=action_space.high[0],
+    #     device=config.device,
+    #     config=config
+    # )
     
-    # Freeze VAE params during online training
-    for p in self.vae.parameters():
-      p.requires_grad = False
-    self.vae.eval()
+
     
     self.softmax = nn.Softmax(dim=0)
     self.m = torch.tensor([0.1]).to(config.device)
@@ -144,7 +125,7 @@ class WorldModelStudent(nn.Module):
     self.module_para = (
         list(self.encoder.parameters()) + 
         list(self.dynamics.parameters()) +
-        list(self.imp.parameters()) +
+        # list(self.imp.parameters()) +
         # list(self.distiller.parameters()) +
         # list(self.vae.parameters()) +
         list(self.heads['image'].parameters()) +
@@ -161,46 +142,46 @@ class WorldModelStudent(nn.Module):
 
 
   
-  def load_teacher(self, teacher_state_dict, vae_state_dict=None):
-    """Load pretrained teacher weights and optional VAE weights
+  # def load_teacher(self, teacher_state_dict, vae_state_dict=None):
+  #   """Load pretrained teacher weights and optional VAE weights
     
-    Args:
-        teacher_state_dict: State dict from teacher model checkpoint
-        vae_state_dict: State dict from VAE checkpoint (optional)
-    """
-    # Map teacher checkpoint to student's teacher models
-    teacher_dict = {}
-    for key, value in teacher_state_dict.items():
-      # Rename keys from teacher checkpoint to match student's teacher models
-      if key.startswith('encoder.'):
-        teacher_dict['encoder_teachers.' + key[8:]] = value
-      elif key.startswith('dynamics.'):
-        teacher_dict['dynamics_teachers.' + key[9:]] = value
-      elif key.startswith('heads.'):
-        # Skip heads, we don't need them in student
-        pass
-      else:
-        # Handle any other keys (like MoE components)
-        pass
+  #   Args:
+  #       teacher_state_dict: State dict from teacher model checkpoint
+  #       vae_state_dict: State dict from VAE checkpoint (optional)
+  #   """
+  #   # Map teacher checkpoint to student's teacher models
+  #   teacher_dict = {}
+  #   for key, value in teacher_state_dict.items():
+  #     # Rename keys from teacher checkpoint to match student's teacher models
+  #     if key.startswith('encoder.'):
+  #       teacher_dict['encoder_teachers.' + key[8:]] = value
+  #     elif key.startswith('dynamics.'):
+  #       teacher_dict['dynamics_teachers.' + key[9:]] = value
+  #     elif key.startswith('heads.'):
+  #       # Skip heads, we don't need them in student
+  #       pass
+  #     else:
+  #       # Handle any other keys (like MoE components)
+  #       pass
     
-    # Load teacher parameters with strict=False to ignore missing student-only params
-    self.load_state_dict(teacher_dict, strict=False)
-    print(f"Loaded {len(teacher_dict)} teacher parameters")
+  #   # Load teacher parameters with strict=False to ignore missing student-only params
+  #   self.load_state_dict(teacher_dict, strict=False)
+  #   print(f"Loaded {len(teacher_dict)} teacher parameters")
     
-    # Load VAE weights if provided
-    if vae_state_dict is not None:
-      try:
-        self.vae.load_state_dict(vae_state_dict, strict=True)
-        print(f"Loaded VAE checkpoint with {len(vae_state_dict)} parameters")
-      except RuntimeError as e:
-        print(f"Warning: Could not load VAE checkpoint - {e}")
-        print("Continuing with random VAE initialization")
+  #   # Load VAE weights if provided
+  #   if vae_state_dict is not None:
+  #     try:
+  #       self.vae.load_state_dict(vae_state_dict, strict=True)
+  #       print(f"Loaded VAE checkpoint with {len(vae_state_dict)} parameters")
+  #     except RuntimeError as e:
+  #       print(f"Warning: Could not load VAE checkpoint - {e}")
+  #       print("Continuing with random VAE initialization")
     
-    # Freeze teacher models
-    for param in self.encoder_teachers.parameters():
-      param.requires_grad = False
-    for param in self.dynamics_teachers.parameters():
-      param.requires_grad = False
+  #   # Freeze teacher models
+  #   for param in self.encoder_teachers.parameters():
+  #     param.requires_grad = False
+  #   for param in self.dynamics_teachers.parameters():
+  #     param.requires_grad = False
 
   def _train(self, data):
     """Train student model with distillation"""
@@ -220,49 +201,49 @@ class WorldModelStudent(nn.Module):
 
         feat = self.dynamics.get_feat(post)
 
-        # ========== DISTILLATION LOSS ==========
-        d_loss = torch.tensor(0.0, device=feat.device)
-        vae_loss = torch.tensor(0.0, device=feat.device)
+        # # ========== DISTILLATION LOSS ==========
+        # d_loss = torch.tensor(0.0, device=feat.device)
+        # vae_loss = torch.tensor(0.0, device=feat.device)
         
-        if self._config.is_adaptive:
-          teacher_feat = []
-          imp_weights = []
+        # if self._config.is_adaptive:
+        #   teacher_feat = []
+        #   imp_weights = []
 
-          # Get features from all teachers
-          for index in range(self._config.num_teachers):
-            with torch.no_grad():  # Teachers are frozen
-              teacher_embed = self.encoder_teachers(data, label=index)
-              t_post, t_prior = self.dynamics_teachers.observe(
-                  teacher_embed, data["action"], label=index)
-              teacher_i = self.dynamics_teachers.get_feat(t_post)
+        #   # Get features from all teachers
+        #   for index in range(self._config.num_teachers):
+        #     with torch.no_grad():  # Teachers are frozen
+        #       teacher_embed = self.encoder_teachers(data, label=index)
+        #       t_post, t_prior = self.dynamics_teachers.observe(
+        #           teacher_embed, data["action"], label=index)
+        #       teacher_i = self.dynamics_teachers.get_feat(t_post)
             
-            teacher_feat.append(teacher_i)
+        #     teacher_feat.append(teacher_i)
 
-            # Compute importance weights
-            imp_input = torch.cat([teacher_i, feat], dim=-1)
-            imp_weight = self.imp(imp_input)
-            imp_weights.append(imp_weight)
+        #     # Compute importance weights
+        #     imp_input = torch.cat([teacher_i, feat], dim=-1)
+        #     imp_weight = self.imp(imp_input)
+        #     imp_weights.append(imp_weight)
 
-          # Compute weighted distillation loss
-          imp_weights = torch.stack(imp_weights, dim=0)
-          imp_weights = torch.squeeze(imp_weights)
-          imp_weights = self.softmax(imp_weights)
-          all_weight = imp_weights.reshape((self._config.num_teachers, self._config.batch_size * self._config.batch_length)) # 50*50=2500
-          out_weight = torch.argmax(all_weight, dim=0) # 2500
+        #   # Compute weighted distillation loss
+        #   imp_weights = torch.stack(imp_weights, dim=0)
+        #   imp_weights = torch.squeeze(imp_weights)
+        #   imp_weights = self.softmax(imp_weights)
+        #   all_weight = imp_weights.reshape((self._config.num_teachers, self._config.batch_size * self._config.batch_length)) # 50*50=2500
+        #   out_weight = torch.argmax(all_weight, dim=0) # 2500
 
-          d_loss_val = 0.0
-          for index in range(self._config.num_teachers):
-            teacher_feature = teacher_feat[index]
-            # d_t_feat = self.distiller(teacher_feature)
-            # mse = torch.mean(self.l2_loss(d_t_feat, feat), dim=-1)
-            mse = torch.mean(self.l2_loss(teacher_feature, feat), dim=-1)
-            weight = imp_weights[index]
+        #   d_loss_val = 0.0
+        #   for index in range(self._config.num_teachers):
+        #     teacher_feature = teacher_feat[index]
+        #     # d_t_feat = self.distiller(teacher_feature)
+        #     # mse = torch.mean(self.l2_loss(d_t_feat, feat), dim=-1)
+        #     mse = torch.mean(self.l2_loss(teacher_feature, feat), dim=-1)
+        #     weight = imp_weights[index]
             
-            weight = torch.max(self.m, weight)
-            print(weight)
-            d_loss_val += torch.mean(mse * weight)
+        #     weight = torch.max(self.m, weight)
+        #     print(weight)
+        #     d_loss_val += torch.mean(mse * weight)
 
-          d_loss = d_loss_val
+        #   d_loss = d_loss_val
 
           # ========== VAE LOSS ==========
           # if self._offline_dataset is not None:
@@ -322,7 +303,7 @@ class WorldModelStudent(nn.Module):
           kl=kl_value, postent=self.dynamics.get_dist(post).entropy())
 
     post = {k: v.detach() for k, v in post.items()}
-    return post, context, metrics, out_weight.tolist()
+    return post, context, metrics
 
   def preprocess(self, obs):
     obs = obs.copy()
@@ -461,11 +442,8 @@ class ImagBehavior(nn.Module):
       # state, _, _, _ = prev
       state, _, _= prev
       feat = dynamics.get_feat(state)
-      # print(weight)
-    
-    
-      sampled_actions, sampled_feat = self._world_model.vae.decode(feat, weight)
-      # inp = torch.cat([feat, sampled_feat], -1)
+      # sampled_actions, sampled_feat = self._world_model.vae.decode(feat, weight)
+      # # inp = torch.cat([feat, sampled_feat], -1)
       inp = feat.detach()
       action = policy(inp).sample()
       # action = policy(inp.detach()).sample()

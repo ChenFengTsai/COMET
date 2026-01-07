@@ -45,7 +45,7 @@ class WorldModelTeacher(nn.Module):
           depth=teacher_cnn_depth,
           act= config.act,
           kernels=config.encoder_kernels,
-          label_num=len(config.source_tasks),
+          label_num=config.num_teachers,
           use_orthogonal=config.use_orthogonal
       )
 

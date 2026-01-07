@@ -579,198 +579,6 @@ class RSSM(nn.Module):
       loss = mix * loss_lhs + (1 - mix) * loss_rhs
     loss *= scale
     return loss, value
-  
-# class MoEOrthogonalConvEncoder(nn.Module):
-#     """
-#     Mixture of Experts Orthogonal Convolutional Encoder.
-#     Creates multiple parallel convolutional encoders whose outputs are orthogonalized.
-#     """
-    
-#     def __init__(self, n_experts=5, grayscale=False, depth=32, 
-#                  act=nn.ReLU, kernels=(4, 4, 4, 4), label_num=None,
-#                  use_gating=True, temperature=1.0):
-#         """
-#         Args:
-#             n_experts: Number of expert encoders in the mixture
-#             grayscale: Whether input images are grayscale
-#             depth: Base depth for convolutional layers
-#             act: Activation function class
-#             kernels: Kernel sizes for each conv layer
-#             label_num: Number of labels for conditional encoding
-#             use_gating: Whether to use gating mechanism for expert selection
-#             temperature: Temperature for gating softmax
-#         """
-#         super(MoEOrthogonalConvEncoder, self).__init__()
-        
-#         self.n_experts = n_experts
-#         self.use_gating = use_gating
-#         self.temperature = temperature
-#         self._act = act
-#         self._depth = depth
-#         self._kernels = kernels
-#         self.label_num = label_num
-        
-#         # Create parallel expert encoders
-#         self.expert_encoders = nn.ModuleList()
-#         for _ in range(n_experts):
-#             self.expert_encoders.append(self._create_single_encoder(
-#                 grayscale, depth, act, kernels, label_num
-#             ))
-        
-#         # Gating network (if enabled)
-#         if self.use_gating:
-#             gate_input_dim = 3 if not grayscale else 1
-#             if label_num is not None:
-#                 gate_input_dim += label_num
-            
-#             self.gate_network = nn.Sequential(
-#                 nn.AdaptiveAvgPool2d(1),  # Global average pooling
-#                 nn.Flatten(),
-#                 nn.Linear(gate_input_dim, 64),
-#                 nn.ReLU(),
-#                 nn.Linear(64, n_experts)
-#             )
-        
-#         # Orthogonalization layer
-#         self.orthogonal_layer = OrthogonalLayer()
-        
-#         # Final aggregation layer (learnable weighted sum after orthogonalization)
-#         self.aggregation_weights = nn.Parameter(torch.ones(n_experts) / n_experts)
-        
-#         # Label embedding for conditional encoding
-#         if label_num is not None:
-#             label_tmp = torch.eye(label_num).unsqueeze(0).unsqueeze(-1).unsqueeze(-1)
-#             self.label_use = nn.Parameter(data=label_tmp, requires_grad=False)
-    
-#     def _create_single_encoder(self, grayscale, depth, act, kernels, label_num):
-#         """Create a single convolutional encoder."""
-#         layers = []
-        
-#         for i, kernel in enumerate(kernels):
-#             if i == 0:
-#                 if grayscale:
-#                     inp_dim = 1
-#                 else:
-#                     inp_dim = 3 + (label_num if label_num is not None else 0)
-#             else:
-#                 inp_dim = 2 ** (i-1) * depth
-            
-#             out_depth = 2 ** i * depth
-#             layers.append(nn.Conv2d(inp_dim, out_depth, kernel, 2))
-#             layers.append(act())
-        
-#         return nn.Sequential(*layers)
-    
-#     def forward(self, obs, label=None, return_expert_outputs=False):
-#         """
-#         Forward pass through MoE orthogonal encoder.
-        
-#         Args:
-#             obs: Dictionary with 'image' key containing input images
-#             label: Optional label for conditional encoding
-#             return_expert_outputs: Whether to return individual expert outputs
-        
-#         Returns:
-#             Encoded representation (and optionally expert outputs and gates)
-#         """
-#         # Prepare input
-#         x = obs['image'].reshape((-1,) + tuple(obs['image'].shape[-3:]))
-#         x = x.permute(0, 3, 1, 2)
-#         batch_size = x.shape[0]
-        
-#         # Add label conditioning if provided
-#         if label is not None and self.label_num is not None:
-#             label_input = self.label_use[:, label]
-#             bs, c, h, w = x.size()
-#             label_input = label_input.repeat(bs, 1, h, w)
-#             x_with_label = torch.cat((label_input.detach(), x), 1)
-#         else:
-#             x_with_label = x
-        
-#         # Compute gating weights if enabled
-#         if self.use_gating:
-#             gate_input = x_with_label
-#             gate_logits = self.gate_network(gate_input)
-#             gate_weights = F.softmax(gate_logits / self.temperature, dim=-1)
-#         else:
-#             gate_weights = torch.ones(batch_size, self.n_experts).to(x.device) / self.n_experts
-        
-#         # Process through each expert encoder
-#         expert_outputs = []
-#         for i, encoder in enumerate(self.expert_encoders):
-#             expert_out = encoder(x_with_label)
-#             expert_out = expert_out.reshape(batch_size, -1)
-#             expert_outputs.append(expert_out)
-        
-#         # Stack expert outputs: [n_experts, batch_size, feature_dim]
-#         expert_outputs = torch.stack(expert_outputs, dim=0)
-        
-#         # Apply orthogonalization
-#         orthogonal_outputs = self.orthogonal_layer(expert_outputs)
-        
-#         # Weighted aggregation
-#         # Apply gating weights and aggregation weights
-#         weighted_outputs = []
-#         for i in range(self.n_experts):
-#             weight = gate_weights[:, i:i+1] * self.aggregation_weights[i]
-#             weighted_outputs.append(orthogonal_outputs[i] * weight)
-        
-#         # Sum weighted expert outputs
-#         final_output = torch.sum(torch.stack(weighted_outputs, dim=0), dim=0)
-        
-#         # Reshape to match original output format
-#         shape = list(obs['image'].shape[:-3]) + [final_output.shape[-1]]
-#         final_output = final_output.reshape(shape)
-        
-#         if return_expert_outputs:
-#             return final_output, {
-#                 'expert_outputs': orthogonal_outputs,
-#                 'gate_weights': gate_weights,
-#                 'aggregation_weights': self.aggregation_weights
-#             }
-        
-#         return final_output
-
-
-# class OrthogonalLayer(nn.Module):
-#     """
-#     Orthogonalization layer using Gram-Schmidt process.
-#     Adapted for convolutional encoder outputs.
-#     """
-    
-#     def __init__(self):
-#         super(OrthogonalLayer, self).__init__()
-    
-#     def forward(self, x):
-#         """
-#         Apply Gram-Schmidt orthogonalization.
-        
-#         Args:
-#             x: Tensor of shape [n_experts, batch_size, feature_dim]
-        
-#         Returns:
-#             Orthogonalized tensor of same shape
-#         """
-#         # Transpose to [batch_size, n_experts, feature_dim]
-#         x = x.transpose(0, 1)
-        
-#         # Normalize first expert output
-#         basis = x[:, 0:1, :] / (torch.norm(x[:, 0:1, :], dim=2, keepdim=True) + 1e-8)
-        
-#         # Gram-Schmidt process for remaining experts
-#         for i in range(1, x.shape[1]):
-#             v = x[:, i:i+1, :]
-            
-#             # Project v onto existing basis vectors and subtract
-#             projections = torch.sum(v * basis, dim=2, keepdim=True) * basis
-#             w = v - torch.sum(projections, dim=1, keepdim=True)
-            
-#             # Normalize and add to basis
-#             w_norm = w / (torch.norm(w, dim=2, keepdim=True) + 1e-8)
-#             basis = torch.cat([basis, w_norm], dim=1)
-        
-#         # Transpose back to [n_experts, batch_size, feature_dim]
-#         return basis.transpose(0, 1)
 
 
 class OrthogonalLayer(nn.Module):
@@ -783,21 +591,17 @@ class OrthogonalLayer(nn.Module):
         super().__init__()
         self.eps = eps
 
-    @torch.no_grad()
     def forward(self, feats: torch.Tensor) -> torch.Tensor:
       B, N, Fdim = feats.shape
-      Q = torch.zeros_like(feats)
+      
+      qs = []
       for i in range(N):
-        v = feats[:, i, :]  # [B, F]
-        if i > 0:
-          proj = torch.zeros_like(v)
-          for j in range(i):
-            qj = Q[:, j, :]                            # [B, F]
-            alpha = (v * qj).sum(dim=-1, keepdim=True) # [B, 1]
-            proj = proj + alpha * qj
-          v = v - proj
-        norm = v.norm(dim=-1, keepdim=True).clamp_min(self.eps)
-        Q[:, i, :] = v / norm
+        v = feats[:, i, :] # [B, F]
+        for q in qs:
+          v = v - (v*q).sum(-1, keepdim=True) * q
+        v = v / v.norm(dim=-1, keepdim=True).clamp_min(self.eps)
+        qs.append(v)
+      Q = torch.stack(qs, dim=1)
       return Q
 
 
@@ -1282,8 +1086,10 @@ class VAE(nn.Module):
       batch_size, _ = state.shape
       # Reshape label_use from [num_teachers] to [1, num_teachers]
       # then broadcast to [B, num_teachers]
-      label_use = label_use.unsqueeze(0)
-      label_use = label_use.expand(batch_size, -1)
+      # label_use = label_use.unsqueeze(0)
+      # print(label_use.shape)
+      # label_use = label_use.expand(batch_size, -1)
+      pass
     
     # Now all tensors have matching dimensions
     z = F.relu(self.e1(torch.cat([state, action, label_use], -1)))

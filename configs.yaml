@@ -33,12 +33,13 @@ defaults:
   eval_num: 10
   is_adaptive: True
   source_tasks: null
-  use_distill: True
-  use_vae: False
-  distill_weight: 5.0
+  use_distill: True # if it is distillation process (not necessary use a distill network)
+  distill_network: True # use a distill network to project teacher feat to student space
+  use_vae: True
+  distill_weight: 1.0
   online_mode: True
   moe_temperature: '1.0'
-
+  conditional_distill: False
 
   # Environment
   task: 'dmc_walker_walk'
@@ -310,7 +311,7 @@ metaworld:
   steps: 1.5e5
   eval_every: 6e3
   log_every: 2e3
-  prefill: 500
+  prefill: 3000
   dataset_size: 500000
   # pretrain: 3000
   eval_num: 5 # original 10
@@ -319,12 +320,12 @@ metaworld:
   # target_tasks: ['door_close', 'faucet_open', 'handle_press', 'plate_slide', 'reach_wall', 'window_close']
   source_tasks: ['button_press_topdown', 'door_open', 'drawer_close', 'peg_insert_side', 'pick_place', 'push']
   source_task_dirs: [
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10/button-press-topdown',
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10/door-open',
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10/drawer-close',
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10/peg-insert-side',
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10/pick-place',
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10/push'
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/button-press-topdown',
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/door-open',
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/drawer-close',
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/peg-insert-side',
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/pick-place',
+    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/push'
   ]
   
   # source_tasks: [

@@ -211,9 +211,14 @@ class WorldModelStudent(nn.Module):
     )
     
     distiller_latent_dim = getattr(config, 'distiller_latent_dim', 256)
-    if self._config.use_distill:
+    if self._config.conditional_distill:
+      distiller_in_dim = teacher_feat_dim + config.num_teachers
+    else:
+      distiller_in_dim = teacher_feat_dim
+    
+    if self._config.use_distill and self._config.distill_network:
       self.distiller = nn.Sequential(
-          nn.Linear(teacher_feat_dim, distiller_latent_dim),
+          nn.Linear(distiller_in_dim, distiller_latent_dim),
           nn.ReLU(),
           nn.Linear(distiller_latent_dim, distiller_latent_dim),
           nn.ReLU(),
@@ -232,10 +237,10 @@ class WorldModelStudent(nn.Module):
           config=config
       )
       
-      # Freeze VAE params during online training
+      # # Freeze VAE params during online training
       for p in self.vae.parameters():
-        p.requires_grad = False
-      self.vae.eval()
+        p.requires_grad = True
+      self.vae.train()
       
     self.softmax = nn.Softmax(dim=0)
     self.m = torch.tensor([0.1]).to(config.device)
@@ -283,12 +288,17 @@ class WorldModelStudent(nn.Module):
       self.imp,
       self.distiller,
       self.heads['image'],
-      self.heads['reward']
+      self.heads['reward'],
+      
     ])
 
     # add distiller 
     if self._config.use_distill:
       self.modules_to_optimize.append(self.distiller)
+      
+    # add vae 
+    if self._config.use_vae:
+      self.modules_to_optimize.append(self.vae)
 
     self.module_para = list(self.modules_to_optimize.parameters())
     
@@ -346,9 +356,39 @@ class WorldModelStudent(nn.Module):
     for param in self.dynamics_teachers.parameters():
       param.requires_grad = False
 
+  def _record_distill_weight_metrics(self, imp_weights, metrics):
+    """
+    Record distillation weight statistics:
+      - mean weight per teacher
+      - entropy over teachers
+
+    Args:
+        imp_weights: Tensor of shape [K, B*T] or [K, ...] after softmax
+        metrics: dict to write scalar metrics into
+    """
+    eps = 1e-8
+    K = self._config.num_teachers
+
+    # Ensure shape [K, N]
+    W = imp_weights.reshape(K, -1)  # [K, N]
+
+    # Mean weight per teacher
+    mean_w = W.mean(dim=1)  # [K]
+
+    # Entropy averaged over batch/time
+    # H = E_t[ - sum_k p_k(t) log p_k(t) ]
+    entropy_per_pos = -(W * (W + eps).log()).sum(dim=0)  # [N]
+    entropy_w = entropy_per_pos.mean()                   # scalar
+
+    # Write to metrics
+    metrics["distill/entropy_w"] = float(entropy_w.detach().cpu())
+    for k in range(K):
+        metrics[f"distill/mean_w_{k}"] = float(mean_w[k].detach().cpu())
+                
   def _train(self, data):
     """Train student model with distillation"""
     data = self.preprocess(data)
+    distill_metrics = {}  # Separate dict for distillation metrics  
     with tools.RequiresGrad(self):
       with torch.cuda.amp.autocast(self._use_amp):
         # Student forward pass
@@ -391,27 +431,68 @@ class WorldModelStudent(nn.Module):
           imp_weights = torch.stack(imp_weights, dim=0)
           imp_weights = torch.squeeze(imp_weights)
           imp_weights = self.softmax(imp_weights)
+
+          # record metrics 
+          self._record_distill_weight_metrics(imp_weights, distill_metrics)
+    
           all_weight = imp_weights.reshape((self._config.num_teachers, self._config.batch_size * self._config.batch_length)) # 50*50=2500
           out_weight = torch.argmax(all_weight, dim=0) # 2500
 
           d_loss_val = 0.0
           for index in range(self._config.num_teachers):
             teacher_feature = teacher_feat[index]
-            if self._config.use_distill:
-              d_t_feat = self.distiller(teacher_feature)
+            if self._config.use_distill and self.distiller is not None:
+              # if self._config.conditional_distill:
+              #   one_hot = F.one_hot(torch.full((teacher_feature.shape[0],), index, device=teacher_feature.device), num_classes=self._config.num_teachers).float()
+              #   d_in = torch.cat([teacher_feature, one_hot], dim=-1)
+              # else:
+              #   d_in = teacher_feature
+              if self._config.conditional_distill:
+                # teacher_feature: (..., feat_dim)
+                # we want one_hot: (..., num_teachers)
+                idx = torch.full(
+                    teacher_feature.shape[:-1],          # same leading dims as teacher_feature
+                    index,
+                    device=teacher_feature.device,
+                    dtype=torch.long,
+                )
+                one_hot = F.one_hot(
+                    idx,
+                    num_classes=self._config.num_teachers,
+                ).to(teacher_feature.dtype)             # match float type
+
+                # Now both are e.g. (B, T, F) and (B, T, num_teachers)
+                d_in = torch.cat([teacher_feature, one_hot], dim=-1)
+              else:
+                d_in = teacher_feature
+
+              d_t_feat = self.distiller(d_in)
               mse = torch.mean(self.l2_loss(d_t_feat, feat), dim=-1)
-            else:
+            elif self._config.use_distill:
               mse = torch.mean(self.l2_loss(teacher_feature, feat), dim=-1)
-            weight = imp_weights[index]
-            
-            weight = torch.max(self.m, weight)
-            d_loss_val += torch.mean(mse * weight)
+              
+            # weight for this teacher (same shape as mse)
+            weight_raw = imp_weights[index]
+            weight = torch.max(self.m, weight_raw)  # your clipping step :contentReference[oaicite:4]{index=4}
+
+            # distillation objective
+            contrib = mse * weight
+            d_loss_val += torch.mean(contrib)
+
+            # ---------- NEW: per-teacher metrics ----------
+            # mse_k: mean MSE to teacher k
+            distill_metrics[f'distill/mse_{index}'] = float(torch.mean(mse).detach().cpu())
+            # contrib_k: mean contribution of teacher k to distill loss
+            distill_metrics[f'distill/contrib_{index}'] = float(torch.mean(contrib).detach().cpu())
+            # optional: raw vs clipped weight means (useful for debugging collapse)
+            distill_metrics[f'distill/mean_w_raw_{index}'] = float(torch.mean(weight_raw).detach().cpu())
+            distill_metrics[f'distill/mean_w_clip_{index}'] = float(torch.mean(weight).detach().cpu())
+            # ---------- /NEW ----------
 
           d_loss = d_loss_val
 
           # ========== VAE LOSS ==========
-          print(self._offline_dataset)
-          if self._offline_dataset is not None and self._config.use_vae:
+          if self._offline_dataset is not None and self._config.use_vae and self._config.use_distill and self.distiller is not None:
             vae_loss = 0
             for max_weight in range (self._config.num_teachers):
               source_data = self._offline_dataset[max_weight] # fix this 
@@ -452,6 +533,7 @@ class WorldModelStudent(nn.Module):
       metrics = self._model_opt(model_loss, self.module_para)
 
     metrics.update({f'{name}_loss': to_np(loss) for name, loss in losses.items()})
+    metrics.update(distill_metrics)  # Merge distillation metrics in
     metrics['kl_balance'] = kl_balance
     metrics['kl_free'] = kl_free
     metrics['kl_scale'] = kl_scale
@@ -522,9 +604,11 @@ class ImagBehavior(nn.Module):
     else:
       feat_size = config.dyn_stoch + config.dyn_deter
     if config.use_vae:
-      feat_size = feat_size+50
+      actor_feat_size = feat_size + 50
+    else:
+      actor_feat_size = feat_size
     self.actor = networks.ActionHead(
-        feat_size,
+        actor_feat_size,
         config.num_actions, config.actor_layers, config.units, config.act,
         config.actor_dist, config.actor_init_std, config.actor_min_std,
         config.actor_dist, config.actor_temp, config.actor_outscale)
@@ -561,13 +645,18 @@ class ImagBehavior(nn.Module):
 
     with tools.RequiresGrad(self.actor):
       with torch.cuda.amp.autocast(self._use_amp):
-        if self._config.use_vae:
+        if self._config.use_distill and self._config.use_vae:
           imag_feat, imag_feat_action, imag_state, imag_action = self._imagine(
               start, self.actor, self._config.imag_horizon, repeats, weight)
           actor_ent = self.actor(imag_feat_action).entropy()
-        else:
+        elif self._config.use_distill and not self._config.use_vae:
           imag_feat, imag_state, imag_action = self._imagine(
               start, self.actor, self._config.imag_horizon, repeats, weight)
+          imag_feat_action = None
+          actor_ent = self.actor(imag_feat).entropy()
+        else:
+          imag_feat, imag_state, imag_action = self._imagine(
+              start, self.actor, self._config.imag_horizon, repeats)
           imag_feat_action = None
           actor_ent = self.actor(imag_feat).entropy()
         reward = objective(imag_feat, imag_state, imag_action)
@@ -627,19 +716,6 @@ class ImagBehavior(nn.Module):
         succ = dynamics.img_step(state, action, sample=self._config.imag_sample)
         return succ, feat, action
     
-      # if self._config.use_vae:
-      #   sampled_actions, sampled_feat = self._world_model.vae.decode(feat, weight)
-      #   inp = torch.cat([feat, sampled_feat], -1)
-      #   action = policy(inp.detach()).sample()
-      # else: 
-      #   inp = feat.detach() 
-      #   action = policy(inp).sample()
-  
-      # succ = dynamics.img_step(state, action, sample=self._config.imag_sample)
-      # if self._config.use_vae:
-      #   return succ, feat, inp, action
-      # return succ, feat, action
-    
     if self._config.use_vae:
       feat = 0 * dynamics.get_feat(start)
       sam_action, sam_feat = self._world_model.vae.decode(feat, weight)
@@ -649,7 +725,7 @@ class ImagBehavior(nn.Module):
         step, [torch.arange(horizon)], (start, feat, feat_action, action))
     else:
       succ, feats, actions = tools.static_scan(
-          step, [torch.arange(horizon)], (start, None, None))
+        step, [torch.arange(horizon)], (start, None, None))
     
     # ---------- NEW: count & save incidents ----------
     
@@ -657,7 +733,7 @@ class ImagBehavior(nn.Module):
       t = torch.tensor(weight)
       # Make sure it’s a 1D integer array. Adjust dtype / reshape if needed.
       self._incident_counts_running += torch.bincount(t, minlength=len(self._config.source_tasks))
-      if self._local_step % 100 == 0:
+      if self._local_step % 500 == 0:
         incident_list = self._incident_counts_running.tolist()
         total_sum = sum(incident_list)
         
@@ -674,9 +750,9 @@ class ImagBehavior(nn.Module):
       raise NotImplemented("repeats is not implemented in this version")
     
     if self._config.use_vae:
-      return feats, states, actions
-    else:
       return feats, feat_actions, states, actions
+    else:
+      return feats, states, actions
 
   def _compute_target(
       self, imag_feat, imag_state, imag_action, reward, actor_ent, state_ent,

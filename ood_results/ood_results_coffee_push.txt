@@ -1,0 +1,4011 @@
+OOD Results (two metrics)
+================================================================================
+device: cuda:1
+student_dir: /storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/coffee_push/moe_seed0/train_eps
+source_dir: /storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/top50
+teacher_model_path: /storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50_fix/moe/teacher_model.pt
+K (num source tasks): 6
+threshold_quantile: 0.95
+thresh_min: 623.638400
+thresh_mix: 1027.795819
+
+Episode 0:
+  min_score: 15862.3349609375
+  min_is_ood: True
+  mix_score: 13425.0361328125
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 1:
+  min_score: 10212.029296875
+  min_is_ood: True
+  mix_score: 10125.8857421875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 2:
+  min_score: 24079.623046875
+  min_is_ood: True
+  mix_score: 21162.279296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 3:
+  min_score: 16603.51171875
+  min_is_ood: True
+  mix_score: 16159.3583984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 4:
+  min_score: 14645.537109375
+  min_is_ood: True
+  mix_score: 13811.9091796875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 5:
+  min_score: 18253.625
+  min_is_ood: True
+  mix_score: 18230.833984375
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 6:
+  min_score: 23445.126953125
+  min_is_ood: True
+  mix_score: 17370.525390625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 7:
+  min_score: 19234.52734375
+  min_is_ood: True
+  mix_score: 20006.158203125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 8:
+  min_score: 15980.1220703125
+  min_is_ood: True
+  mix_score: 18273.154296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 9:
+  min_score: 10341.5947265625
+  min_is_ood: True
+  mix_score: 12320.0849609375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 10:
+  min_score: 14702.140625
+  min_is_ood: True
+  mix_score: 20103.138671875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 11:
+  min_score: 8276.392578125
+  min_is_ood: True
+  mix_score: 10238.5009765625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 12:
+  min_score: 33716.98046875
+  min_is_ood: True
+  mix_score: 14433.849609375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 13:
+  min_score: 16113.6533203125
+  min_is_ood: True
+  mix_score: 17356.642578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 14:
+  min_score: 23325.98046875
+  min_is_ood: True
+  mix_score: 19267.443359375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 15:
+  min_score: 11881.4130859375
+  min_is_ood: True
+  mix_score: 13346.5869140625
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 16:
+  min_score: 45249.9375
+  min_is_ood: True
+  mix_score: 40163.828125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 17:
+  min_score: 13130.013671875
+  min_is_ood: True
+  mix_score: 15733.3564453125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 18:
+  min_score: 8243.810546875
+  min_is_ood: True
+  mix_score: 7530.3134765625
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 19:
+  min_score: 11119.037109375
+  min_is_ood: True
+  mix_score: 13821.78515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 20:
+  min_score: 63270.72265625
+  min_is_ood: True
+  mix_score: 65308.71484375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 21:
+  min_score: 26577.72265625
+  min_is_ood: True
+  mix_score: 25197.13671875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 22:
+  min_score: 22321.0703125
+  min_is_ood: True
+  mix_score: 18621.845703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 23:
+  min_score: 55352.6484375
+  min_is_ood: True
+  mix_score: 53533.58984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 24:
+  min_score: 48075.04296875
+  min_is_ood: True
+  mix_score: 47767.3515625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 25:
+  min_score: 55210.0546875
+  min_is_ood: True
+  mix_score: 54463.25
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 26:
+  min_score: 49503.3515625
+  min_is_ood: True
+  mix_score: 50589.5234375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 27:
+  min_score: 37387.19140625
+  min_is_ood: True
+  mix_score: 37879.92578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 28:
+  min_score: 27011.890625
+  min_is_ood: True
+  mix_score: 28172.259765625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 29:
+  min_score: 47255.25
+  min_is_ood: True
+  mix_score: 47056.61328125
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 30:
+  min_score: 42864.11328125
+  min_is_ood: True
+  mix_score: 42131.80078125
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 31:
+  min_score: 27037.70703125
+  min_is_ood: True
+  mix_score: 27871.05078125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 32:
+  min_score: 24903.060546875
+  min_is_ood: True
+  mix_score: 27311.30859375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 33:
+  min_score: 51687.828125
+  min_is_ood: True
+  mix_score: 46230.80078125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 34:
+  min_score: 46806.125
+  min_is_ood: True
+  mix_score: 46690.24609375
+  mix_is_ood: True
+  closest_label: 1
+  closest_task: door-open
+
+Episode 35:
+  min_score: 32245.466796875
+  min_is_ood: True
+  mix_score: 33231.2109375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 36:
+  min_score: 26451.7890625
+  min_is_ood: True
+  mix_score: 43297.95703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 37:
+  min_score: 33135.9375
+  min_is_ood: True
+  mix_score: 34473.90234375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 38:
+  min_score: 31219.064453125
+  min_is_ood: True
+  mix_score: 30762.419921875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 39:
+  min_score: 19172.0546875
+  min_is_ood: True
+  mix_score: 21231.720703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 40:
+  min_score: 21593.140625
+  min_is_ood: True
+  mix_score: 21464.833984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 41:
+  min_score: 23349.43359375
+  min_is_ood: True
+  mix_score: 21344.861328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 42:
+  min_score: 7718.70361328125
+  min_is_ood: True
+  mix_score: 10856.16796875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 43:
+  min_score: 13938.17578125
+  min_is_ood: True
+  mix_score: 12882.0107421875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 44:
+  min_score: 15584.5966796875
+  min_is_ood: True
+  mix_score: 12898.8330078125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 45:
+  min_score: 13475.849609375
+  min_is_ood: True
+  mix_score: 15583.8671875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 46:
+  min_score: 19670.23046875
+  min_is_ood: True
+  mix_score: 22240.287109375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 47:
+  min_score: 26761.099609375
+  min_is_ood: True
+  mix_score: 30184.087890625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 48:
+  min_score: 19755.6328125
+  min_is_ood: True
+  mix_score: 20301.529296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 49:
+  min_score: 19855.84375
+  min_is_ood: True
+  mix_score: 20075.17578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 50:
+  min_score: 21323.923828125
+  min_is_ood: True
+  mix_score: 20064.751953125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 51:
+  min_score: 24060.8359375
+  min_is_ood: True
+  mix_score: 22566.798828125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 52:
+  min_score: 27766.25
+  min_is_ood: True
+  mix_score: 28767.576171875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 53:
+  min_score: 24125.48046875
+  min_is_ood: True
+  mix_score: 24120.572265625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 54:
+  min_score: 21246.703125
+  min_is_ood: True
+  mix_score: 22494.314453125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 55:
+  min_score: 27866.9453125
+  min_is_ood: True
+  mix_score: 26107.17578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 56:
+  min_score: 29309.626953125
+  min_is_ood: True
+  mix_score: 30791.763671875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 57:
+  min_score: 35057.9375
+  min_is_ood: True
+  mix_score: 33580.49609375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 58:
+  min_score: 28471.970703125
+  min_is_ood: True
+  mix_score: 29577.935546875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 59:
+  min_score: 21233.1640625
+  min_is_ood: True
+  mix_score: 20624.966796875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 60:
+  min_score: 36088.1328125
+  min_is_ood: True
+  mix_score: 38033.6875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 61:
+  min_score: 27957.08203125
+  min_is_ood: True
+  mix_score: 28544.208984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 62:
+  min_score: 50483.609375
+  min_is_ood: True
+  mix_score: 49570.21484375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 63:
+  min_score: 52230.21875
+  min_is_ood: True
+  mix_score: 50786.05859375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 64:
+  min_score: 31709.0390625
+  min_is_ood: True
+  mix_score: 29100.576171875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 65:
+  min_score: 22442.25
+  min_is_ood: True
+  mix_score: 20960.390625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 66:
+  min_score: 25399.57421875
+  min_is_ood: True
+  mix_score: 26026.244140625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 67:
+  min_score: 16078.4248046875
+  min_is_ood: True
+  mix_score: 16480.8984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 68:
+  min_score: 20246.69140625
+  min_is_ood: True
+  mix_score: 21322.603515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 69:
+  min_score: 18778.5078125
+  min_is_ood: True
+  mix_score: 18630.11328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 70:
+  min_score: 48514.8046875
+  min_is_ood: True
+  mix_score: 48315.56640625
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 71:
+  min_score: 35933.65625
+  min_is_ood: True
+  mix_score: 33220.140625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 72:
+  min_score: 47102.6875
+  min_is_ood: True
+  mix_score: 47435.76953125
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 73:
+  min_score: 42303.984375
+  min_is_ood: True
+  mix_score: 42616.09375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 74:
+  min_score: 47408.953125
+  min_is_ood: True
+  mix_score: 45306.16796875
+  mix_is_ood: True
+  closest_label: 1
+  closest_task: door-open
+
+Episode 75:
+  min_score: 27453.51171875
+  min_is_ood: True
+  mix_score: 26480.375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 76:
+  min_score: 30612.69140625
+  min_is_ood: True
+  mix_score: 31623.27734375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 77:
+  min_score: 29711.935546875
+  min_is_ood: True
+  mix_score: 28934.1875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 78:
+  min_score: 23481.95703125
+  min_is_ood: True
+  mix_score: 22144.30078125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 79:
+  min_score: 26371.861328125
+  min_is_ood: True
+  mix_score: 26857.412109375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 80:
+  min_score: 30691.7578125
+  min_is_ood: True
+  mix_score: 30474.576171875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 81:
+  min_score: 32883.39453125
+  min_is_ood: True
+  mix_score: 33316.18359375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 82:
+  min_score: 39948.43359375
+  min_is_ood: True
+  mix_score: 39631.3515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 83:
+  min_score: 43680.75
+  min_is_ood: True
+  mix_score: 45482.94921875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 84:
+  min_score: 29401.640625
+  min_is_ood: True
+  mix_score: 29054.5234375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 85:
+  min_score: 16641.08984375
+  min_is_ood: True
+  mix_score: 18007.837890625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 86:
+  min_score: 36589.49609375
+  min_is_ood: True
+  mix_score: 33209.171875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 87:
+  min_score: 17369.25
+  min_is_ood: True
+  mix_score: 16776.208984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 88:
+  min_score: 13368.662109375
+  min_is_ood: True
+  mix_score: 12313.6259765625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 89:
+  min_score: 18995.8515625
+  min_is_ood: True
+  mix_score: 21430.36328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 90:
+  min_score: 20509.49609375
+  min_is_ood: True
+  mix_score: 18215.166015625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 91:
+  min_score: 11402.224609375
+  min_is_ood: True
+  mix_score: 12723.962890625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 92:
+  min_score: 19333.642578125
+  min_is_ood: True
+  mix_score: 20903.72265625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 93:
+  min_score: 19873.291015625
+  min_is_ood: True
+  mix_score: 19600.669921875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 94:
+  min_score: 24845.931640625
+  min_is_ood: True
+  mix_score: 26879.361328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 95:
+  min_score: 27504.38671875
+  min_is_ood: True
+  mix_score: 28310.072265625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 96:
+  min_score: 15962.947265625
+  min_is_ood: True
+  mix_score: 15692.1767578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 97:
+  min_score: 34883.4921875
+  min_is_ood: True
+  mix_score: 33697.890625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 98:
+  min_score: 13913.703125
+  min_is_ood: True
+  mix_score: 13621.0029296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 99:
+  min_score: 11653.9814453125
+  min_is_ood: True
+  mix_score: 11006.328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 100:
+  min_score: 43714.37890625
+  min_is_ood: True
+  mix_score: 55781.04296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 101:
+  min_score: 15525.5546875
+  min_is_ood: True
+  mix_score: 17294.5234375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 102:
+  min_score: 14331.8623046875
+  min_is_ood: True
+  mix_score: 14036.8779296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 103:
+  min_score: 20093.51171875
+  min_is_ood: True
+  mix_score: 18684.638671875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 104:
+  min_score: 15218.21484375
+  min_is_ood: True
+  mix_score: 15590.609375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 105:
+  min_score: 21230.08984375
+  min_is_ood: True
+  mix_score: 17654.794921875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 106:
+  min_score: 17225.90234375
+  min_is_ood: True
+  mix_score: 19461.029296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 107:
+  min_score: 29651.845703125
+  min_is_ood: True
+  mix_score: 26616.9375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 108:
+  min_score: 26018.310546875
+  min_is_ood: True
+  mix_score: 27857.25
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 109:
+  min_score: 25341.5078125
+  min_is_ood: True
+  mix_score: 26489.5234375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 110:
+  min_score: 35008.1328125
+  min_is_ood: True
+  mix_score: 32540.71875
+  mix_is_ood: True
+  closest_label: 1
+  closest_task: door-open
+
+Episode 111:
+  min_score: 53011.8203125
+  min_is_ood: True
+  mix_score: 53610.2890625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 112:
+  min_score: 27048.0546875
+  min_is_ood: True
+  mix_score: 25724.7734375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 113:
+  min_score: 19893.9375
+  min_is_ood: True
+  mix_score: 18424.271484375
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 114:
+  min_score: 16884.005859375
+  min_is_ood: True
+  mix_score: 18512.146484375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 115:
+  min_score: 15880.0244140625
+  min_is_ood: True
+  mix_score: 15535.3759765625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 116:
+  min_score: 26067.46484375
+  min_is_ood: True
+  mix_score: 26689.458984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 117:
+  min_score: 72043.8515625
+  min_is_ood: True
+  mix_score: 71864.875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 118:
+  min_score: 24371.533203125
+  min_is_ood: True
+  mix_score: 28572.68359375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 119:
+  min_score: 28495.984375
+  min_is_ood: True
+  mix_score: 29260.796875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 120:
+  min_score: 24235.740234375
+  min_is_ood: True
+  mix_score: 24143.771484375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 121:
+  min_score: 17114.669921875
+  min_is_ood: True
+  mix_score: 16393.427734375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 122:
+  min_score: 16417.974609375
+  min_is_ood: True
+  mix_score: 16409.244140625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 123:
+  min_score: 23953.33203125
+  min_is_ood: True
+  mix_score: 23820.17578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 124:
+  min_score: 29083.4921875
+  min_is_ood: True
+  mix_score: 29485.970703125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 125:
+  min_score: 16768.44921875
+  min_is_ood: True
+  mix_score: 17174.208984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 126:
+  min_score: 17609.47265625
+  min_is_ood: True
+  mix_score: 17590.76953125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 127:
+  min_score: 25707.08203125
+  min_is_ood: True
+  mix_score: 25972.748046875
+  mix_is_ood: True
+  closest_label: 1
+  closest_task: door-open
+
+Episode 128:
+  min_score: 16082.4814453125
+  min_is_ood: True
+  mix_score: 14952.9541015625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 129:
+  min_score: 42411.5703125
+  min_is_ood: True
+  mix_score: 42267.03515625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 130:
+  min_score: 14450.73828125
+  min_is_ood: True
+  mix_score: 12922.861328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 131:
+  min_score: 18659.02734375
+  min_is_ood: True
+  mix_score: 29529.216796875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 132:
+  min_score: 9886.0
+  min_is_ood: True
+  mix_score: 11254.478515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 133:
+  min_score: 40992.53125
+  min_is_ood: True
+  mix_score: 42440.48828125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 134:
+  min_score: 37109.60546875
+  min_is_ood: True
+  mix_score: 37446.05078125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 135:
+  min_score: 90478.0234375
+  min_is_ood: True
+  mix_score: 90754.1015625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 136:
+  min_score: 37616.1015625
+  min_is_ood: True
+  mix_score: 36695.57421875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 137:
+  min_score: 25454.001953125
+  min_is_ood: True
+  mix_score: 25056.060546875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 138:
+  min_score: 19821.0859375
+  min_is_ood: True
+  mix_score: 20920.8359375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 139:
+  min_score: 18584.126953125
+  min_is_ood: True
+  mix_score: 18017.859375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 140:
+  min_score: 31109.443359375
+  min_is_ood: True
+  mix_score: 32472.28125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 141:
+  min_score: 35815.046875
+  min_is_ood: True
+  mix_score: 34527.46484375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 142:
+  min_score: 20198.80078125
+  min_is_ood: True
+  mix_score: 21710.947265625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 143:
+  min_score: 27965.8515625
+  min_is_ood: True
+  mix_score: 26690.701171875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 144:
+  min_score: 27428.439453125
+  min_is_ood: True
+  mix_score: 29341.6953125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 145:
+  min_score: 56304.90625
+  min_is_ood: True
+  mix_score: 54044.71875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 146:
+  min_score: 65643.3359375
+  min_is_ood: True
+  mix_score: 64470.421875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 147:
+  min_score: 34278.03515625
+  min_is_ood: True
+  mix_score: 34667.41796875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 148:
+  min_score: 36245.890625
+  min_is_ood: True
+  mix_score: 35627.5546875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 149:
+  min_score: 52538.234375
+  min_is_ood: True
+  mix_score: 51668.0703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 150:
+  min_score: 20614.75
+  min_is_ood: True
+  mix_score: 19682.435546875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 151:
+  min_score: 30500.94140625
+  min_is_ood: True
+  mix_score: 30528.044921875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 152:
+  min_score: 24998.248046875
+  min_is_ood: True
+  mix_score: 22534.66015625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 153:
+  min_score: 69668.234375
+  min_is_ood: True
+  mix_score: 69424.4609375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 154:
+  min_score: 73856.3125
+  min_is_ood: True
+  mix_score: 73758.1328125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 155:
+  min_score: 45345.16796875
+  min_is_ood: True
+  mix_score: 45727.4609375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 156:
+  min_score: 15809.9716796875
+  min_is_ood: True
+  mix_score: 14075.4189453125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 157:
+  min_score: 67765.65625
+  min_is_ood: True
+  mix_score: 66612.71875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 158:
+  min_score: 14287.8701171875
+  min_is_ood: True
+  mix_score: 22353.458984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 159:
+  min_score: 34847.53515625
+  min_is_ood: True
+  mix_score: 34552.32421875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 160:
+  min_score: 67780.8359375
+  min_is_ood: True
+  mix_score: 68031.359375
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 161:
+  min_score: 37462.4140625
+  min_is_ood: True
+  mix_score: 37838.83984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 162:
+  min_score: 56162.125
+  min_is_ood: True
+  mix_score: 53042.44921875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 163:
+  min_score: 17581.619140625
+  min_is_ood: True
+  mix_score: 17538.515625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 164:
+  min_score: 63196.5078125
+  min_is_ood: True
+  mix_score: 62610.64453125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 165:
+  min_score: 75421.75
+  min_is_ood: True
+  mix_score: 72944.3046875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 166:
+  min_score: 68702.515625
+  min_is_ood: True
+  mix_score: 68734.359375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 167:
+  min_score: 19196.21484375
+  min_is_ood: True
+  mix_score: 20241.86328125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 168:
+  min_score: 27654.146484375
+  min_is_ood: True
+  mix_score: 25396.798828125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 169:
+  min_score: 19380.09765625
+  min_is_ood: True
+  mix_score: 19676.568359375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 170:
+  min_score: 18835.48828125
+  min_is_ood: True
+  mix_score: 18245.970703125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 171:
+  min_score: 16715.939453125
+  min_is_ood: True
+  mix_score: 18594.90625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 172:
+  min_score: 14820.083984375
+  min_is_ood: True
+  mix_score: 14196.28125
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 173:
+  min_score: 15473.787109375
+  min_is_ood: True
+  mix_score: 15024.3623046875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 174:
+  min_score: 34360.1015625
+  min_is_ood: True
+  mix_score: 36908.09765625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 175:
+  min_score: 88500.875
+  min_is_ood: True
+  mix_score: 90429.75
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 176:
+  min_score: 72941.4609375
+  min_is_ood: True
+  mix_score: 71452.2890625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 177:
+  min_score: 69415.546875
+  min_is_ood: True
+  mix_score: 65240.57421875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 178:
+  min_score: 53441.28125
+  min_is_ood: True
+  mix_score: 52356.17578125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 179:
+  min_score: 35611.28125
+  min_is_ood: True
+  mix_score: 33652.44140625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 180:
+  min_score: 59666.8203125
+  min_is_ood: True
+  mix_score: 62164.09765625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 181:
+  min_score: 48514.1015625
+  min_is_ood: True
+  mix_score: 47528.80859375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 182:
+  min_score: 13456.5732421875
+  min_is_ood: True
+  mix_score: 13572.6044921875
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 183:
+  min_score: 41415.88671875
+  min_is_ood: True
+  mix_score: 33778.18359375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 184:
+  min_score: 13007.0732421875
+  min_is_ood: True
+  mix_score: 13633.0576171875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 185:
+  min_score: 34785.3515625
+  min_is_ood: True
+  mix_score: 31448.802734375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 186:
+  min_score: 15429.4326171875
+  min_is_ood: True
+  mix_score: 14982.7734375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 187:
+  min_score: 74198.046875
+  min_is_ood: True
+  mix_score: 74003.265625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 188:
+  min_score: 16090.8466796875
+  min_is_ood: True
+  mix_score: 14206.8095703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 189:
+  min_score: 28577.3984375
+  min_is_ood: True
+  mix_score: 23408.142578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 190:
+  min_score: 10179.216796875
+  min_is_ood: True
+  mix_score: 11122.6005859375
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 191:
+  min_score: 6473.173828125
+  min_is_ood: True
+  mix_score: 5920.81201171875
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 192:
+  min_score: 11618.103515625
+  min_is_ood: True
+  mix_score: 12203.2802734375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 193:
+  min_score: 7892.12451171875
+  min_is_ood: True
+  mix_score: 7585.73828125
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 194:
+  min_score: 4421.5556640625
+  min_is_ood: True
+  mix_score: 4171.1064453125
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 195:
+  min_score: 63520.09765625
+  min_is_ood: True
+  mix_score: 63244.2578125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 196:
+  min_score: 56058.65625
+  min_is_ood: True
+  mix_score: 56927.75
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 197:
+  min_score: 22898.0859375
+  min_is_ood: True
+  mix_score: 21960.103515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 198:
+  min_score: 19028.701171875
+  min_is_ood: True
+  mix_score: 20752.462890625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 199:
+  min_score: 15656.4580078125
+  min_is_ood: True
+  mix_score: 18428.62109375
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 200:
+  min_score: 17684.81640625
+  min_is_ood: True
+  mix_score: 20032.931640625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 201:
+  min_score: 15559.072265625
+  min_is_ood: True
+  mix_score: 15750.8095703125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 202:
+  min_score: 15555.720703125
+  min_is_ood: True
+  mix_score: 13449.1103515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 203:
+  min_score: 19717.38671875
+  min_is_ood: True
+  mix_score: 18915.806640625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 204:
+  min_score: 22924.009765625
+  min_is_ood: True
+  mix_score: 24913.345703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 205:
+  min_score: 15873.291015625
+  min_is_ood: True
+  mix_score: 15380.1474609375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 206:
+  min_score: 26525.162109375
+  min_is_ood: True
+  mix_score: 25602.400390625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 207:
+  min_score: 13850.685546875
+  min_is_ood: True
+  mix_score: 14773.201171875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 208:
+  min_score: 18378.85546875
+  min_is_ood: True
+  mix_score: 19511.78515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 209:
+  min_score: 13624.1943359375
+  min_is_ood: True
+  mix_score: 16932.642578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 210:
+  min_score: 53414.13671875
+  min_is_ood: True
+  mix_score: 54104.20703125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 211:
+  min_score: 21222.70703125
+  min_is_ood: True
+  mix_score: 20434.048828125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 212:
+  min_score: 29570.4375
+  min_is_ood: True
+  mix_score: 25933.865234375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 213:
+  min_score: 43638.1875
+  min_is_ood: True
+  mix_score: 43981.61328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 214:
+  min_score: 14692.115234375
+  min_is_ood: True
+  mix_score: 18695.546875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 215:
+  min_score: 21228.998046875
+  min_is_ood: True
+  mix_score: 23474.388671875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 216:
+  min_score: 13662.59765625
+  min_is_ood: True
+  mix_score: 12760.3779296875
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 217:
+  min_score: 18030.0546875
+  min_is_ood: True
+  mix_score: 17231.900390625
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 218:
+  min_score: 20042.3671875
+  min_is_ood: True
+  mix_score: 20538.384765625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 219:
+  min_score: 66190.7890625
+  min_is_ood: True
+  mix_score: 63542.1015625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 220:
+  min_score: 10685.251953125
+  min_is_ood: True
+  mix_score: 10284.4970703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 221:
+  min_score: 11994.107421875
+  min_is_ood: True
+  mix_score: 15281.06640625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 222:
+  min_score: 27939.33984375
+  min_is_ood: True
+  mix_score: 24692.556640625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 223:
+  min_score: 30721.23828125
+  min_is_ood: True
+  mix_score: 29591.103515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 224:
+  min_score: 50000.5234375
+  min_is_ood: True
+  mix_score: 52292.52734375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 225:
+  min_score: 17500.1484375
+  min_is_ood: True
+  mix_score: 18554.283203125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 226:
+  min_score: 52818.54296875
+  min_is_ood: True
+  mix_score: 54216.23046875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 227:
+  min_score: 19428.40234375
+  min_is_ood: True
+  mix_score: 18109.9921875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 228:
+  min_score: 33442.609375
+  min_is_ood: True
+  mix_score: 36512.42578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 229:
+  min_score: 25941.884765625
+  min_is_ood: True
+  mix_score: 24756.017578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 230:
+  min_score: 23570.208984375
+  min_is_ood: True
+  mix_score: 26194.478515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 231:
+  min_score: 40059.17578125
+  min_is_ood: True
+  mix_score: 36469.35546875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 232:
+  min_score: 39004.59765625
+  min_is_ood: True
+  mix_score: 38684.609375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 233:
+  min_score: 39555.90234375
+  min_is_ood: True
+  mix_score: 39576.54296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 234:
+  min_score: 12130.7197265625
+  min_is_ood: True
+  mix_score: 13892.9912109375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 235:
+  min_score: 33908.6484375
+  min_is_ood: True
+  mix_score: 32103.708984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 236:
+  min_score: 25544.630859375
+  min_is_ood: True
+  mix_score: 25644.08984375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 237:
+  min_score: 21532.859375
+  min_is_ood: True
+  mix_score: 21968.076171875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 238:
+  min_score: 40511.7734375
+  min_is_ood: True
+  mix_score: 41776.80078125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 239:
+  min_score: 10600.724609375
+  min_is_ood: True
+  mix_score: 11547.2685546875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 240:
+  min_score: 23072.580078125
+  min_is_ood: True
+  mix_score: 23821.412109375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 241:
+  min_score: 21374.39453125
+  min_is_ood: True
+  mix_score: 23283.419921875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 242:
+  min_score: 20093.3046875
+  min_is_ood: True
+  mix_score: 22102.63671875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 243:
+  min_score: 19259.3125
+  min_is_ood: True
+  mix_score: 17811.015625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 244:
+  min_score: 24916.169921875
+  min_is_ood: True
+  mix_score: 25114.9375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 245:
+  min_score: 42750.2109375
+  min_is_ood: True
+  mix_score: 45789.765625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 246:
+  min_score: 23918.5390625
+  min_is_ood: True
+  mix_score: 24011.892578125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 247:
+  min_score: 46800.50390625
+  min_is_ood: True
+  mix_score: 55325.69921875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 248:
+  min_score: 57275.4765625
+  min_is_ood: True
+  mix_score: 58778.09765625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 249:
+  min_score: 33338.921875
+  min_is_ood: True
+  mix_score: 33831.08984375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 250:
+  min_score: 35691.5546875
+  min_is_ood: True
+  mix_score: 37540.7578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 251:
+  min_score: 31192.810546875
+  min_is_ood: True
+  mix_score: 31537.2734375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 252:
+  min_score: 22400.54296875
+  min_is_ood: True
+  mix_score: 25399.548828125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 253:
+  min_score: 11530.4912109375
+  min_is_ood: True
+  mix_score: 12324.5029296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 254:
+  min_score: 29574.98828125
+  min_is_ood: True
+  mix_score: 29219.72265625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 255:
+  min_score: 32718.306640625
+  min_is_ood: True
+  mix_score: 32524.677734375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 256:
+  min_score: 48912.93359375
+  min_is_ood: True
+  mix_score: 40465.14453125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 257:
+  min_score: 30081.22265625
+  min_is_ood: True
+  mix_score: 28737.51171875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 258:
+  min_score: 37998.6328125
+  min_is_ood: True
+  mix_score: 43814.01171875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 259:
+  min_score: 16382.3203125
+  min_is_ood: True
+  mix_score: 22696.322265625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 260:
+  min_score: 56805.45703125
+  min_is_ood: True
+  mix_score: 55087.39453125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 261:
+  min_score: 45229.5234375
+  min_is_ood: True
+  mix_score: 44214.5
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 262:
+  min_score: 20491.76171875
+  min_is_ood: True
+  mix_score: 22071.216796875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 263:
+  min_score: 35926.6796875
+  min_is_ood: True
+  mix_score: 35242.55078125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 264:
+  min_score: 17028.46875
+  min_is_ood: True
+  mix_score: 17534.689453125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 265:
+  min_score: 32431.75
+  min_is_ood: True
+  mix_score: 30874.994140625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 266:
+  min_score: 39916.26953125
+  min_is_ood: True
+  mix_score: 39812.10546875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 267:
+  min_score: 13153.1533203125
+  min_is_ood: True
+  mix_score: 12113.4658203125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 268:
+  min_score: 39486.97265625
+  min_is_ood: True
+  mix_score: 40237.33203125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 269:
+  min_score: 50531.32421875
+  min_is_ood: True
+  mix_score: 50413.5625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 270:
+  min_score: 55639.87890625
+  min_is_ood: True
+  mix_score: 52734.91796875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 271:
+  min_score: 61971.68359375
+  min_is_ood: True
+  mix_score: 62630.87109375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 272:
+  min_score: 64358.74609375
+  min_is_ood: True
+  mix_score: 63258.5
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 273:
+  min_score: 37142.8515625
+  min_is_ood: True
+  mix_score: 39858.0234375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 274:
+  min_score: 18812.6640625
+  min_is_ood: True
+  mix_score: 16277.6279296875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 275:
+  min_score: 40412.58203125
+  min_is_ood: True
+  mix_score: 37362.1796875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 276:
+  min_score: 49510.7421875
+  min_is_ood: True
+  mix_score: 45198.86328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 277:
+  min_score: 36956.30078125
+  min_is_ood: True
+  mix_score: 37660.1328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 278:
+  min_score: 24447.486328125
+  min_is_ood: True
+  mix_score: 23036.322265625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 279:
+  min_score: 38607.1796875
+  min_is_ood: True
+  mix_score: 43146.22265625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 280:
+  min_score: 17538.8828125
+  min_is_ood: True
+  mix_score: 19477.173828125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 281:
+  min_score: 51755.265625
+  min_is_ood: True
+  mix_score: 52785.62109375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 282:
+  min_score: 50052.359375
+  min_is_ood: True
+  mix_score: 49905.14453125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 283:
+  min_score: 19115.59765625
+  min_is_ood: True
+  mix_score: 20328.46484375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 284:
+  min_score: 23279.2265625
+  min_is_ood: True
+  mix_score: 23228.119140625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 285:
+  min_score: 17291.369140625
+  min_is_ood: True
+  mix_score: 16333.8193359375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 286:
+  min_score: 41945.84765625
+  min_is_ood: True
+  mix_score: 35041.23828125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 287:
+  min_score: 36381.3046875
+  min_is_ood: True
+  mix_score: 41169.33984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 288:
+  min_score: 46129.671875
+  min_is_ood: True
+  mix_score: 46609.37109375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 289:
+  min_score: 39153.9609375
+  min_is_ood: True
+  mix_score: 40197.125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 290:
+  min_score: 15860.8623046875
+  min_is_ood: True
+  mix_score: 18283.43359375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 291:
+  min_score: 16358.6279296875
+  min_is_ood: True
+  mix_score: 16416.435546875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 292:
+  min_score: 16288.724609375
+  min_is_ood: True
+  mix_score: 14820.2294921875
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 293:
+  min_score: 38147.9765625
+  min_is_ood: True
+  mix_score: 39329.0078125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 294:
+  min_score: 13533.0400390625
+  min_is_ood: True
+  mix_score: 14555.4033203125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 295:
+  min_score: 24037.16015625
+  min_is_ood: True
+  mix_score: 25262.255859375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 296:
+  min_score: 24755.984375
+  min_is_ood: True
+  mix_score: 24631.099609375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 297:
+  min_score: 82634.671875
+  min_is_ood: True
+  mix_score: 86268.9296875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 298:
+  min_score: 27001.677734375
+  min_is_ood: True
+  mix_score: 27156.94921875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 299:
+  min_score: 27683.626953125
+  min_is_ood: True
+  mix_score: 26651.078125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 300:
+  min_score: 32528.04296875
+  min_is_ood: True
+  mix_score: 35193.62109375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 301:
+  min_score: 31744.900390625
+  min_is_ood: True
+  mix_score: 31575.642578125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 302:
+  min_score: 47068.25
+  min_is_ood: True
+  mix_score: 47386.9140625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 303:
+  min_score: 82041.4140625
+  min_is_ood: True
+  mix_score: 81091.515625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 304:
+  min_score: 49397.1328125
+  min_is_ood: True
+  mix_score: 50102.6796875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 305:
+  min_score: 16366.267578125
+  min_is_ood: True
+  mix_score: 16946.947265625
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 306:
+  min_score: 26696.310546875
+  min_is_ood: True
+  mix_score: 28217.73828125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 307:
+  min_score: 19257.89453125
+  min_is_ood: True
+  mix_score: 18063.626953125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 308:
+  min_score: 42403.57421875
+  min_is_ood: True
+  mix_score: 42514.5546875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 309:
+  min_score: 40860.1796875
+  min_is_ood: True
+  mix_score: 41589.73828125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 310:
+  min_score: 78233.25
+  min_is_ood: True
+  mix_score: 78879.5546875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 311:
+  min_score: 28884.86328125
+  min_is_ood: True
+  mix_score: 29142.75
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 312:
+  min_score: 78168.40625
+  min_is_ood: True
+  mix_score: 79231.9453125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 313:
+  min_score: 27175.818359375
+  min_is_ood: True
+  mix_score: 27310.765625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 314:
+  min_score: 11034.1953125
+  min_is_ood: True
+  mix_score: 10882.4052734375
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 315:
+  min_score: 61329.93359375
+  min_is_ood: True
+  mix_score: 60636.31640625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 316:
+  min_score: 36648.328125
+  min_is_ood: True
+  mix_score: 38595.88671875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 317:
+  min_score: 54810.14453125
+  min_is_ood: True
+  mix_score: 55002.64453125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 318:
+  min_score: 41556.22265625
+  min_is_ood: True
+  mix_score: 40354.19921875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 319:
+  min_score: 23380.20703125
+  min_is_ood: True
+  mix_score: 24429.08203125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 320:
+  min_score: 32370.865234375
+  min_is_ood: True
+  mix_score: 32149.083984375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 321:
+  min_score: 36053.47265625
+  min_is_ood: True
+  mix_score: 34465.19140625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 322:
+  min_score: 35680.37109375
+  min_is_ood: True
+  mix_score: 35315.62890625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 323:
+  min_score: 66360.4765625
+  min_is_ood: True
+  mix_score: 64719.59375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 324:
+  min_score: 28544.3671875
+  min_is_ood: True
+  mix_score: 26023.34375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 325:
+  min_score: 18008.5625
+  min_is_ood: True
+  mix_score: 20637.283203125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 326:
+  min_score: 38426.01171875
+  min_is_ood: True
+  mix_score: 37277.19140625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 327:
+  min_score: 61650.0625
+  min_is_ood: True
+  mix_score: 59447.8046875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 328:
+  min_score: 30923.7890625
+  min_is_ood: True
+  mix_score: 30178.470703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 329:
+  min_score: 18126.2265625
+  min_is_ood: True
+  mix_score: 18364.697265625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 330:
+  min_score: 30776.857421875
+  min_is_ood: True
+  mix_score: 30453.2578125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 331:
+  min_score: 37418.578125
+  min_is_ood: True
+  mix_score: 35622.91796875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 332:
+  min_score: 28080.47265625
+  min_is_ood: True
+  mix_score: 28715.994140625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 333:
+  min_score: 21765.52734375
+  min_is_ood: True
+  mix_score: 21748.6328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 334:
+  min_score: 40083.9140625
+  min_is_ood: True
+  mix_score: 39848.56640625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 335:
+  min_score: 22395.6640625
+  min_is_ood: True
+  mix_score: 21849.630859375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 336:
+  min_score: 34784.01953125
+  min_is_ood: True
+  mix_score: 40194.94140625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 337:
+  min_score: 29317.23828125
+  min_is_ood: True
+  mix_score: 29971.154296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 338:
+  min_score: 29040.689453125
+  min_is_ood: True
+  mix_score: 28527.583984375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 339:
+  min_score: 33145.31640625
+  min_is_ood: True
+  mix_score: 33622.70703125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 340:
+  min_score: 28031.96875
+  min_is_ood: True
+  mix_score: 28482.12109375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 341:
+  min_score: 25953.35546875
+  min_is_ood: True
+  mix_score: 27717.373046875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 342:
+  min_score: 11336.177734375
+  min_is_ood: True
+  mix_score: 11970.0537109375
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 343:
+  min_score: 36061.9375
+  min_is_ood: True
+  mix_score: 28901.087890625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 344:
+  min_score: 48966.9140625
+  min_is_ood: True
+  mix_score: 50246.37109375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 345:
+  min_score: 19200.3828125
+  min_is_ood: True
+  mix_score: 19962.041015625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 346:
+  min_score: 10623.572265625
+  min_is_ood: True
+  mix_score: 12019.6064453125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 347:
+  min_score: 29820.3828125
+  min_is_ood: True
+  mix_score: 30005.109375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 348:
+  min_score: 43096.140625
+  min_is_ood: True
+  mix_score: 44013.58203125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 349:
+  min_score: 20800.716796875
+  min_is_ood: True
+  mix_score: 20839.0625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 350:
+  min_score: 24089.14453125
+  min_is_ood: True
+  mix_score: 23860.310546875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 351:
+  min_score: 20763.236328125
+  min_is_ood: True
+  mix_score: 20594.408203125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 352:
+  min_score: 75118.7578125
+  min_is_ood: True
+  mix_score: 74170.1953125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 353:
+  min_score: 46738.2578125
+  min_is_ood: True
+  mix_score: 45991.80859375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 354:
+  min_score: 31847.982421875
+  min_is_ood: True
+  mix_score: 33178.66796875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 355:
+  min_score: 55816.2421875
+  min_is_ood: True
+  mix_score: 49800.63671875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 356:
+  min_score: 51823.015625
+  min_is_ood: True
+  mix_score: 52531.7109375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 357:
+  min_score: 46554.75
+  min_is_ood: True
+  mix_score: 46251.796875
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 358:
+  min_score: 21203.591796875
+  min_is_ood: True
+  mix_score: 21530.40234375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 359:
+  min_score: 36987.2265625
+  min_is_ood: True
+  mix_score: 38310.87109375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 360:
+  min_score: 14377.6171875
+  min_is_ood: True
+  mix_score: 13888.1708984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 361:
+  min_score: 21623.921875
+  min_is_ood: True
+  mix_score: 21751.271484375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 362:
+  min_score: 19346.228515625
+  min_is_ood: True
+  mix_score: 20074.75
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 363:
+  min_score: 16098.0595703125
+  min_is_ood: True
+  mix_score: 15017.8896484375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 364:
+  min_score: 34385.98828125
+  min_is_ood: True
+  mix_score: 39260.7265625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 365:
+  min_score: 42971.46875
+  min_is_ood: True
+  mix_score: 36373.75390625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 366:
+  min_score: 11270.115234375
+  min_is_ood: True
+  mix_score: 9518.0
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 367:
+  min_score: 39728.23046875
+  min_is_ood: True
+  mix_score: 39168.8828125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 368:
+  min_score: 21507.765625
+  min_is_ood: True
+  mix_score: 27392.529296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 369:
+  min_score: 29958.01171875
+  min_is_ood: True
+  mix_score: 30799.326171875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 370:
+  min_score: 16495.96875
+  min_is_ood: True
+  mix_score: 15830.607421875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 371:
+  min_score: 27864.552734375
+  min_is_ood: True
+  mix_score: 27854.88671875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 372:
+  min_score: 23349.892578125
+  min_is_ood: True
+  mix_score: 22887.591796875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 373:
+  min_score: 31536.984375
+  min_is_ood: True
+  mix_score: 29925.037109375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 374:
+  min_score: 26684.8203125
+  min_is_ood: True
+  mix_score: 26295.240234375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 375:
+  min_score: 25204.744140625
+  min_is_ood: True
+  mix_score: 24994.439453125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 376:
+  min_score: 22632.408203125
+  min_is_ood: True
+  mix_score: 22624.123046875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 377:
+  min_score: 66706.8828125
+  min_is_ood: True
+  mix_score: 68083.3828125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 378:
+  min_score: 21076.3046875
+  min_is_ood: True
+  mix_score: 19246.728515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 379:
+  min_score: 16098.69140625
+  min_is_ood: True
+  mix_score: 15961.6748046875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 380:
+  min_score: 40001.125
+  min_is_ood: True
+  mix_score: 39808.48828125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 381:
+  min_score: 38659.76953125
+  min_is_ood: True
+  mix_score: 38288.765625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 382:
+  min_score: 21455.673828125
+  min_is_ood: True
+  mix_score: 19960.478515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 383:
+  min_score: 29806.35546875
+  min_is_ood: True
+  mix_score: 30611.79296875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 384:
+  min_score: 78510.234375
+  min_is_ood: True
+  mix_score: 79702.4296875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 385:
+  min_score: 31675.001953125
+  min_is_ood: True
+  mix_score: 30791.115234375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 386:
+  min_score: 17002.314453125
+  min_is_ood: True
+  mix_score: 17909.537109375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 387:
+  min_score: 37888.5546875
+  min_is_ood: True
+  mix_score: 37486.83984375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 388:
+  min_score: 11820.083984375
+  min_is_ood: True
+  mix_score: 13416.7939453125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 389:
+  min_score: 11740.740234375
+  min_is_ood: True
+  mix_score: 10823.5439453125
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 390:
+  min_score: 26110.6171875
+  min_is_ood: True
+  mix_score: 25483.12890625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 391:
+  min_score: 19392.841796875
+  min_is_ood: True
+  mix_score: 19661.150390625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 392:
+  min_score: 28995.826171875
+  min_is_ood: True
+  mix_score: 30578.189453125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 393:
+  min_score: 18050.171875
+  min_is_ood: True
+  mix_score: 18393.232421875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 394:
+  min_score: 66325.03125
+  min_is_ood: True
+  mix_score: 65309.76953125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 395:
+  min_score: 19077.8203125
+  min_is_ood: True
+  mix_score: 19869.6796875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 396:
+  min_score: 35046.703125
+  min_is_ood: True
+  mix_score: 34397.66015625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 397:
+  min_score: 44163.0703125
+  min_is_ood: True
+  mix_score: 45585.5390625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 398:
+  min_score: 24599.6953125
+  min_is_ood: True
+  mix_score: 25782.634765625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 399:
+  min_score: 25811.79296875
+  min_is_ood: True
+  mix_score: 25184.921875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 400:
+  min_score: 26670.03515625
+  min_is_ood: True
+  mix_score: 25141.447265625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 401:
+  min_score: 19568.732421875
+  min_is_ood: True
+  mix_score: 19580.859375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 402:
+  min_score: 12922.6923828125
+  min_is_ood: True
+  mix_score: 12649.9208984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 403:
+  min_score: 23322.52734375
+  min_is_ood: True
+  mix_score: 21089.263671875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 404:
+  min_score: 33935.6171875
+  min_is_ood: True
+  mix_score: 29297.498046875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 405:
+  min_score: 76681.578125
+  min_is_ood: True
+  mix_score: 75750.0234375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 406:
+  min_score: 36134.75
+  min_is_ood: True
+  mix_score: 35827.33984375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 407:
+  min_score: 40070.625
+  min_is_ood: True
+  mix_score: 39735.06640625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 408:
+  min_score: 14707.4833984375
+  min_is_ood: True
+  mix_score: 15060.2177734375
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 409:
+  min_score: 43466.015625
+  min_is_ood: True
+  mix_score: 40001.36328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 410:
+  min_score: 10731.66015625
+  min_is_ood: True
+  mix_score: 11693.89453125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 411:
+  min_score: 59081.40625
+  min_is_ood: True
+  mix_score: 60016.92578125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 412:
+  min_score: 64130.9140625
+  min_is_ood: True
+  mix_score: 56008.12109375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 413:
+  min_score: 50024.3828125
+  min_is_ood: True
+  mix_score: 25467.970703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 414:
+  min_score: 21930.12890625
+  min_is_ood: True
+  mix_score: 21133.388671875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 415:
+  min_score: 16728.640625
+  min_is_ood: True
+  mix_score: 15874.5
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 416:
+  min_score: 7428.09619140625
+  min_is_ood: True
+  mix_score: 7654.10400390625
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 417:
+  min_score: 30097.87890625
+  min_is_ood: True
+  mix_score: 28297.16015625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 418:
+  min_score: 9275.3447265625
+  min_is_ood: True
+  mix_score: 10056.5126953125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 419:
+  min_score: 5381.96826171875
+  min_is_ood: True
+  mix_score: 6311.2333984375
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 420:
+  min_score: 62604.2109375
+  min_is_ood: True
+  mix_score: 62142.11328125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 421:
+  min_score: 42444.88671875
+  min_is_ood: True
+  mix_score: 39407.89453125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 422:
+  min_score: 73216.15625
+  min_is_ood: True
+  mix_score: 72190.5390625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 423:
+  min_score: 24900.2265625
+  min_is_ood: True
+  mix_score: 24613.833984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 424:
+  min_score: 36030.0703125
+  min_is_ood: True
+  mix_score: 31941.400390625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 425:
+  min_score: 30144.08984375
+  min_is_ood: True
+  mix_score: 29091.271484375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 426:
+  min_score: 33458.98828125
+  min_is_ood: True
+  mix_score: 28389.23828125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 427:
+  min_score: 34013.6171875
+  min_is_ood: True
+  mix_score: 34354.51171875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 428:
+  min_score: 27853.033203125
+  min_is_ood: True
+  mix_score: 25415.08203125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 429:
+  min_score: 26884.7265625
+  min_is_ood: True
+  mix_score: 27366.384765625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 430:
+  min_score: 32205.998046875
+  min_is_ood: True
+  mix_score: 31803.220703125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 431:
+  min_score: 65643.9140625
+  min_is_ood: True
+  mix_score: 66065.0390625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 432:
+  min_score: 37980.43359375
+  min_is_ood: True
+  mix_score: 37438.703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 433:
+  min_score: 34065.99609375
+  min_is_ood: True
+  mix_score: 33718.38671875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 434:
+  min_score: 18608.31640625
+  min_is_ood: True
+  mix_score: 21086.228515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 435:
+  min_score: 21224.4765625
+  min_is_ood: True
+  mix_score: 20787.275390625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 436:
+  min_score: 26504.90625
+  min_is_ood: True
+  mix_score: 25458.705078125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 437:
+  min_score: 70558.046875
+  min_is_ood: True
+  mix_score: 69206.0546875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 438:
+  min_score: 162942.578125
+  min_is_ood: True
+  mix_score: 167767.90625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 439:
+  min_score: 30846.794921875
+  min_is_ood: True
+  mix_score: 29409.82421875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 440:
+  min_score: 164619.125
+  min_is_ood: True
+  mix_score: 161634.671875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 441:
+  min_score: 65186.5546875
+  min_is_ood: True
+  mix_score: 65788.6953125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 442:
+  min_score: 35721.58984375
+  min_is_ood: True
+  mix_score: 29574.369140625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 443:
+  min_score: 23814.45703125
+  min_is_ood: True
+  mix_score: 25574.958984375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 444:
+  min_score: 23837.0234375
+  min_is_ood: True
+  mix_score: 23040.453125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 445:
+  min_score: 38506.3515625
+  min_is_ood: True
+  mix_score: 34252.05078125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 446:
+  min_score: 17809.580078125
+  min_is_ood: True
+  mix_score: 17484.314453125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 447:
+  min_score: 11515.4208984375
+  min_is_ood: True
+  mix_score: 11537.3876953125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 448:
+  min_score: 24126.443359375
+  min_is_ood: True
+  mix_score: 25726.15625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 449:
+  min_score: 12695.0966796875
+  min_is_ood: True
+  mix_score: 12153.328125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 450:
+  min_score: 40301.1484375
+  min_is_ood: True
+  mix_score: 41436.37109375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 451:
+  min_score: 16908.3203125
+  min_is_ood: True
+  mix_score: 16751.328125
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 452:
+  min_score: 55836.22265625
+  min_is_ood: True
+  mix_score: 62260.3515625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 453:
+  min_score: 11084.5830078125
+  min_is_ood: True
+  mix_score: 11914.74609375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 454:
+  min_score: 28477.306640625
+  min_is_ood: True
+  mix_score: 26522.935546875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 455:
+  min_score: 47125.828125
+  min_is_ood: True
+  mix_score: 48222.45703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 456:
+  min_score: 69029.90625
+  min_is_ood: True
+  mix_score: 69727.9921875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 457:
+  min_score: 15638.056640625
+  min_is_ood: True
+  mix_score: 14780.8154296875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 458:
+  min_score: 28046.171875
+  min_is_ood: True
+  mix_score: 28253.51953125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 459:
+  min_score: 49478.265625
+  min_is_ood: True
+  mix_score: 49511.41015625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 460:
+  min_score: 21816.25390625
+  min_is_ood: True
+  mix_score: 21129.416015625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 461:
+  min_score: 33073.73828125
+  min_is_ood: True
+  mix_score: 32987.6484375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 462:
+  min_score: 28580.19140625
+  min_is_ood: True
+  mix_score: 28305.587890625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 463:
+  min_score: 81578.46875
+  min_is_ood: True
+  mix_score: 81713.2421875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 464:
+  min_score: 66783.2109375
+  min_is_ood: True
+  mix_score: 65965.1640625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 465:
+  min_score: 91338.8125
+  min_is_ood: True
+  mix_score: 87759.8828125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 466:
+  min_score: 38021.53515625
+  min_is_ood: True
+  mix_score: 33502.91796875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 467:
+  min_score: 22329.8359375
+  min_is_ood: True
+  mix_score: 20644.869140625
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 468:
+  min_score: 35018.578125
+  min_is_ood: True
+  mix_score: 34316.35546875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 469:
+  min_score: 34106.0078125
+  min_is_ood: True
+  mix_score: 35239.73046875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 470:
+  min_score: 27054.0546875
+  min_is_ood: True
+  mix_score: 26892.45703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 471:
+  min_score: 33562.7265625
+  min_is_ood: True
+  mix_score: 38012.73828125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 472:
+  min_score: 34030.046875
+  min_is_ood: True
+  mix_score: 34962.75390625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 473:
+  min_score: 71336.5625
+  min_is_ood: True
+  mix_score: 71742.7578125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 474:
+  min_score: 67979.0
+  min_is_ood: True
+  mix_score: 45598.10546875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 475:
+  min_score: 27053.216796875
+  min_is_ood: True
+  mix_score: 26351.79296875
+  mix_is_ood: True
+  closest_label: 3
+  closest_task: peg-insert-side
+
+Episode 476:
+  min_score: 30706.2265625
+  min_is_ood: True
+  mix_score: 25899.017578125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 477:
+  min_score: 21447.01953125
+  min_is_ood: True
+  mix_score: 21529.845703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 478:
+  min_score: 36661.6875
+  min_is_ood: True
+  mix_score: 36860.98046875
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 479:
+  min_score: 25229.568359375
+  min_is_ood: True
+  mix_score: 24548.1953125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 480:
+  min_score: 68374.203125
+  min_is_ood: True
+  mix_score: 66112.9765625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 481:
+  min_score: 31067.4296875
+  min_is_ood: True
+  mix_score: 30085.23828125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 482:
+  min_score: 27773.814453125
+  min_is_ood: True
+  mix_score: 27659.7734375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 483:
+  min_score: 51435.4921875
+  min_is_ood: True
+  mix_score: 51685.7578125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 484:
+  min_score: 23616.751953125
+  min_is_ood: True
+  mix_score: 23663.220703125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 485:
+  min_score: 18435.58203125
+  min_is_ood: True
+  mix_score: 18690.45703125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 486:
+  min_score: 27822.23828125
+  min_is_ood: True
+  mix_score: 27307.181640625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 487:
+  min_score: 39734.09765625
+  min_is_ood: True
+  mix_score: 40097.28515625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 488:
+  min_score: 27681.703125
+  min_is_ood: True
+  mix_score: 26747.59375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 489:
+  min_score: 39367.8125
+  min_is_ood: True
+  mix_score: 40326.19921875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 490:
+  min_score: 29539.865234375
+  min_is_ood: True
+  mix_score: 28958.556640625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 491:
+  min_score: 42064.3515625
+  min_is_ood: True
+  mix_score: 41383.6953125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 492:
+  min_score: 19247.765625
+  min_is_ood: True
+  mix_score: 22104.095703125
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 493:
+  min_score: 33003.2265625
+  min_is_ood: True
+  mix_score: 33928.92578125
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 494:
+  min_score: 23475.271484375
+  min_is_ood: True
+  mix_score: 23538.091796875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 495:
+  min_score: 46498.6015625
+  min_is_ood: True
+  mix_score: 46359.5
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 496:
+  min_score: 49912.55078125
+  min_is_ood: True
+  mix_score: 50601.09765625
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 497:
+  min_score: 12338.1806640625
+  min_is_ood: True
+  mix_score: 16255.99609375
+  mix_is_ood: True
+  closest_label: 2
+  closest_task: drawer-close
+
+Episode 498:
+  min_score: 24016.5859375
+  min_is_ood: True
+  mix_score: 24571.552734375
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+
+Episode 499:
+  min_score: 53871.078125
+  min_is_ood: True
+  mix_score: 55034.35546875
+  mix_is_ood: True
+  closest_label: 4
+  closest_task: pick-place
+

@@ -6,24 +6,34 @@ BASE_CMD="python dreamer_distill.py"
 CONFIGS="--configs defaults metaworld"
 TASK="metaworld_drawer_open"
 
+# ---------------------------
+# New hyperparameters
+# ---------------------------
+USE_VAE="False"
+USE_DISTILL="True"
+DISTILL_WEIGHT="1.0"
+CONDITIONAL_DISTILL="True"
+
 # this is for original_cnn
-# LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/drawer_open/original"
+# LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/10_top50/window_open/original_metrics"
 # TEACHER_ENCODER_MODE="original_cnn" # moe or original_cnn
-# DEVICE="cuda:4"
-# TEACHER_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6/original/teacher_model.pt"
-# VAE_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6/original/vae_model.pt"
+# DEVICE="cuda:7"
+# TEACHER_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/original/teacher_model.pt"
+# VAE_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/original/vae_model.pt"
 
 # this is for moe
-LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/drawer_open/moe_multihead"
+LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/10_top50/drawer_open/moe_new"
 TEACHER_ENCODER_MODE="moe" # moe or original_cnn
 DEVICE="cuda:1"
-TEACHER_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6/moe_multihead/teacher_model.pt"
-VAE_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6/moe_multihead/vae_model.pt"
+TEACHER_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/moe/teacher_model.pt"
+VAE_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/moe/vae_model.pt"
 
 
 
 # Fixed random seeds
-SEEDS=(0 123 456 789 2024)
+# SEEDS=(789 2024)
+SEEDS=(456)
+
 
 echo "Using fixed seeds: ${SEEDS[@]}"
 echo ""

@@ -78,7 +78,7 @@ class DreamerDistill(nn.Module):
     print(f"Trainable: {trainable/1e6:.2f}M")
     
     # Load pretrained teacher
-    if config.teacher_model_path:
+    if config.teacher_model_path and config.use_distill:
       print(f'Loading pretrained teacher from {config.teacher_model_path}')
       teacher_checkpoint = torch.load(config.teacher_model_path, map_location=config.device)
       
@@ -89,14 +89,15 @@ class DreamerDistill(nn.Module):
         vae_checkpoint = torch.load(config.vae_model_path, map_location=config.device)
         
       self._wm.load_teacher(teacher_checkpoint, vae_checkpoint)
-    else:
-      raise ValueError("Must provide teacher_model_path for distillation")
-    
-    print("\n===== TEACHER ENCODER =====")
-    print(self._wm.encoder_teachers)
+      
+      print("\n===== TEACHER ENCODER =====")
+      print(self._wm.encoder_teachers)
 
-    print("\n===== TEACHER DYNAMICS =====")
-    print(self._wm.dynamics_teachers)
+      print("\n===== TEACHER DYNAMICS =====")
+      print(self._wm.dynamics_teachers)
+      
+    elif config.use_distill:
+      raise ValueError("Must provide teacher_model_path for distillation")
     
     # Behavior learning
     if config.use_distill:
@@ -167,22 +168,23 @@ class DreamerDistill(nn.Module):
       latent['stoch'] = latent['mean']
     feat = self._wm.dynamics.get_feat(latent)
 
-    teacher_feat = []
-    for index in range(self._config.num_teachers):
-      teacher_embed = self._wm.encoder_teachers(data, label=index)
-      latent_, _ = self._wm.dynamics_teachers.obs_step(
-      latent, action, teacher_embed, self._config.collect_dyn_sample, label=index)
+    if self._config.use_distill:
+      teacher_feat = []
+      for index in range(self._config.num_teachers):
+        teacher_embed = self._wm.encoder_teachers(data, label=index)
+        latent_, _ = self._wm.dynamics_teachers.obs_step(
+        latent, action, teacher_embed, self._config.collect_dyn_sample, label=index)
 
-      teacher_i = self._wm.dynamics_teachers.get_feat(latent_)
-      teacher_feat.append(teacher_i)
+        teacher_i = self._wm.dynamics_teachers.get_feat(latent_)
+        teacher_feat.append(teacher_i)
 
-    t_weight = torch.stack(teacher_feat, axis=1)
+      t_weight = torch.stack(teacher_feat, axis=1)
 
-    student_weight = feat.unsqueeze(1).repeat(1,self._config.num_teachers,1)
-    all_weight = torch.cat([t_weight, student_weight], -1) # 1, 6, 500
-    all_weight = self._wm.imp(all_weight).squeeze(-1)  # 1, 6
-    all_weight = self.softmax_1(all_weight)  # 1, 6
-    weight_max = torch.argmax(all_weight, dim=1)
+      student_weight = feat.unsqueeze(1).repeat(1,self._config.num_teachers,1)
+      all_weight = torch.cat([t_weight, student_weight], -1) # 1, 6, 500
+      all_weight = self._wm.imp(all_weight).squeeze(-1)  # 1, 6
+      all_weight = self.softmax_1(all_weight)  # 1, 6
+      weight_max = torch.argmax(all_weight, dim=1)
     
     if self._config.use_vae: 
       sampled_actions, sampled_feats = self._wm.vae.decode(feat, weight_max)  ## 1 * 50
@@ -220,7 +222,10 @@ class DreamerDistill(nn.Module):
 
   def _train(self, data):
     metrics = {}
-    post, context, mets, weight = self._wm._train(data)
+    if self._config.use_distill:
+      post, context, mets, weight = self._wm._train(data)
+    else:
+      post, context, mets = self._wm._train(data)
     metrics.update(mets)
     
     start = post
@@ -230,7 +235,10 @@ class DreamerDistill(nn.Module):
     
     reward = lambda f, s, a: self._wm.heads['reward'](
         self._wm.dynamics.get_feat(s)).mode()
-    metrics.update(self._task_behavior._train(start, reward, weight=weight)[-1])
+    if self._config.use_distill:
+      metrics.update(self._task_behavior._train(start, reward, weight=weight)[-1])
+    else:
+      metrics.update(self._task_behavior._train(start, reward)[-1])
     
     if self._config.expl_behavior != 'greedy':
       if self._config.pred_discount:
@@ -509,15 +517,16 @@ def main(config):
     print('Start training.')
     state = tools.simulate(agent, train_envs, config.eval_every, state=state)
 
-    incident_list = agent._task_behavior._incident_counts_running.tolist()
-    total_sum = sum(incident_list)
-    
-    print("Current incident counts:", incident_list)
-    print(f"Total sum: {total_sum}")
-    percentages = [(count / total_sum * 100) for count in incident_list]
-    print(f"step {agent._step} Percentages: {percentages}")
-    
-    agent._task_behavior._incident_counts_running.zero_()
+    if config.use_distill:
+      incident_list = agent._task_behavior._incident_counts_running.tolist()
+      total_sum = sum(incident_list)
+      
+      print("Current incident counts:", incident_list)
+      print(f"Total sum: {total_sum}")
+      percentages = [(count / total_sum * 100) for count in incident_list]
+      print(f"step {agent._step} Percentages: {percentages}")
+      
+      agent._task_behavior._incident_counts_running.zero_()
     
     torch.save(agent.state_dict(), logdir / 'latest_model.pt')
   
@@ -526,7 +535,6 @@ def main(config):
       env.close()
     except Exception:
       pass
-
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
