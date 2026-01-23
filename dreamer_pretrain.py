@@ -300,4 +300,4 @@ if __name__ == '__main__':
   
 # python -u dreamer_pretrain.py --configs defaults metaworld --logdir ./logs/moe_teacher_new
 # python dreamer_pretrain.py --configs defaults metaworld metaworld_teacher_moe_pretrain --logdir /storage/ssd1/richtsai1103/vid2act/models/mt6/moe_multihead_new --device cuda:1 --seed 0
-# python dreamer_pretrain.py --configs defaults metaworld metaworld_teacher_moe_pretrain --logdir /home/u9244634/model/moe_ablation/top3 --device cuda:1 --seed 0
+# python dreamer_pretrain.py --configs defaults metaworld metaworld_teacher_moe_pretrain --logdir /home/u9244634/model/moe_new/ --device cuda:1 --seed 0

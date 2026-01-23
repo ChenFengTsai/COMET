@@ -22,7 +22,7 @@ CONDITIONAL_DISTILL="True"
 # VAE_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/original/vae_model.pt"
 
 # this is for moe
-LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/10_top50/drawer_open/moe_new"
+LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/10_top50/drawer_open/moe_new_hi"
 TEACHER_ENCODER_MODE="moe" # moe or original_cnn
 DEVICE="cuda:1"
 TEACHER_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/moe/teacher_model.pt"

@@ -593,7 +593,6 @@ class OrthogonalLayer(nn.Module):
 
     def forward(self, feats: torch.Tensor) -> torch.Tensor:
       B, N, Fdim = feats.shape
-      
       qs = []
       for i in range(N):
         v = feats[:, i, :] # [B, F]
@@ -603,6 +602,25 @@ class OrthogonalLayer(nn.Module):
         qs.append(v)
       Q = torch.stack(qs, dim=1)
       return Q
+
+    # @torch.no_grad()
+    # def forward(self, feats: torch.Tensor) -> torch.Tensor:
+    #   B, N, Fdim = feats.shape
+    #   Q = torch.zeros_like(feats)
+
+    #   for i in range(N):
+    #     v = feats[:, i, :]  # [B, F]
+    #     if i > 0:
+    #       proj = torch.zeros_like(v)
+    #       for j in range(i):
+    #         qj = Q[:, j, :]                            # [B, F]
+    #         alpha = (v * qj).sum(dim=-1, keepdim=True) # [B, 1]
+    #         proj = proj + alpha * qj
+    #       v = v - proj
+    #     norm = v.norm(dim=-1, keepdim=True).clamp_min(self.eps)
+    #     Q[:, i, :] = v / norm
+
+    #   return Q
 
 
 class MoEOrthogonalConvEncoder(nn.Module):
@@ -700,9 +718,12 @@ class MoEOrthogonalConvEncoder(nn.Module):
           feats_bt = self.orthogonal_layer(feats_bt)          # [B*T, N, F]
           # Back to [B, N, T, F]
           feats = feats_bt.view(B, T, N, Fdim).permute(0, 2, 1, 3).contiguous()
+          # print('here')
         elif len(feats.shape) == 3: # [B, N, F]
           B, N, Fdim = feats.shape
           feats_bt = self.orthogonal_layer(feats)          # [B*T, N, F]
+          # print("here")
+          feats = feats_bt
       # -----------------------------------------
 
       # Compute task weights w: [B, N]

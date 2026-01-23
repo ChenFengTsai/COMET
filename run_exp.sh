@@ -36,7 +36,7 @@ do
         echo "Running ORIGINAL_CNN teacher setup"
         echo "========================================="
 
-        LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/10_top50/drawer_open/original_metrics"
+        LOGDIR_BASE="/storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/10_top50/drawer_open/original_metrics_hi"
         TEACHER_ENCODER_MODE="original_cnn"
         TEACHER_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/original/teacher_model.pt"
         VAE_MODEL_PATH="/storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/original/vae_model.pt"
