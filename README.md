@@ -39,7 +39,6 @@ source_task_dirs/
 ├── drawer-close-v2/
 ├── door-open-v2/
 └── ... (other task .npz files)
-
 ```
 ---
 
