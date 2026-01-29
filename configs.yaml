@@ -33,9 +33,9 @@ defaults:
   eval_num: 10
   is_adaptive: True
   source_tasks: null
-  use_distill: True # if it is distillation process (not necessary use a distill network)
+  use_distill: False # if it is distillation process (not necessary use a distill network)
   distill_network: True # use a distill network to project teacher feat to student space
-  use_vae: True
+  use_vae: False
   distill_weight: 1.0
   online_mode: True
   moe_temperature: '1.0'

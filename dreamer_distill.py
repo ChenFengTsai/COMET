@@ -550,7 +550,8 @@ if __name__ == '__main__':
     arg_type = tools.args_type(value)
     parser.add_argument(f'--{key}', type=arg_type, default=arg_type(value))
   main(parser.parse_args(remaining))
-  # python dreamer_distill.py --configs defaults metaworld --logdir /storage/ssd1/richtsai1103/vid2act/log/metaworld/open3/window_close/new_moe/original --teacher_encoder_mode original_conv --device cuda:4 --teacher_model_path /storage/ssd1/richtsai1103/vid2act/models/original_teacher/teacher_model.pt --vae_model_path /storage/ssd1/richtsai1103/vid2act/models/original_teacher/vae_model.pt --task metaworld_window_close --seed 0
+  
+  # python dreamer_distill.py --configs defaults metaworld --logdir /storage/ssd1/richtsai1103/vid2act/log/metaworld/open3/coffe_push/no_distill --device cuda:0 --task metaworld_coffee_push --seed 0
   # python dreamer_distill.py --configs defaults metaworld --logdir debug --teacher_encoder_mode moe --device cuda:4 --teacher_model_path /storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/moe/teacher_model.pt --vae_model_path /storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/moe/vae_model.pt --task metaworld_drawer_close --seed 0 --use_vae True
 
   # Total: 7.74M
