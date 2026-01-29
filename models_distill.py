@@ -110,7 +110,6 @@ class WorldModelStudent(nn.Module):
 
     # ========== TEACHER MODELS (Frozen) ==========
     # Determine teacher encoder mode
-    
     if teacher_encoder_mode == 'original_cnn':
       self.encoder_teachers = networks.ConvEncoder(
         teacher_grayscale, 
@@ -191,12 +190,6 @@ class WorldModelStudent(nn.Module):
       param.requires_grad = False
     for param in self.dynamics_teachers.parameters():
       param.requires_grad = False
-
-    # ========== DISTILLATION COMPONENTS ==========
-    # self.imp = nn.Linear(2*(config.dyn_stoch+config.dyn_deter), 1)
-    # self.distiller = nn.Linear(config.dyn_stoch+config.dyn_deter, 
-    #                            config.dyn_stoch+config.dyn_deter)
-    
     
     teacher_feat_dim = teacher_dyn_stoch + teacher_dyn_deter
     student_feat_dim = config.dyn_stoch + config.dyn_deter
@@ -237,7 +230,7 @@ class WorldModelStudent(nn.Module):
           config=config
       )
       
-      # # Freeze VAE params during online training
+      # Freeze VAE params during online training
       for p in self.vae.parameters():
         p.requires_grad = True
       self.vae.train()
@@ -442,14 +435,7 @@ class WorldModelStudent(nn.Module):
           for index in range(self._config.num_teachers):
             teacher_feature = teacher_feat[index]
             if self._config.use_distill and self.distiller is not None:
-              # if self._config.conditional_distill:
-              #   one_hot = F.one_hot(torch.full((teacher_feature.shape[0],), index, device=teacher_feature.device), num_classes=self._config.num_teachers).float()
-              #   d_in = torch.cat([teacher_feature, one_hot], dim=-1)
-              # else:
-              #   d_in = teacher_feature
               if self._config.conditional_distill:
-                # teacher_feature: (..., feat_dim)
-                # we want one_hot: (..., num_teachers)
                 idx = torch.full(
                     teacher_feature.shape[:-1],          # same leading dims as teacher_feature
                     index,
@@ -473,7 +459,7 @@ class WorldModelStudent(nn.Module):
               
             # weight for this teacher (same shape as mse)
             weight_raw = imp_weights[index]
-            weight = torch.max(self.m, weight_raw)  # your clipping step :contentReference[oaicite:4]{index=4}
+            weight = torch.max(self.m, weight_raw)  
 
             # distillation objective
             contrib = mse * weight
@@ -660,8 +646,6 @@ class ImagBehavior(nn.Module):
           imag_feat_action = None
           actor_ent = self.actor(imag_feat).entropy()
         reward = objective(imag_feat, imag_state, imag_action)
-        # # actor_ent = self.actor(imag_feat_action).entropy()
-        # actor_ent = self.actor(imag_feat).entropy()
         state_ent = self._world_model.dynamics.get_dist(imag_state).entropy()
         target, weights = self._compute_target(
             imag_feat, imag_state, imag_action, reward, actor_ent, state_ent, self._config.slow_actor_target)
@@ -727,7 +711,6 @@ class ImagBehavior(nn.Module):
       succ, feats, actions = tools.static_scan(
         step, [torch.arange(horizon)], (start, None, None))
     
-    # ---------- NEW: count & save incidents ----------
     
     if weight is not None:
       t = torch.tensor(weight)
@@ -742,7 +725,7 @@ class ImagBehavior(nn.Module):
         
         percentages = [(count / total_sum * 100) for count in incident_list]
         print(f"Percentages: {percentages}")
-    # ---------- /NEW ----------
+
   
     states = {k: torch.cat([
         start[k][None], v[:-1]], 0) for k, v in succ.items()}

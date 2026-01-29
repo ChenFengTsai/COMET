@@ -13,7 +13,6 @@ import torch
 import ruamel.yaml as yaml
 
 import tools
-import models_distill
 import models_pretrain
 
 
@@ -218,10 +217,6 @@ def load_teacher_modules(config, example_episode: Dict[str, Any]):
     action_space = infer_action_space_from_episode(example_episode)
 
     def _extract_state_dict(obj: Any) -> Dict[str, torch.Tensor]:
-        # Common checkpoint formats:
-        #  1) torch.save(model.state_dict())
-        #  2) torch.save({'state_dict': model.state_dict(), ...})
-        #  3) torch.save({'model': model.state_dict(), ...})
         if isinstance(obj, dict):
             # If it already looks like a plain state_dict.
             if len(obj) and all(torch.is_tensor(v) for v in obj.values()):
@@ -572,10 +567,6 @@ def run(config):
     print(f"\n[OK] Saved results -> {out}")
 
 
-# =============================================================================
-# Config parsing: configs.yaml + run config + CLI overrides
-# =============================================================================
-
 def build_config():
     parser = argparse.ArgumentParser()
     parser.add_argument("--configs", nargs="+", required=True)
@@ -642,5 +633,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-# Example usage:
-# python ood_detection.py   --configs defaults metaworld metaworld_teacher_moe_pretrain   --student_dir /storage/ssd1/richtsai1103/vid2act/log/metaworld/mt6/button_press/moe_seed0/train_eps   --device cuda:0  --source_dir /storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/top50 --teacher_model_path /storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50_fix/moe/teacher_model.pt

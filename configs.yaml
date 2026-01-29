@@ -3,19 +3,14 @@ defaults:
   logdir: null
   traindir: null
   evaldir: null
-  video_dir: '/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps'
+  video_dir: './log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps'
   pretrain_model_dir: null
-  # offline_traindir: '/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps'
-  # offline_evaldir: '/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/eval_eps'
   offline_traindir: ''
   offline_evaldir: ''
   
   # remember to modify this everytime you change model type when doing distillation
-  # teacher_model_path: /home/richtsai1103/CRL/Vid2Act/logs/original_teacher/teacher_model.pt  # Required
-  # vae_model_path: /home/richtsai1103/CRL/Vid2Act/logs/original_teacher/vae_model.pt       # Optional (but recommended)
-  # teacher_encoder_mode: 'moe'
-  teacher_model_path: /storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/moe/teacher_model.pt  # Required
-  vae_model_path: /storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/moe/vae_model.pt      # Optional (but recommended)
+  teacher_model_path: ./models/mt6_10_top50/moe/teacher_model.pt  # Required
+  vae_model_path: ./models/mt6_10_top50/moe/vae_model.pt      # Optional (but recommended)
   teacher_encoder_mode: 'moe' # original_cnn
 
   seed: 0
@@ -24,7 +19,7 @@ defaults:
   log_every: 1e4
   reset_every: 0
   #gpu_growth: True
-  device: 'cuda:1'
+  device: 'cuda:0'
   precision: 16
   debug: False
   expl_gifs: False
@@ -320,25 +315,13 @@ metaworld:
   # target_tasks: ['door_close', 'faucet_open', 'handle_press', 'plate_slide', 'reach_wall', 'window_close']
   source_tasks: ['button_press_topdown', 'door_open', 'drawer_close', 'peg_insert_side', 'pick_place', 'push']
   source_task_dirs: [
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/button-press-topdown',
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/door-open',
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/drawer-close',
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/peg-insert-side',
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/pick-place',
-    '/storage/ssd1/richtsai1103/vid2act/pretrain/metaworld/pretrain_data/stratified_per_task_10_top50/push'
+    './pretrain_data/button-press-topdown',
+    './pretrain_data/door-open',
+    './pretrain_data/drawer-close',
+    './pretrain_data/peg-insert-side',
+    './pretrain_data/pick-place',
+    './pretrain_data/push'
   ]
-  
-  # source_tasks: [
-  #   "door_open",
-  #   "drawer_open",
-  #   "window_open"
-  # ]
-
-  # source_task_dirs: [
-  #   "/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_0",
-  #   "/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_1",
-  #   "/storage/ssd1/richtsai1103/iso_ted/log/metaworld/multi_5/mentor_open/dreamer_fixed-long_2/train_eps_by_task/task_2"
-  # ]
 
   
   # Environment

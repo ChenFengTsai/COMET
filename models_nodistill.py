@@ -140,49 +140,6 @@ class WorldModelStudent(nn.Module):
         reward=config.reward_scale, discount=config.discount_scale)
     self.l2_loss = torch.nn.MSELoss(reduction='none')
 
-
-  
-  # def load_teacher(self, teacher_state_dict, vae_state_dict=None):
-  #   """Load pretrained teacher weights and optional VAE weights
-    
-  #   Args:
-  #       teacher_state_dict: State dict from teacher model checkpoint
-  #       vae_state_dict: State dict from VAE checkpoint (optional)
-  #   """
-  #   # Map teacher checkpoint to student's teacher models
-  #   teacher_dict = {}
-  #   for key, value in teacher_state_dict.items():
-  #     # Rename keys from teacher checkpoint to match student's teacher models
-  #     if key.startswith('encoder.'):
-  #       teacher_dict['encoder_teachers.' + key[8:]] = value
-  #     elif key.startswith('dynamics.'):
-  #       teacher_dict['dynamics_teachers.' + key[9:]] = value
-  #     elif key.startswith('heads.'):
-  #       # Skip heads, we don't need them in student
-  #       pass
-  #     else:
-  #       # Handle any other keys (like MoE components)
-  #       pass
-    
-  #   # Load teacher parameters with strict=False to ignore missing student-only params
-  #   self.load_state_dict(teacher_dict, strict=False)
-  #   print(f"Loaded {len(teacher_dict)} teacher parameters")
-    
-  #   # Load VAE weights if provided
-  #   if vae_state_dict is not None:
-  #     try:
-  #       self.vae.load_state_dict(vae_state_dict, strict=True)
-  #       print(f"Loaded VAE checkpoint with {len(vae_state_dict)} parameters")
-  #     except RuntimeError as e:
-  #       print(f"Warning: Could not load VAE checkpoint - {e}")
-  #       print("Continuing with random VAE initialization")
-    
-  #   # Freeze teacher models
-  #   for param in self.encoder_teachers.parameters():
-  #     param.requires_grad = False
-  #   for param in self.dynamics_teachers.parameters():
-  #     param.requires_grad = False
-
   def _train(self, data):
     """Train student model with distillation"""
     data = self.preprocess(data)
@@ -201,80 +158,8 @@ class WorldModelStudent(nn.Module):
 
         feat = self.dynamics.get_feat(post)
 
-        # # ========== DISTILLATION LOSS ==========
-        # d_loss = torch.tensor(0.0, device=feat.device)
-        # vae_loss = torch.tensor(0.0, device=feat.device)
-        
-        # if self._config.is_adaptive:
-        #   teacher_feat = []
-        #   imp_weights = []
-
-        #   # Get features from all teachers
-        #   for index in range(self._config.num_teachers):
-        #     with torch.no_grad():  # Teachers are frozen
-        #       teacher_embed = self.encoder_teachers(data, label=index)
-        #       t_post, t_prior = self.dynamics_teachers.observe(
-        #           teacher_embed, data["action"], label=index)
-        #       teacher_i = self.dynamics_teachers.get_feat(t_post)
-            
-        #     teacher_feat.append(teacher_i)
-
-        #     # Compute importance weights
-        #     imp_input = torch.cat([teacher_i, feat], dim=-1)
-        #     imp_weight = self.imp(imp_input)
-        #     imp_weights.append(imp_weight)
-
-        #   # Compute weighted distillation loss
-        #   imp_weights = torch.stack(imp_weights, dim=0)
-        #   imp_weights = torch.squeeze(imp_weights)
-        #   imp_weights = self.softmax(imp_weights)
-        #   all_weight = imp_weights.reshape((self._config.num_teachers, self._config.batch_size * self._config.batch_length)) # 50*50=2500
-        #   out_weight = torch.argmax(all_weight, dim=0) # 2500
-
-        #   d_loss_val = 0.0
-        #   for index in range(self._config.num_teachers):
-        #     teacher_feature = teacher_feat[index]
-        #     # d_t_feat = self.distiller(teacher_feature)
-        #     # mse = torch.mean(self.l2_loss(d_t_feat, feat), dim=-1)
-        #     mse = torch.mean(self.l2_loss(teacher_feature, feat), dim=-1)
-        #     weight = imp_weights[index]
-            
-        #     weight = torch.max(self.m, weight)
-        #     print(weight)
-        #     d_loss_val += torch.mean(mse * weight)
-
-        #   d_loss = d_loss_val
-
-          # ========== VAE LOSS ==========
-          # if self._offline_dataset is not None:
-          #   vae_accum = 0.0
-          #   for max_weight in range(self._config.num_teachers):
-          #     source_data = next(self._offline_dataset[max_weight])
-          #     source_data = self.preprocess(source_data)
-              
-          #     with torch.no_grad():
-          #       source_embed = self.encoder_teachers(source_data, label=max_weight)
-          #       source_post, _ = self.dynamics_teachers.observe(
-          #           source_embed, source_data["action"], label=max_weight)
-          #       source_feat = self.dynamics_teachers.get_feat(source_post)
-          #       source_feat = self.distiller(source_feat).detach()
-
-          #     batch, seq, dim = source_feat.shape
-          #     z_flat = source_feat[:, :-1, :].reshape(batch * (seq - 1), dim)
-          #     act = source_data['action'][:, 1:, :].reshape(batch * (seq - 1), -1)
-          #     label = [max_weight] * (batch * (seq - 1))
-
-          #     recon, mean, std = self.vae(z_flat, act, label)
-          #     recon_loss = torch.nn.functional.mse_loss(recon, act)
-          #     vae_kl_loss = -0.5 * (1 + torch.log(std.pow(2)) - mean.pow(2) - std.pow(2)).mean()
-          #     vae_accum += recon_loss + 0.5 * vae_kl_loss
-
-          #   vae_loss = vae_accum
-
         # ========== STUDENT HEADS ==========
         losses = {'kl': kl_loss}
-        # losses['distillation'] = d_loss # multiplied by self._config.distill_weight
-        # losses['vae'] = vae_loss
 
         likes = {}
         for name, head in self.heads.items():
@@ -391,12 +276,9 @@ class ImagBehavior(nn.Module):
 
     with tools.RequiresGrad(self.actor):
       with torch.cuda.amp.autocast(self._use_amp):
-        # imag_feat, imag_feat_action, imag_state, imag_action = self._imagine(
-        #     start, self.actor, self._config.imag_horizon, repeats, weight)
         imag_feat, imag_state, imag_action = self._imagine(
             start, self.actor, self._config.imag_horizon, repeats, weight)
         reward = objective(imag_feat, imag_state, imag_action)
-        # actor_ent = self.actor(imag_feat_action).entropy()
         actor_ent = self.actor(imag_feat).entropy()
         state_ent = self._world_model.dynamics.get_dist(
             imag_state).entropy()
@@ -439,30 +321,17 @@ class ImagBehavior(nn.Module):
     flatten = lambda x: x.reshape([-1] + list(x.shape[2:]))
     start = {k: flatten(v) for k, v in start.items()}
     def step(prev, _):
-      # state, _, _, _ = prev
       state, _, _= prev
       feat = dynamics.get_feat(state)
-      # sampled_actions, sampled_feat = self._world_model.vae.decode(feat, weight)
-      # # inp = torch.cat([feat, sampled_feat], -1)
       inp = feat.detach()
       action = policy(inp).sample()
-      # action = policy(inp.detach()).sample()
       succ = dynamics.img_step(state, action, sample=self._config.imag_sample)
-      # return succ, feat, inp, action
       return succ, feat, action
-    # feat = 0 * dynamics.get_feat(start)
-    # sam_action, sam_feat = self._world_model.vae.decode(feat, weight)
-    # feat_action = torch.cat([feat, sam_feat], -1)
-    # action = policy(feat_action).mode()
+
 
     succ, feats, actions = tools.static_scan(
         step, [torch.arange(horizon)], (start, None, None))
-    # succ, feats, feat_actions, actions = tools.static_scan(
-    #     step, [torch.arange(horizon)], (start, feat, feat_action, action))
-    
-    
-    
-    # ---------- NEW: count & save incidents ----------
+
     if weight is not None:
       if not isinstance(weight, torch.Tensor):
         t = torch.tensor(weight)
@@ -477,7 +346,6 @@ class ImagBehavior(nn.Module):
         
         percentages = [(count / total_sum * 100) for count in incident_list]
         print(f"Percentages: {percentages}")
-    # ---------- /NEW ----------
   
     states = {k: torch.cat([
         start[k][None], v[:-1]], 0) for k, v in succ.items()}
@@ -485,7 +353,6 @@ class ImagBehavior(nn.Module):
       raise NotImplemented("repeats is not implemented in this version")
     
     return feats, states, actions
-    # return feats, feat_actions, states, actions
 
   def _compute_target(
       self, imag_feat, imag_state, imag_action, reward, actor_ent, state_ent,
@@ -514,7 +381,6 @@ class ImagBehavior(nn.Module):
       self, imag_feat, imag_feat_action, imag_state, imag_action, target, actor_ent, state_ent,
       weights):
     metrics = {}
-    # inp = imag_feat_action.detach() if self._stop_grad_actor else imag_feat_action
     inp = imag_feat.detach()
     policy = self.actor(inp)
     actor_ent = policy.entropy()

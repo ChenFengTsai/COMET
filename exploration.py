@@ -4,7 +4,7 @@ from torch import distributions as torchd
 
 import networks
 import tools
-# import tensorflow as tf
+import tensorflow as tf
 
 
 class Random(nn.Module):

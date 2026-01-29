@@ -168,10 +168,7 @@ class WorldModelTeacher(nn.Module):
         if optimize:
             metrics = self._model_opt(model_loss, self.parameters_list)
         else:
-            metrics = {}
-            
-      # metrics = self._model_opt(model_loss, self.parameters_list)
-      
+            metrics = {}      
 
     metrics.update({f'{name}_loss': to_np(loss) for name, loss in losses.items()})
     metrics['kl_balance'] = kl_balance
@@ -210,12 +207,9 @@ class WorldModelTeacher(nn.Module):
     post = {k: v.detach() for k, v in post.items()}
     
     if return_loss_tensor:
-      # Return a 4-tuple so callers can grab the raw tensor for grads
       return post, context, metrics, model_loss
     else:
-      # Preserve your original 3-tuple API
       return post, context, metrics
-    # return post, context, metrics
 
   def preprocess(self, obs):
     obs = obs.copy()
@@ -269,7 +263,6 @@ class ImagBehavior(nn.Module):
     else:
       feat_size = config.teacher_dyn_stoch + config.teacher_dyn_deter
     self.actor = networks.ActionHead(
-        # feat_size+50,  # pytorch version
         feat_size,
         config.num_actions, config.actor_layers, config.units, config.act,
         config.actor_dist, config.actor_init_std, config.actor_min_std,

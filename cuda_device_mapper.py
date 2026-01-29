@@ -133,33 +133,3 @@ class CUDADeviceMapper:
             pytorch_idx = self.nvidia_to_pytorch_map[nvidia_id]
             props = torch.cuda.get_device_properties(pytorch_idx)
             print(f"GPU {nvidia_id:2d} -> PyTorch Device {pytorch_idx} ({props.name})")
-
-
-# # Usage example
-# def main():
-#     # Initialize the mapper
-#     mapper = CUDADeviceMapper()
-    
-#     # Print current mapping
-#     mapper.print_mapping()
-#     print()
-    
-#     # Example: Your config says "cuda:0" (referring to nvidia-smi GPU 0)
-#     config_device = "cuda:7"  # This means nvidia-smi GPU 0 (RTX A6000)
-    
-#     try:
-#         # Set device based on config
-#         device = mapper.set_device_from_config(config_device)
-        
-#         # Test with a simple tensor operation
-#         test_tensor = torch.randn(3, 3).to(device)
-#         print(f"Successfully created tensor on {device}")
-#         print(f"Current CUDA device: {torch.cuda.current_device()}")
-#         print(f"Device name: {torch.cuda.get_device_name(device)}")
-        
-#     except ValueError as e:
-#         print(f"Error: {e}")
-
-
-# if __name__ == "__main__":
-#     main()

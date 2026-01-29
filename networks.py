@@ -7,13 +7,6 @@ from torch import distributions as torchd
 
 import tools
 
-      
-import torch
-from torch import nn
-from torch import distributions as torchd
-
-import tools
-
 
 class RSSM_Teacher(nn.Module):
 
@@ -699,7 +692,6 @@ class MoEOrthogonalConvEncoder(nn.Module):
       tmp = obs['image'].reshape((-1,) + tuple(obs['image'].shape[-3:]))
       tmp = tmp.permute(0, 3, 1, 2)  # NCHW
       B = tmp.shape[0]
-      # x_in = x
 
       # Per-expert features -> list of [B, T, F], stack -> [B, N, T, F]
       expert_feats = [enc(obs) for enc in self.experts]
@@ -718,11 +710,9 @@ class MoEOrthogonalConvEncoder(nn.Module):
           feats_bt = self.orthogonal_layer(feats_bt)          # [B*T, N, F]
           # Back to [B, N, T, F]
           feats = feats_bt.view(B, T, N, Fdim).permute(0, 2, 1, 3).contiguous()
-          # print('here')
         elif len(feats.shape) == 3: # [B, N, F]
           B, N, Fdim = feats.shape
           feats_bt = self.orthogonal_layer(feats)          # [B*T, N, F]
-          # print("here")
           feats = feats_bt
       # -----------------------------------------
 
@@ -732,7 +722,6 @@ class MoEOrthogonalConvEncoder(nn.Module):
           label = torch.tensor(label, device=feats.device)
         label = label.long().view(-1)
         c_onehot = F.one_hot(label, num_classes=self.label_num).float()
-        # w = self._task_encoder(c_onehot)  # [B, N]
         logits = self._task_encoder(c_onehot)
         w = F.softmax(logits / self.temperature, dim=-1)  
       else:
@@ -770,7 +759,6 @@ class ConvEncoder(nn.Module):
     self._include_label = include_label
 
     layers = []
-    # print(label_num)
     for i, kernel in enumerate(self._kernels):
       if i == 0:
         if grayscale:
@@ -1073,27 +1061,9 @@ class VAE(nn.Module):
 
     self.label_use = torch.eye(config.num_teachers).to(device)
 
-  # def forward(self, state, action, label):  
-
-  #   label_use = self.label_use[label]  
-  #   z = F.relu(self.e1(torch.cat([state, action, label_use], -1)))
-  #   z = F.relu(self.e2(z))
-
-  #   mean = self.mean(z)
-  #   # Clamped for numerical stability 
-  #   log_std = self.log_std(z).clamp(-4, 15)
-  #   std = torch.exp(log_std)
-  #   z = mean + std * torch.randn_like(std)  ## sigma
-    
-  #   u, s = self.decode(state, label, z)
-
-  #   return u, mean, std
   def forward(self, state, action, label):
     # Extract label embedding
     label_use = self.label_use[label]  # Shape: [num_teachers]
-    
-    # IMPORTANT: Broadcast label_use to match state/action dimensions
-    # If state is [B, T, D_s] and action is [B, T, A], we need label_use to be [B, T, num_teachers]
     
     if len(state.shape) == 3:
       # Temporal dimension exists: [B, T, D]
@@ -1105,12 +1075,6 @@ class VAE(nn.Module):
     elif len(state.shape) == 2:
       # No temporal dimension: [B, D]
       batch_size, _ = state.shape
-      # Reshape label_use from [num_teachers] to [1, num_teachers]
-      # then broadcast to [B, num_teachers]
-      # label_use = label_use.unsqueeze(0)
-      # print(label_use.shape)
-      # label_use = label_use.expand(batch_size, -1)
-      pass
     
     # Now all tensors have matching dimensions
     z = F.relu(self.e1(torch.cat([state, action, label_use], -1)))
@@ -1123,59 +1087,13 @@ class VAE(nn.Module):
     
     u, s = self.decode(state, label, z)
     return u, mean, std
-
-  # def decode(self, state, label, z=None):  
-  #   # When sampling from the VAE, the latent vector is clipped to [-0.5, 0.5]
-  #   if z is None:
-  #     z = torch.randn((state.shape[0], self.latent_dim)).to(self.device).clamp(-0.5,0.5)
-  #   label_use = self.label_use[label]  
-    
-  #   if len(state.shape) == 3:
-  #     seq, _, _ = state.size()
-  #     label_use = label_use.squeeze(0).repeat(seq, 1, 1)
-
-  #   a = F.relu(self.d1(torch.cat([state, z, label_use], -1)))
-  #   a = F.relu(self.d2(a))
-  #   return self.max_action * torch.tanh(self.d3(a)), a
-  
-  # def decode(self, state, label, z=None):
-  #   if z is None:
-  #       z = torch.randn((state.shape[0], self.latent_dim)).to(self.device).clamp(-0.5, 0.5)
-    
-  #   label_use = self.label_use[label]  # Shape: [num_teachers]
-    
-  #   # Broadcast label_use to match state dimensions
-  #   if len(state.shape) == 3:
-  #       batch_size, seq, _ = state.size()
-  #       # Reshape from [num_teachers] to [1, 1, num_teachers]
-  #       # then broadcast to [batch_size, seq, num_teachers]
-  #       label_use = label_use.unsqueeze(0).unsqueeze(0)
-  #       label_use = label_use.expand(batch_size, seq, -1)
-  #   elif len(state.shape) == 2:
-  #       batch_size = state.shape[0]
-  #       # Reshape from [num_teachers] to [1, num_teachers]
-  #       # then broadcast to [batch_size, num_teachers]
-  #       label_use = label_use.unsqueeze(0)
-  #       label_use = label_use.expand(batch_size, -1)
-    
-  #   # Broadcast z if needed
-  #   if z is not None and len(state.shape) == 3 and len(z.shape) == 2:
-  #       seq = state.shape[1]
-  #       z = z.unsqueeze(1).expand(-1, seq, -1)
-    
-  #   a = F.relu(self.d1(torch.cat([state, z, label_use], -1)))
-  #   a = F.relu(self.d2(a))
-  #   return self.max_action * torch.tanh(self.d3(a)), a
   
   def decode(self, state, label, z=None):
     if z is None:
       z = torch.randn((state.shape[0], self.latent_dim), device=self.device).clamp(-0.5, 0.5) # z is never used
 
     # label -> [num_teachers]
-    # print(self.label_use.shape)
     label_use = self.label_use[label]
-    # print(label)
-    # print('t', label_use.shape)
 
     if state.dim() == 3:
       # state: [B, T, Ds]  -> label_use: [B, T, num_teachers]
@@ -1184,14 +1102,6 @@ class VAE(nn.Module):
       if z is not None and z.dim() == 2:
         # z: [B, Dz] -> [B, T, Dz]
         z = z.unsqueeze(1).expand(B, T, -1)
-    # elif state.dim() == 2:
-    #   # state: [B, Ds] -> label_use: [B, num_teachers]
-    #   B, _ = state.shape
-    #   print('h', label_use.shape)
-    #   label_use = label_use.view(1, -1).expand(B, -1)
-    #   print(label_use.shape)
-      # label_use = label_use.unsqueeze(0)
-      # label_use = label_use.expand(B, -1)
     elif state.dim() == 2:
       # state: [B, Ds]
       B, _ = state.shape

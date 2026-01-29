@@ -35,14 +35,6 @@ class DreamerPretrain(nn.Module):
     self._metrics = {}
     self._step = 0
     
-    # Schedules
-    # config.actor_entropy = (
-    #     lambda x=config.actor_entropy: tools.schedule(x, self._step))
-    # config.actor_state_entropy = (
-    #     lambda x=config.actor_state_entropy: tools.schedule(x, self._step))
-    # config.imag_gradient_mix = (
-    #     lambda x=config.imag_gradient_mix: tools.schedule(x, self._step))
-    
     self._offline_datasets = offline_datasets
     self._wm = models_pretrain.WorldModelTeacher(self._step, config, action_space)
 
@@ -89,16 +81,11 @@ class DreamerPretrain(nn.Module):
         optimize=False,
         return_loss_tensor=True
       )
-      # unpack 4-tuple (see the change above)
       _post, _ctx, mets, loss_tensor = out
-
-      # numeric snapshot for logging
-      # pick up your existing per-head logs (they end with '_loss') and total
       snap = {}
       for k, v in mets.items():
         if k.endswith('_loss'):
           snap[k] = float(v)
-      # total (prefer model_loss if present)
       snap['total'] = float(mets.get('model_loss', sum(val for k, val in snap.items())))
       per_task_numeric[tid] = snap
 
@@ -111,7 +98,6 @@ class DreamerPretrain(nn.Module):
       p.requires_grad_(True)
     conflicts = tools.compute_gradient_conflicts(per_task_loss_tensor, shared_params)
 
-    # 3) (optional) push a few scalars into your logger buffers
     for tid, d in per_task_numeric.items():
       self._metrics.setdefault(f't{tid}/total_loss_snapshot', []).append(d['total'])
     for (i, j), sim in conflicts.items():
@@ -220,7 +206,6 @@ def main(config):
   # Initialize pretrain agent
   print('Initialize DreamerPretrain agent.')
   agent = DreamerPretrain(config, logger, offline_datasets, acts).to(config.device)
-  # agent.requires_grad_(requires_grad=False)
   
   print("\n===== TEACHER ENCODER =====")
   print(agent._wm.encoder)
@@ -261,7 +246,6 @@ def main(config):
       for name, values in agent._metrics.items():
         logger.scalar(name, float(np.mean(values)))
         
-      # NEW: snapshot losses & gradient conflicts
       per_task, conflicts = agent.gather_losses_and_conflicts(include_heads=False)
       # Log a compact set of summary scalars
       for tid, d in per_task.items():
@@ -298,6 +282,3 @@ if __name__ == '__main__':
     parser.add_argument(f'--{key}', type=arg_type, default=arg_type(value))
   main(parser.parse_args(remaining))
   
-# python -u dreamer_pretrain.py --configs defaults metaworld --logdir ./logs/moe_teacher_new
-# python dreamer_pretrain.py --configs defaults metaworld metaworld_teacher_moe_pretrain --logdir /storage/ssd1/richtsai1103/vid2act/models/mt6/moe_multihead_new --device cuda:1 --seed 0
-# python dreamer_pretrain.py --configs defaults metaworld metaworld_teacher_moe_pretrain --logdir /home/u9244634/model/moe_new/ --device cuda:1 --seed 0

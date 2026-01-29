@@ -2,3 +2,10 @@ __pycache__/
 command/
 notebook/
 offline_data/
+ood_results/
+log/
+models/
+configs_real.yaml
+
+*.csv
+*.pt

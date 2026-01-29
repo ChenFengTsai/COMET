@@ -41,7 +41,7 @@ class DreamerDistill(nn.Module):
         config.expl_until / config.action_repeat))
     self._metrics = {}
     self._step = count_steps(config.traindir)
-  # Initialize CSV file for incident counts logging
+    # Initialize CSV file for incident counts logging
     self._logdir = pathlib.Path(config.logdir).expanduser()
     self._csv_file = self._logdir / "incident_counts.csv"
     
@@ -414,15 +414,10 @@ def main(config):
   logger = tools.Logger(logdir, config.action_repeat * step)
 
   print('Create envs.')
-  # if config.offline_traindir:
-  #   directory = config.offline_traindir.format(**vars(config))
-  # else:
   if config.online_mode:
     directory = config.traindir
   train_eps = tools.load_episodes(directory, limit=config.dataset_size)
   if config.online_mode:
-  #   directory = config.offline_evaldir.format(**vars(config))
-  # else:
     directory = config.evaldir
   eval_eps = tools.load_episodes(directory, limit=1)
   make = lambda mode: make_env(config, logger, mode, train_eps, eval_eps)
@@ -551,11 +546,4 @@ if __name__ == '__main__':
     parser.add_argument(f'--{key}', type=arg_type, default=arg_type(value))
   main(parser.parse_args(remaining))
   
-  # python dreamer_distill.py --configs defaults metaworld --logdir /storage/ssd1/richtsai1103/vid2act/log/metaworld/open3/coffe_push/no_distill --device cuda:0 --task metaworld_coffee_push --seed 0
-  # python dreamer_distill.py --configs defaults metaworld --logdir debug --teacher_encoder_mode moe --device cuda:4 --teacher_model_path /storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/moe/teacher_model.pt --vae_model_path /storage/ssd1/richtsai1103/vid2act/models/mt6_10_top50/moe/vae_model.pt --task metaworld_drawer_close --seed 0 --use_vae True
 
-  # Total: 7.74M
-# Trainable: 5.41M
-
-# Total: 3.83M
-# Trainable: 1.50M
