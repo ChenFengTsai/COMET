@@ -37,8 +37,15 @@ Create a `source_task_dirs` directory (or point to your storage path) organized 
 ```text
 source_task_dirs/
 ├── drawer-close-v2/
+│   ├── trajectory_001.npz
+│   ├── trajectory_002.npz
+│   └── ...
 ├── door-open-v2/
-└── ... (other task .npz files)
+│   ├── trajectory_001.npz
+│   ├── trajectory_002.npz
+│   └── ...
+└── window-open-v2/
+    └── trajectory_001.npz
 ```
 ---
 
