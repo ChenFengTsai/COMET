@@ -141,16 +141,6 @@ Empirical results on the Meta-World benchmark show that COMET consistently outpe
 
 If you find this work useful in your research, please cite:
 
-```bibtex
-@article{tsai2023comet,
-  title={COMET: Correlated tasks via Orthogonal experts and Multi-head world models for Efficient Teacher distillation},
-  author={Tsai, Chen Feng},
-  journal={arXiv preprint arXiv:2306.03360},
-  year={2023}
-}
-
-```
-
 ---
 
 ## 🙏 Acknowledgements
