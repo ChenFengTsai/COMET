@@ -22,6 +22,17 @@ class WorldModelStudent(nn.Module):
     self._config = config
     self._offline_dataset = offline_dataset  # List of datasets for VAE
     
+    # --- PRUNING INITIALIZATION ---
+    # Track which teachers are currently active (indices 0 to K-1)
+    self.active_teachers = list(range(config.num_teachers))
+    # Relevance scores r_i initialized to 0. 
+    # The paper defines r_i as moving average of negative distillation loss.
+    self.register_buffer('relevance_scores', torch.zeros(config.num_teachers))
+    # Hyperparameters for pruning
+    self.relevance_decay = getattr(config, 'relevance_decay', 0.01) # eta in paper
+    self.min_teachers = getattr(config, 'min_teachers', 3)          # m in paper
+    # ------------------------------
+    
     # ===== Load teacher config (if available) =====
     self._teacher_config = None
 
@@ -88,9 +99,9 @@ class WorldModelStudent(nn.Module):
     teacher_source_tasks = get_teacher_param('source_tasks')
     teacher_encoder_mode = get_teacher_param('encoder_mode')
 
-    assert len(teacher_source_tasks) == config.num_teachers, \
-      f"Number of teacher source tasks ({len(teacher_source_tasks)}) must match " \
-      f"config.num_teachers ({config.num_teachers})"
+    # assert len(teacher_source_tasks) == config.num_teachers, \
+    #   f"Number of teacher source tasks ({len(teacher_source_tasks)}) must match " \
+    #   f"config.num_teachers ({config.num_teachers})"
     
     # For MoE-specific parameters
     if teacher_encoder_mode == 'moe':
@@ -270,8 +281,8 @@ class WorldModelStudent(nn.Module):
           feat_size, [], config.discount_layers, config.units, config.act, 
           dist='binary')
     
-    for name in config.grad_heads:
-      assert name in self.heads, name
+    # for name in config.grad_heads:
+    #   assert name in self.heads, name
     
  
     # Student optimizer
@@ -306,7 +317,33 @@ class WorldModelStudent(nn.Module):
         reward=config.reward_scale, discount=config.discount_scale)
     self.l2_loss = torch.nn.MSELoss(reduction='none')
 
+  def prune_teachers(self):
+      """
+      Execute pruning (Algorithm 1, Lines 22-26):
+      1. Sort active teachers by relevance score (descending).
+      2. Keep top half (subject to min_teachers threshold).
+      3. Update active_teachers list.
+      """
+      # If we are already at or below minimum, do nothing
+      if len(self.active_teachers) <= self.min_teachers:
+        return
 
+      # Create mapping from index -> score for sorting
+      current_scores = {idx: self.relevance_scores[idx].item() for idx in self.active_teachers}
+      
+      # Sort by score descending (higher r_i = better relevance = lower distillation loss) 
+      sorted_teachers = sorted(current_scores.items(), key=lambda x: x[1], reverse=True)
+      
+      # Keep top half tasks, but ensure we keep at least min_teachers [cite: 771]
+      # m_t <- max(m, ceil(|T_active| / 2)) [cite: 498]
+      num_keep = max(self.min_teachers, int(np.ceil(len(self.active_teachers) / 2)))
+      
+      keep_list = sorted_teachers[:num_keep]
+      self.active_teachers = [x[0] for x in keep_list]
+      self.active_teachers.sort() # Keep indices sorted for consistency
+
+      print(f"\n[Pruning] Keeping {len(self.active_teachers)} teachers: {self.active_teachers}")
+      print(f"[Pruning] Top Scores: {[f'{x[1]:.4f}' for x in keep_list]}\n")
   
   def load_teacher(self, teacher_state_dict, vae_state_dict=None):
     """Load pretrained teacher weights and optional VAE weights
@@ -360,8 +397,9 @@ class WorldModelStudent(nn.Module):
         metrics: dict to write scalar metrics into
     """
     eps = 1e-8
-    K = self._config.num_teachers
-
+    # K = self._config.num_teachers
+    K = len(self.active_teachers)
+    
     # Ensure shape [K, N]
     W = imp_weights.reshape(K, -1)  # [K, N]
 
@@ -375,13 +413,17 @@ class WorldModelStudent(nn.Module):
 
     # Write to metrics
     metrics["distill/entropy_w"] = float(entropy_w.detach().cpu())
-    for k in range(K):
-        metrics[f"distill/mean_w_{k}"] = float(mean_w[k].detach().cpu())
-                
+    # for k in range(K):
+    for i, active_idx in enumerate(self.active_teachers):
+      metrics[f"distill/mean_w_{active_idx}"] = float(mean_w[i].detach().cpu())
+      metrics[f"distill/relevance_{active_idx}"] = float(self.relevance_scores[active_idx].item())
+        
   def _train(self, data):
     """Train student model with distillation"""
     data = self.preprocess(data)
-    distill_metrics = {}  # Separate dict for distillation metrics  
+    distill_metrics = {}  # Separate dict for distillation metrics
+    out_weight_list = []
+      
     with tools.RequiresGrad(self):
       with torch.cuda.amp.autocast(self._use_amp):
         # Student forward pass
@@ -406,7 +448,8 @@ class WorldModelStudent(nn.Module):
           imp_weights = []
 
           # Get features from all teachers
-          for index in range(self._config.num_teachers):
+          # for index in range(self._config.num_teachers):
+          for index in self.active_teachers:
             with torch.no_grad():  # Teachers are frozen
               teacher_embed = self.encoder_teachers(data, label=index)
               t_post, t_prior = self.dynamics_teachers.observe(
@@ -421,19 +464,26 @@ class WorldModelStudent(nn.Module):
             imp_weights.append(imp_weight)
 
           # Compute weighted distillation loss
-          imp_weights = torch.stack(imp_weights, dim=0)
-          imp_weights = torch.squeeze(imp_weights)
+          imp_weights = torch.stack(imp_weights, dim=0) # [Num_Active, B*T, 1]
+          imp_weights = torch.squeeze(imp_weights, -1) # [Num_Active, B*T]
           imp_weights = self.softmax(imp_weights)
 
           # record metrics 
           self._record_distill_weight_metrics(imp_weights, distill_metrics)
     
-          all_weight = imp_weights.reshape((self._config.num_teachers, self._config.batch_size * self._config.batch_length)) # 50*50=2500
-          out_weight = torch.argmax(all_weight, dim=0) # 2500
-
+          # all_weight = imp_weights.reshape((self._config.num_teachers, self._config.batch_size * self._config.batch_length)) # 50*50=2500
+          # out_weight = torch.argmax(all_weight, dim=0) # 2500
+          
+          # For visualization
+          all_weight = imp_weights.reshape((len(self.active_teachers), self._config.batch_size * self._config.batch_length))
+          out_weight_local = torch.argmax(all_weight, dim=0) 
+          out_weight_list = [self.active_teachers[i] for i in out_weight_local.tolist()]
+          
           d_loss_val = 0.0
-          for index in range(self._config.num_teachers):
-            teacher_feature = teacher_feat[index]
+          # for index in range(self._config.num_teachers):
+          # === COMPUTE LOSS & UPDATE RELEVANCE ===
+          for i, index in enumerate(self.active_teachers):
+            teacher_feature = teacher_feat[i]
             if self._config.use_distill and self.distiller is not None:
               if self._config.conditional_distill:
                 idx = torch.full(
@@ -458,13 +508,21 @@ class WorldModelStudent(nn.Module):
               mse = torch.mean(self.l2_loss(teacher_feature, feat), dim=-1)
               
             # weight for this teacher (same shape as mse)
-            weight_raw = imp_weights[index]
+            # weight_raw = imp_weights[index]
+            weight_raw = imp_weights[i]
             weight = torch.max(self.m, weight_raw)  
 
             # distillation objective
             contrib = mse * weight
             d_loss_val += torch.mean(contrib)
-
+            
+            # --- Update Relevance Score (Moving Average) ---
+            # Formula: r_i <- (1-eta)*r_i - eta * loss [cite: 391, 498]
+            # Lower loss increases relevance.
+            current_loss_scalar = torch.mean(mse).detach()
+            self.relevance_scores[index] = (1.0 - self.relevance_decay) * self.relevance_scores[index] - \
+                                           self.relevance_decay * current_loss_scalar
+                                           
             # ---------- NEW: per-teacher metrics ----------
             # mse_k: mean MSE to teacher k
             distill_metrics[f'distill/mse_{index}'] = float(torch.mean(mse).detach().cpu())
@@ -533,7 +591,7 @@ class WorldModelStudent(nn.Module):
           kl=kl_value, postent=self.dynamics.get_dist(post).entropy())
 
     post = {k: v.detach() for k, v in post.items()}
-    return post, context, metrics, out_weight.tolist()
+    return post, context, metrics, out_weight_list
 
   def preprocess(self, obs):
     obs = obs.copy()

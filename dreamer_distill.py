@@ -39,6 +39,11 @@ class DreamerDistill(nn.Module):
     self._should_reset = tools.Every(config.reset_every)
     self._should_expl = tools.Until(int(
         config.expl_until / config.action_repeat))
+    
+    # --- PRUNING TRIGGER ---
+    self._should_prune = tools.Every(getattr(config, 'prune_every', 10000)) 
+    # -----------------------
+    
     self._metrics = {}
     self._step = count_steps(config.traindir)
     # Initialize CSV file for incident counts logging
@@ -131,6 +136,12 @@ class DreamerDistill(nn.Module):
       steps = (
           self._config.pretrain if self._should_pretrain()
           else self._config.train_steps)
+      
+      # --- PRUNING EXECUTION ---
+      if self._config.use_distill and self._should_prune(step):
+        self._wm.prune_teachers()
+      # -------------------------
+      
       for _ in range(steps):
         self._train(next(self._dataset))
       if self._should_log(step):
@@ -170,13 +181,24 @@ class DreamerDistill(nn.Module):
 
     if self._config.use_distill:
       teacher_feat = []
-      for index in range(self._config.num_teachers):
+      
+      # Only process active teachers in policy as well to save compute
+      # (Though this part is mostly for online evaluation or rollouts)
+      # We need to map active indices correctly or just loop active
+      for index in self._wm.active_teachers:
         teacher_embed = self._wm.encoder_teachers(data, label=index)
         latent_, _ = self._wm.dynamics_teachers.obs_step(
-        latent, action, teacher_embed, self._config.collect_dyn_sample, label=index)
-
+            latent, action, teacher_embed, self._config.collect_dyn_sample, label=index)
         teacher_i = self._wm.dynamics_teachers.get_feat(latent_)
         teacher_feat.append(teacher_i)
+        
+      # for index in range(self._config.num_teachers):
+      #   teacher_embed = self._wm.encoder_teachers(data, label=index)
+      #   latent_, _ = self._wm.dynamics_teachers.obs_step(
+      #   latent, action, teacher_embed, self._config.collect_dyn_sample, label=index)
+
+      #   teacher_i = self._wm.dynamics_teachers.get_feat(latent_)
+      #   teacher_feat.append(teacher_i)
 
       t_weight = torch.stack(teacher_feat, axis=1)
 
