@@ -118,6 +118,22 @@ python ood_detection.py \
 
 **COMET** (Correlated tasks via Orthogonal experts and Multi-head world models) is a task-consistent distillation framework designed to improve transfer robustness by disentangling representations within a teacher world model.
 
+<table border="0">
+  <tr>
+    <td width="50%" align="center">
+      <img src="figure/comet_architecture.png" alt="COMET Architecture" width="100%">
+      <br>
+      <b>(a) The COMET Architecture</b><br>
+      <em>Observations are processed by orthogonal experts and aggregated via a gating network into task-specific heads.</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="figure/comet_pipeline.png" alt="COMET Training Pipeline" width="100%">
+      <br>
+      <b>(b) Training Pipeline</b><br>
+      <em>The cycle illustrates the interaction, distillation, and the progressive pruning of source tasks.</em>
+    </td>
+  </tr>
+</table>
 
 
 ### 🧠 Core Architectural Innovations
