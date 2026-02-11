@@ -128,7 +128,7 @@ python ood_detection.py \
 ### 📉 Efficient Distillation Mechanisms
 * **Dynamics-Level Distillation:** COMET distills task-agnostic structural knowledge at the level of latent state transitions. By avoiding behavior replay or policy imitation, it remains robust under task mismatch.
 * **Progressive Source-Task Pruning:** To scale efficiently, COMET tracks the relevance of each source task and periodically prunes the least informative heads. This maintains a fixed distillation cost regardless of the original source-task scale.
-* **Reduced Negative Transfer:** By minimizing gradient interference during teacher pretraining, COMET produces more task-consistent signals. [cite_start]This leads to a clearer teacher latent belief and more effective knowledge transfer.
+* **Reduced Negative Transfer:** By minimizing gradient interference during teacher pretraining, COMET produces more task-consistent signals. This leads to a clearer teacher latent belief and more effective knowledge transfer.
 
 ---
 
