@@ -6,6 +6,7 @@ ood_results/
 log/
 models/
 configs_real.yaml
+debug/
 
 *.csv
 *.pt

@@ -138,9 +138,11 @@ class DreamerDistill(nn.Module):
           else self._config.train_steps)
       
       # --- PRUNING EXECUTION ---
-      if self._config.use_distill and self._should_prune(step):
+      # only prune if we are past 1/5th of total training steps
+      if self._config.use_distill and self._should_prune(step) and step > (self._config.steps // 5):
         self._wm.prune_teachers()
       # -------------------------
+
       
       for _ in range(steps):
         self._train(next(self._dataset))
@@ -202,11 +204,29 @@ class DreamerDistill(nn.Module):
 
       t_weight = torch.stack(teacher_feat, axis=1)
 
-      student_weight = feat.unsqueeze(1).repeat(1,self._config.num_teachers,1)
-      all_weight = torch.cat([t_weight, student_weight], -1) # 1, 6, 500
-      all_weight = self._wm.imp(all_weight).squeeze(-1)  # 1, 6
-      all_weight = self.softmax_1(all_weight)  # 1, 6
-      weight_max = torch.argmax(all_weight, dim=1)
+      # student_weight = feat.unsqueeze(1).repeat(1,self._config.num_teachers,1)
+      # all_weight = torch.cat([t_weight, student_weight], -1) # 1, 6, 500
+      # all_weight = self._wm.imp(all_weight).squeeze(-1)  # 1, 6
+      # all_weight = self.softmax_1(all_weight)  # 1, 6
+      # weight_max = torch.argmax(all_weight, dim=1)
+      
+      
+      # --- FIX START ---
+      # Match the student repetition to the number of ACTIVE teachers
+      num_active = len(self._wm.active_teachers)
+      student_weight = feat.unsqueeze(1).repeat(1, num_active, 1)
+      
+      all_weight = torch.cat([t_weight, student_weight], -1) 
+      all_weight = self._wm.imp(all_weight).squeeze(-1)  
+      all_weight = self.softmax_1(all_weight)  
+      
+      # Get the index relative to the active list (0 to len(active)-1)
+      weight_idx_local = torch.argmax(all_weight, dim=1)
+      
+      # Convert local index to global teacher index for VAE decoding
+      active_tensor = torch.tensor(self._wm.active_teachers, device=self._config.device)
+      weight_max = active_tensor[weight_idx_local]
+      # --- FIX END ---
     
     if self._config.use_vae: 
       sampled_actions, sampled_feats = self._wm.vae.decode(feat, weight_max)  ## 1 * 50
