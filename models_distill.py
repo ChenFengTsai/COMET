@@ -30,7 +30,7 @@ class WorldModelStudent(nn.Module):
     self.register_buffer('relevance_scores', torch.zeros(config.num_teachers))
     # Hyperparameters for pruning
     self.relevance_decay = getattr(config, 'relevance_decay', 0.01) # eta in paper
-    self.min_teachers = getattr(config, 'min_teachers', 3)          # m in paper
+    self.min_teachers = getattr(config, 'min_teachers', 6)          # m in paper
     # ------------------------------
     
     # ===== Load teacher config (if available) =====

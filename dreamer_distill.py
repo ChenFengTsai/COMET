@@ -41,7 +41,7 @@ class DreamerDistill(nn.Module):
         config.expl_until / config.action_repeat))
     
     # --- PRUNING TRIGGER ---
-    self._should_prune = tools.Every(getattr(config, 'prune_every', 10000)) 
+    self._should_prune = tools.Every(getattr(config, 'prune_every', 30000)) 
     # -----------------------
     
     self._metrics = {}
@@ -138,8 +138,8 @@ class DreamerDistill(nn.Module):
           else self._config.train_steps)
       
       # --- PRUNING EXECUTION ---
-      # only prune if we are past 1/5th of total training steps
-      if self._config.use_distill and self._should_prune(step) and step > (self._config.steps // 5):
+      # only prune if we are past 1/3th of total training steps
+      if self._config.use_distill and self._should_prune(step) and step > (self._config.steps // 3):
         self._wm.prune_teachers()
       # -------------------------
 
