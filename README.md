@@ -21,8 +21,8 @@ We recommend using Conda for environment management:
 ```bash
 conda env create -f env.yaml
 conda activate comet_env
-chmod +x install_add.sh # install Meta-World, RRL-Dependencies, mj_envs & mjrl
-./install_add.sh
+chmod +x install_all.sh # install Meta-World, RRL-Dependencies, mj_envs & mjrl
+./install_all.sh
 
 ```
 
@@ -33,9 +33,9 @@ chmod +x install_add.sh # install Meta-World, RRL-Dependencies, mj_envs & mjrl
 COMET uses offline datasets for teacher distillation and fine-tuning. Ensure your data is organized in the following structure to match the provided experiment commands:
 
 ### 1. Directory Structure
-Create a `source_task_dirs` directory (or point to your storage path) organized by benchmark:
+Create a `pretrain_data` directory (or point to your storage path) organized by benchmark:
 ```text
-source_task_dirs/
+pretrain_data/
 ├── drawer-close-v2/
 │   ├── trajectory_001.npz
 │   ├── trajectory_002.npz

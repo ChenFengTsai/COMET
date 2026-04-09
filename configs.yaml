@@ -9,8 +9,8 @@ defaults:
   offline_evaldir: ''
   
   # remember to modify this everytime you change model type when doing distillation
-  teacher_model_path: ./models/mt6_10_top50/moe/teacher_model.pt  # Required
-  vae_model_path: ./models/mt6_10_top50/moe/vae_model.pt      # Optional (but recommended)
+  teacher_model_path: ./models/metaworld/teacher_moe/teacher_model.pt  # Required
+  vae_model_path: ./models/metaworld/teacher_moe/vae_model.pt      # Optional (but recommended)
   teacher_encoder_mode: 'moe' # original_cnn
 
   seed: 0
