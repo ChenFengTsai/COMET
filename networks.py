@@ -574,27 +574,106 @@ class RSSM(nn.Module):
     return loss, value
 
 
+# class OrthogonalLayer(nn.Module):
+#     """
+#     Orthogonalize expert features along the expert axis using Gram–Schmidt.
+#     Input:  feats  [B, N, F]  (batch, n_experts, feature_dim) or [B*T, N, F]
+#     Output: ortho  [B, N, F]  where experts for each batch are orthonormal or [B*T, N, F]
+#     """
+#     def __init__(self, eps: float = 1e-8):
+#         super().__init__()
+#         self.eps = eps
+
+#     def forward(self, feats: torch.Tensor) -> torch.Tensor:
+#       B, N, Fdim = feats.shape
+#       qs = []
+#       for i in range(N):
+#         v = feats[:, i, :] # [B, F]
+#         for q in qs:
+#           v = v - (v*q).sum(-1, keepdim=True) * q
+#         v = v / v.norm(dim=-1, keepdim=True).clamp_min(self.eps)
+#         qs.append(v)
+#       Q = torch.stack(qs, dim=1)
+#       return Q
+
+#     # @torch.no_grad()
+#     # def forward(self, feats: torch.Tensor) -> torch.Tensor:
+#     #   B, N, Fdim = feats.shape
+#     #   Q = torch.zeros_like(feats)
+
+#     #   for i in range(N):
+#     #     v = feats[:, i, :]  # [B, F]
+#     #     if i > 0:
+#     #       proj = torch.zeros_like(v)
+#     #       for j in range(i):
+#     #         qj = Q[:, j, :]                            # [B, F]
+#     #         alpha = (v * qj).sum(dim=-1, keepdim=True) # [B, 1]
+#     #         proj = proj + alpha * qj
+#     #       v = v - proj
+#     #     norm = v.norm(dim=-1, keepdim=True).clamp_min(self.eps)
+#     #     Q[:, i, :] = v / norm
+
+#     #   return Q
+
+
 class OrthogonalLayer(nn.Module):
     """
-    Orthogonalize expert features along the expert axis using Gram–Schmidt.
+    Löwdin symmetric orthogonalization of expert features along the expert axis.
+
+    Given H_t in R^{F x N} (columns = the N expert feature vectors for one batch
+    element), the orthogonalized features are
+
+        H~_t = H_t (H_t^T H_t + eps I)^{-1/2}.
+
+    Unlike Gram-Schmidt, this is the *symmetric* (order-independent) orthogonalizer:
+    it is the unique whitening that minimizes sum_i ||h~_i - h_i||^2 subject to
+    H~_t^T H~_t = I, so it treats every expert identically and removes the
+    expert-ordering bias of the sequential procedure. The result satisfies the
+    Gram condition G = H~_t^T H~_t = I for all experts simultaneously, giving
+    geometric independence without squashing any single expert's capacity. The
+    eps I term regularizes the (H_t^T H_t) spectrum so the inverse square root
+    stays numerically stable when expert features become near-collinear (small /
+    collapsing eigenvalues).
+
     Input:  feats  [B, N, F]  (batch, n_experts, feature_dim) or [B*T, N, F]
-    Output: ortho  [B, N, F]  where experts for each batch are orthonormal or [B*T, N, F]
+    Output: ortho  [B, N, F]  where the N experts for each batch element are
+                              orthonormal across the feature axis.
     """
-    def __init__(self, eps: float = 1e-8):
+    def __init__(self, eps: float = 1e-6):
         super().__init__()
         self.eps = eps
 
     def forward(self, feats: torch.Tensor) -> torch.Tensor:
+      # feats: [B, N, F]. Treat each expert vector as a column of H_t in R^{F x N}.
       B, N, Fdim = feats.shape
-      qs = []
-      for i in range(N):
-        v = feats[:, i, :] # [B, F]
-        for q in qs:
-          v = v - (v*q).sum(-1, keepdim=True) * q
-        v = v / v.norm(dim=-1, keepdim=True).clamp_min(self.eps)
-        qs.append(v)
-      Q = torch.stack(qs, dim=1)
-      return Q
+
+      # eigh has no half-precision CUDA kernel and is sensitive to low precision,
+      # so run the whole orthogonalization in fp32 with autocast disabled, then
+      # cast the result back to the input dtype.
+      orig_dtype = feats.dtype
+      with torch.cuda.amp.autocast(enabled=False):
+        feats32 = feats.float()
+
+        # Gram matrix over experts:  M = H_t^T H_t  with shape [B, N, N].
+        # feats is [B, N, F] (rows = experts), so H_t^T H_t = feats @ feats^T.
+        gram = torch.matmul(feats32, feats32.transpose(-1, -2))  # [B, N, N]
+
+        # Regularize:  M + eps I   (eps I guards against collapsing eigenvalues).
+        eye = torch.eye(N, device=feats32.device, dtype=feats32.dtype).unsqueeze(0)
+        gram = gram + self.eps * eye
+
+        # Symmetric inverse square root via eigendecomposition of the SPD Gram matrix.
+        # M = V diag(lam) V^T  =>  M^{-1/2} = V diag(lam^{-1/2}) V^T.
+        # eigh is differentiable and returns ascending real eigenvalues for symmetric input.
+        eigvals, eigvecs = torch.linalg.eigh(gram)            # [B, N], [B, N, N]
+        inv_sqrt = torch.rsqrt(eigvals.clamp_min(self.eps))   # [B, N]
+        m_inv_sqrt = torch.matmul(
+            eigvecs * inv_sqrt.unsqueeze(-2), eigvecs.transpose(-1, -2))  # [B, N, N]
+
+        # H~_t = (M + eps I)^{-1/2} H_t  applied on the expert axis -> [B, N, F].
+        Q = torch.matmul(m_inv_sqrt, feats32)
+
+      return Q.to(orig_dtype)
 
     # @torch.no_grad()
     # def forward(self, feats: torch.Tensor) -> torch.Tensor:
@@ -614,8 +693,7 @@ class OrthogonalLayer(nn.Module):
     #     Q[:, i, :] = v / norm
 
     #   return Q
-
-
+  
 class MoEOrthogonalConvEncoder(nn.Module):
     """
     Task-weighted Mixture-of-Experts Conv Encoder with optional orthogonalization.

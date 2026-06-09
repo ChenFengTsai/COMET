@@ -20,7 +20,7 @@ We recommend using Conda for environment management:
 
 ```bash
 conda env create -f env.yaml
-conda activate comet_env
+conda activate COMET
 chmod +x install_all.sh # install Meta-World, RRL-Dependencies, mj_envs & mjrl
 ./install_all.sh
 
