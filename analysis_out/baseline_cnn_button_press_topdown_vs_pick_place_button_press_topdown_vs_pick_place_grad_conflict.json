@@ -1,0 +1,9 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_pick_place",
+    "task_a": "button_press_topdown",
+    "task_b": "pick_place",
+    "cosine_similarities": {
+        "CNN Encoder": 0.13704508543014526,
+        "RSSM Core": -0.02583197131752968
+    }
+}

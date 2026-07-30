@@ -1,0 +1,413 @@
+{
+    "moe_shared": [
+        {
+            "tag": "moe_shared_button_press_topdown_vs_door_open",
+            "task_a": "button_press_topdown",
+            "task_b": "door_open",
+            "cosine_similarities": {
+                "CNN Encoder": 0.05937822535634041,
+                "RSSM Core": 0.044138841331005096
+            }
+        },
+        {
+            "tag": "moe_shared_button_press_topdown_vs_drawer_close",
+            "task_a": "button_press_topdown",
+            "task_b": "drawer_close",
+            "cosine_similarities": {
+                "CNN Encoder": 0.036780696362257004,
+                "RSSM Core": -0.020977351814508438
+            }
+        },
+        {
+            "tag": "moe_shared_button_press_topdown_vs_peg_insert_side",
+            "task_a": "button_press_topdown",
+            "task_b": "peg_insert_side",
+            "cosine_similarities": {
+                "CNN Encoder": 0.051451314240694046,
+                "RSSM Core": -0.1799326390028
+            }
+        },
+        {
+            "tag": "moe_shared_button_press_topdown_vs_pick_place",
+            "task_a": "button_press_topdown",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": -0.03395633026957512,
+                "RSSM Core": 0.03281288966536522
+            }
+        },
+        {
+            "tag": "moe_shared_button_press_topdown_vs_push",
+            "task_a": "button_press_topdown",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": -0.017463091760873795,
+                "RSSM Core": 0.019895656034350395
+            }
+        },
+        {
+            "tag": "moe_shared_door_open_vs_drawer_close",
+            "task_a": "door_open",
+            "task_b": "drawer_close",
+            "cosine_similarities": {
+                "CNN Encoder": -0.050287410616874695,
+                "RSSM Core": 0.06944429129362106
+            }
+        },
+        {
+            "tag": "moe_shared_door_open_vs_peg_insert_side",
+            "task_a": "door_open",
+            "task_b": "peg_insert_side",
+            "cosine_similarities": {
+                "CNN Encoder": 0.017469359561800957,
+                "RSSM Core": 0.03177448362112045
+            }
+        },
+        {
+            "tag": "moe_shared_door_open_vs_pick_place",
+            "task_a": "door_open",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": -0.037348635494709015,
+                "RSSM Core": 0.005525493994355202
+            }
+        },
+        {
+            "tag": "moe_shared_door_open_vs_push",
+            "task_a": "door_open",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": 0.05034143477678299,
+                "RSSM Core": 0.005382357630878687
+            }
+        },
+        {
+            "tag": "moe_shared_drawer_close_vs_peg_insert_side",
+            "task_a": "drawer_close",
+            "task_b": "peg_insert_side",
+            "cosine_similarities": {
+                "CNN Encoder": -0.029000647366046906,
+                "RSSM Core": 0.040538348257541656
+            }
+        },
+        {
+            "tag": "moe_shared_drawer_close_vs_pick_place",
+            "task_a": "drawer_close",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": 0.020906969904899597,
+                "RSSM Core": 0.049444518983364105
+            }
+        },
+        {
+            "tag": "moe_shared_drawer_close_vs_push",
+            "task_a": "drawer_close",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": -0.019430257380008698,
+                "RSSM Core": -0.049941983073949814
+            }
+        },
+        {
+            "tag": "moe_shared_peg_insert_side_vs_pick_place",
+            "task_a": "peg_insert_side",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": -0.00518551841378212,
+                "RSSM Core": 0.12181392312049866
+            }
+        },
+        {
+            "tag": "moe_shared_peg_insert_side_vs_push",
+            "task_a": "peg_insert_side",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": 0.037495266646146774,
+                "RSSM Core": 0.020136510953307152
+            }
+        },
+        {
+            "tag": "moe_shared_pick_place_vs_push",
+            "task_a": "pick_place",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": 0.042975686490535736,
+                "RSSM Core": 0.0003250450827181339
+            }
+        }
+    ],
+    "moe_multihead": [
+        {
+            "tag": "moe_multihead_button_press_topdown_vs_door_open",
+            "task_a": "button_press_topdown",
+            "task_b": "door_open",
+            "cosine_similarities": {
+                "CNN Encoder": -0.022712841629981995,
+                "RSSM Core": 0.15558651089668274
+            }
+        },
+        {
+            "tag": "moe_multihead_button_press_topdown_vs_drawer_close",
+            "task_a": "button_press_topdown",
+            "task_b": "drawer_close",
+            "cosine_similarities": {
+                "CNN Encoder": -0.011209440417587757,
+                "RSSM Core": 0.13889941573143005
+            }
+        },
+        {
+            "tag": "moe_multihead_button_press_topdown_vs_peg_insert_side",
+            "task_a": "button_press_topdown",
+            "task_b": "peg_insert_side",
+            "cosine_similarities": {
+                "CNN Encoder": -0.019421987235546112,
+                "RSSM Core": -0.09875281155109406
+            }
+        },
+        {
+            "tag": "moe_multihead_button_press_topdown_vs_pick_place",
+            "task_a": "button_press_topdown",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": 0.014863844029605389,
+                "RSSM Core": 0.08910845220088959
+            }
+        },
+        {
+            "tag": "moe_multihead_button_press_topdown_vs_push",
+            "task_a": "button_press_topdown",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": -0.052203524857759476,
+                "RSSM Core": -0.06719367206096649
+            }
+        },
+        {
+            "tag": "moe_multihead_door_open_vs_drawer_close",
+            "task_a": "door_open",
+            "task_b": "drawer_close",
+            "cosine_similarities": {
+                "CNN Encoder": -0.05375302582979202,
+                "RSSM Core": 0.16962037980556488
+            }
+        },
+        {
+            "tag": "moe_multihead_door_open_vs_peg_insert_side",
+            "task_a": "door_open",
+            "task_b": "peg_insert_side",
+            "cosine_similarities": {
+                "CNN Encoder": -0.04601346701383591,
+                "RSSM Core": 0.0021866154856979847
+            }
+        },
+        {
+            "tag": "moe_multihead_door_open_vs_pick_place",
+            "task_a": "door_open",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": 0.042784273624420166,
+                "RSSM Core": 0.1330791711807251
+            }
+        },
+        {
+            "tag": "moe_multihead_door_open_vs_push",
+            "task_a": "door_open",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": 0.005422238260507584,
+                "RSSM Core": 0.2185184359550476
+            }
+        },
+        {
+            "tag": "moe_multihead_drawer_close_vs_peg_insert_side",
+            "task_a": "drawer_close",
+            "task_b": "peg_insert_side",
+            "cosine_similarities": {
+                "CNN Encoder": 0.0321509875357151,
+                "RSSM Core": 0.13844338059425354
+            }
+        },
+        {
+            "tag": "moe_multihead_drawer_close_vs_pick_place",
+            "task_a": "drawer_close",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": -0.03576868027448654,
+                "RSSM Core": -0.020730331540107727
+            }
+        },
+        {
+            "tag": "moe_multihead_drawer_close_vs_push",
+            "task_a": "drawer_close",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": 0.028479326516389847,
+                "RSSM Core": 0.2037205994129181
+            }
+        },
+        {
+            "tag": "moe_multihead_peg_insert_side_vs_pick_place",
+            "task_a": "peg_insert_side",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": -0.022529512643814087,
+                "RSSM Core": -0.0858837142586708
+            }
+        },
+        {
+            "tag": "moe_multihead_peg_insert_side_vs_push",
+            "task_a": "peg_insert_side",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": 0.10665157437324524,
+                "RSSM Core": 0.3553352952003479
+            }
+        },
+        {
+            "tag": "moe_multihead_pick_place_vs_push",
+            "task_a": "pick_place",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": 0.02046392299234867,
+                "RSSM Core": 0.08378718048334122
+            }
+        }
+    ],
+    "baseline_cnn": [
+        {
+            "tag": "baseline_cnn_button_press_topdown_vs_door_open",
+            "task_a": "button_press_topdown",
+            "task_b": "door_open",
+            "cosine_similarities": {
+                "CNN Encoder": 0.22417029738426208,
+                "RSSM Core": -0.08261794596910477
+            }
+        },
+        {
+            "tag": "baseline_cnn_button_press_topdown_vs_drawer_close",
+            "task_a": "button_press_topdown",
+            "task_b": "drawer_close",
+            "cosine_similarities": {
+                "CNN Encoder": -0.08265449106693268,
+                "RSSM Core": 0.039057474583387375
+            }
+        },
+        {
+            "tag": "baseline_cnn_button_press_topdown_vs_peg_insert_side",
+            "task_a": "button_press_topdown",
+            "task_b": "peg_insert_side",
+            "cosine_similarities": {
+                "CNN Encoder": 0.14608177542686462,
+                "RSSM Core": 0.00879797711968422
+            }
+        },
+        {
+            "tag": "baseline_cnn_button_press_topdown_vs_pick_place",
+            "task_a": "button_press_topdown",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": 0.13704508543014526,
+                "RSSM Core": -0.02583197131752968
+            }
+        },
+        {
+            "tag": "baseline_cnn_button_press_topdown_vs_push",
+            "task_a": "button_press_topdown",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": 0.05131474882364273,
+                "RSSM Core": -0.041742242872714996
+            }
+        },
+        {
+            "tag": "baseline_cnn_door_open_vs_drawer_close",
+            "task_a": "door_open",
+            "task_b": "drawer_close",
+            "cosine_similarities": {
+                "CNN Encoder": -0.23297052085399628,
+                "RSSM Core": 0.17095179855823517
+            }
+        },
+        {
+            "tag": "baseline_cnn_door_open_vs_peg_insert_side",
+            "task_a": "door_open",
+            "task_b": "peg_insert_side",
+            "cosine_similarities": {
+                "CNN Encoder": 0.22174598276615143,
+                "RSSM Core": 0.013732479885220528
+            }
+        },
+        {
+            "tag": "baseline_cnn_door_open_vs_pick_place",
+            "task_a": "door_open",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": -0.06529681384563446,
+                "RSSM Core": 0.018453191965818405
+            }
+        },
+        {
+            "tag": "baseline_cnn_door_open_vs_push",
+            "task_a": "door_open",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": -0.024125127121806145,
+                "RSSM Core": 0.025585845112800598
+            }
+        },
+        {
+            "tag": "baseline_cnn_drawer_close_vs_peg_insert_side",
+            "task_a": "drawer_close",
+            "task_b": "peg_insert_side",
+            "cosine_similarities": {
+                "CNN Encoder": 0.05841297283768654,
+                "RSSM Core": 0.011795036494731903
+            }
+        },
+        {
+            "tag": "baseline_cnn_drawer_close_vs_pick_place",
+            "task_a": "drawer_close",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": -0.001701326109468937,
+                "RSSM Core": -0.010454311966896057
+            }
+        },
+        {
+            "tag": "baseline_cnn_drawer_close_vs_push",
+            "task_a": "drawer_close",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": -0.06299585849046707,
+                "RSSM Core": 0.06356792151927948
+            }
+        },
+        {
+            "tag": "baseline_cnn_peg_insert_side_vs_pick_place",
+            "task_a": "peg_insert_side",
+            "task_b": "pick_place",
+            "cosine_similarities": {
+                "CNN Encoder": 0.08395194262266159,
+                "RSSM Core": 0.046687886118888855
+            }
+        },
+        {
+            "tag": "baseline_cnn_peg_insert_side_vs_push",
+            "task_a": "peg_insert_side",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": 0.0776878073811531,
+                "RSSM Core": 0.03826066479086876
+            }
+        },
+        {
+            "tag": "baseline_cnn_pick_place_vs_push",
+            "task_a": "pick_place",
+            "task_b": "push",
+            "cosine_similarities": {
+                "CNN Encoder": 0.297472208738327,
+                "RSSM Core": 0.13119322061538696
+            }
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+{
+    "tag": "moe_shared_peg_insert_side_vs_push",
+    "task_a": "peg_insert_side",
+    "task_b": "push",
+    "cosine_similarities": {
+        "CNN Encoder": 0.037495266646146774,
+        "RSSM Core": 0.020136510953307152
+    }
+}

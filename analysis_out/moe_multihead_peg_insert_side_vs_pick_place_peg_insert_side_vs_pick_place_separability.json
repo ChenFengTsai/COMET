@@ -1,0 +1,35 @@
+{
+    "tag": "moe_multihead_peg_insert_side_vs_pick_place",
+    "task_a": "peg_insert_side",
+    "task_b": "pick_place",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.09282523394307812,
+            0.08123053103205406,
+            0.11437622861027925
+        ],
+        "probe_acc": [
+            0.990625,
+            0.976875,
+            0.9949999999999999
+        ],
+        "maha": [
+            12.667631094487325,
+            10.943330944898248,
+            17.15215841432618
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.09614399786180382,
+        "silhouette_std": 0.01373365604268015,
+        "probe_acc_mean": 0.9874999999999999,
+        "probe_acc_std": 0.0077223970803543705,
+        "maha_mean": 13.587706817903916,
+        "maha_std": 2.6169051872897677
+    }
+}

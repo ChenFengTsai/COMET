@@ -1,0 +1,9 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_door_open",
+    "task_a": "button_press_topdown",
+    "task_b": "door_open",
+    "cosine_similarities": {
+        "CNN Encoder": 0.22417029738426208,
+        "RSSM Core": -0.08261794596910477
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "tag": "moe_multihead_button_press_topdown_vs_push",
+    "task_a": "button_press_topdown",
+    "task_b": "push",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.07196689511546042,
+            0.06301197893066762,
+            0.07204364924065479
+        ],
+        "probe_acc": [
+            0.9931249999999998,
+            1.0,
+            0.999375
+        ],
+        "maha": [
+            19.337716933898083,
+            16.153535232950336,
+            21.58538132861254
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.06900750776226094,
+        "silhouette_std": 0.004239594892343975,
+        "probe_acc_mean": 0.9974999999999999,
+        "probe_acc_std": 0.0031040967553649526,
+        "maha_mean": 19.025544498486987,
+        "maha_std": 2.228501248793765
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "tag": "moe_shared_button_press_topdown_vs_peg_insert_side",
+    "task_a": "button_press_topdown",
+    "task_b": "peg_insert_side",
+    "cosine_similarities": {
+        "CNN Encoder": 0.051451314240694046,
+        "RSSM Core": -0.1799326390028
+    }
+}

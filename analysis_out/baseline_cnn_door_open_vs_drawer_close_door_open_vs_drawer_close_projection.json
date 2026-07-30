@@ -1,0 +1,11 @@
+{
+    "tag": "baseline_cnn_door_open_vs_drawer_close",
+    "task_a": "door_open",
+    "task_b": "drawer_close",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.10320509970188141,
+        0.07422635704278946
+    ]
+}

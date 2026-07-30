@@ -1,0 +1,35 @@
+{
+    "tag": "moe_shared_button_press_topdown_vs_pick_place",
+    "task_a": "button_press_topdown",
+    "task_b": "pick_place",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.14341775100900855,
+            0.09544148993099091,
+            0.17051127163937424
+        ],
+        "probe_acc": [
+            0.999375,
+            1.0,
+            0.9956250000000001
+        ],
+        "maha": [
+            97.94526702345155,
+            58.05902877119852,
+            111.04201876854856
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.1364568375264579,
+        "silhouette_std": 0.031039853616705384,
+        "probe_acc_mean": 0.9983333333333334,
+        "probe_acc_std": 0.0019320038532282303,
+        "maha_mean": 89.01543818773287,
+        "maha_std": 22.533023018690415
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "tag": "moe_multihead_door_open_vs_push",
+    "task_a": "door_open",
+    "task_b": "push",
+    "cosine_similarities": {
+        "CNN Encoder": 0.005422238260507584,
+        "RSSM Core": 0.2185184359550476
+    }
+}

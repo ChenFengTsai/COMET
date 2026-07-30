@@ -1,0 +1,1583 @@
+{
+    "moe_shared": [
+        {
+            "tag": "moe_shared_button_press_topdown_vs_door_open",
+            "task_a": "button_press_topdown",
+            "task_b": "door_open",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.12301609562603122,
+                    0.08384475708566902,
+                    0.12216259949876854
+                ],
+                "probe_acc": [
+                    0.990625,
+                    0.9974999999999999,
+                    0.9925
+                ],
+                "maha": [
+                    90.62826719766409,
+                    63.96543467923358,
+                    89.27127770626944
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.10967448407015627,
+                "silhouette_std": 0.018267698468055104,
+                "probe_acc_mean": 0.9935416666666667,
+                "probe_acc_std": 0.0029017475577466667,
+                "maha_mean": 81.28832652772238,
+                "maha_std": 12.261655451467892
+            }
+        },
+        {
+            "tag": "moe_shared_button_press_topdown_vs_drawer_close",
+            "task_a": "button_press_topdown",
+            "task_b": "drawer_close",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.11390882516182987,
+                    0.05828408827113293,
+                    0.09563837293539848
+                ],
+                "probe_acc": [
+                    0.9681249999999999,
+                    0.9818749999999999,
+                    0.9981249999999999
+                ],
+                "maha": [
+                    49.2682609960058,
+                    40.745892315931656,
+                    44.8629465782274
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.08927709545612043,
+                "silhouette_std": 0.02314990607491519,
+                "probe_acc_mean": 0.9827083333333332,
+                "probe_acc_std": 0.012261615807968479,
+                "maha_mean": 44.95903329672162,
+                "maha_std": 3.4799057911463085
+            }
+        },
+        {
+            "tag": "moe_shared_button_press_topdown_vs_peg_insert_side",
+            "task_a": "button_press_topdown",
+            "task_b": "peg_insert_side",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.15490736224988058,
+                    0.09662207964847169,
+                    0.1675486049720556
+                ],
+                "probe_acc": [
+                    0.9862500000000001,
+                    0.994375,
+                    1.0
+                ],
+                "maha": [
+                    70.12475005554424,
+                    46.272317641391304,
+                    81.47155674611038
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.13969268229013596,
+                "silhouette_std": 0.030889673175430198,
+                "probe_acc_mean": 0.9935416666666667,
+                "probe_acc_std": 0.005644257160059997,
+                "maha_mean": 65.95620814768198,
+                "maha_std": 14.669223215426214
+            }
+        },
+        {
+            "tag": "moe_shared_button_press_topdown_vs_pick_place",
+            "task_a": "button_press_topdown",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.14341775100900855,
+                    0.09544148993099091,
+                    0.17051127163937424
+                ],
+                "probe_acc": [
+                    0.999375,
+                    1.0,
+                    0.9956250000000001
+                ],
+                "maha": [
+                    97.94526702345155,
+                    58.05902877119852,
+                    111.04201876854856
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.1364568375264579,
+                "silhouette_std": 0.031039853616705384,
+                "probe_acc_mean": 0.9983333333333334,
+                "probe_acc_std": 0.0019320038532282303,
+                "maha_mean": 89.01543818773287,
+                "maha_std": 22.533023018690415
+            }
+        },
+        {
+            "tag": "moe_shared_button_press_topdown_vs_push",
+            "task_a": "button_press_topdown",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.18319565651972128,
+                    0.11812879030716956,
+                    0.16827091136824465
+                ],
+                "probe_acc": [
+                    0.990625,
+                    0.99375,
+                    0.9925
+                ],
+                "maha": [
+                    106.17470102074397,
+                    79.4240841045654,
+                    113.4493928064503
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.15653178606504517,
+                "silhouette_std": 0.02783019423628097,
+                "probe_acc_mean": 0.9922916666666667,
+                "probe_acc_std": 0.001284252917285224,
+                "maha_mean": 99.68272597725321,
+                "maha_std": 14.629643719485475
+            }
+        },
+        {
+            "tag": "moe_shared_door_open_vs_drawer_close",
+            "task_a": "door_open",
+            "task_b": "drawer_close",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.10110039796041377,
+                    0.05460692603803255,
+                    0.08001177501579612
+                ],
+                "probe_acc": [
+                    0.99375,
+                    0.994375,
+                    1.0
+                ],
+                "maha": [
+                    45.366932751516046,
+                    33.88992968953177,
+                    40.14855030069281
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.07857303300474748,
+                "silhouette_std": 0.019008124872977872,
+                "probe_acc_mean": 0.9960416666666667,
+                "probe_acc_std": 0.0028105703256733343,
+                "maha_mean": 39.80180424724688,
+                "maha_std": 4.691877693801233
+            }
+        },
+        {
+            "tag": "moe_shared_door_open_vs_peg_insert_side",
+            "task_a": "door_open",
+            "task_b": "peg_insert_side",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.14013736727019319,
+                    0.09509963502687865,
+                    0.14546485792965044
+                ],
+                "probe_acc": [
+                    0.9868750000000001,
+                    0.993125,
+                    1.0
+                ],
+                "maha": [
+                    63.113019831169645,
+                    43.36974055777197,
+                    70.33414150314074
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.1269006200755741,
+                "silhouette_std": 0.02259162863735392,
+                "probe_acc_mean": 0.9933333333333333,
+                "probe_acc_std": 0.005360283470945229,
+                "maha_mean": 58.93896729736078,
+                "maha_std": 11.396981047683877
+            }
+        },
+        {
+            "tag": "moe_shared_door_open_vs_pick_place",
+            "task_a": "door_open",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.1522257715888517,
+                    0.11270228172849414,
+                    0.16012141177062866
+                ],
+                "probe_acc": [
+                    0.99375,
+                    0.999375,
+                    0.9981249999999999
+                ],
+                "maha": [
+                    100.60861028768076,
+                    53.64105050881532,
+                    94.81523997629301
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.14168315502932483,
+                "silhouette_std": 0.0207445341625069,
+                "probe_acc_mean": 0.9970833333333333,
+                "probe_acc_std": 0.0024116326880812807,
+                "maha_mean": 83.0216335909297,
+                "maha_std": 20.909404288899715
+            }
+        },
+        {
+            "tag": "moe_shared_door_open_vs_push",
+            "task_a": "door_open",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.16503853417734235,
+                    0.12217144112671767,
+                    0.15309409355670625
+                ],
+                "probe_acc": [
+                    0.999375,
+                    0.9981249999999999,
+                    0.9981249999999999
+                ],
+                "maha": [
+                    105.67659413437029,
+                    79.68609307582354,
+                    106.40148790753265
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.14676802295358873,
+                "silhouette_std": 0.018063061638040015,
+                "probe_acc_mean": 0.9985416666666667,
+                "probe_acc_std": 0.0005892556509888294,
+                "maha_mean": 97.25472503924216,
+                "maha_std": 12.426423179261556
+            }
+        },
+        {
+            "tag": "moe_shared_drawer_close_vs_peg_insert_side",
+            "task_a": "drawer_close",
+            "task_b": "peg_insert_side",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.09564638955779774,
+                    0.07011933445824362,
+                    0.10851463979319181
+                ],
+                "probe_acc": [
+                    0.9887499999999999,
+                    0.9831249999999999,
+                    0.9762500000000001
+                ],
+                "maha": [
+                    33.6689031019509,
+                    30.96812796221361,
+                    45.45450052729355
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.09142678793641106,
+                "silhouette_std": 0.01595626619489205,
+                "probe_acc_mean": 0.9827083333333334,
+                "probe_acc_std": 0.005111601727660476,
+                "maha_mean": 36.69717719715269,
+                "maha_std": 6.289757839553008
+            }
+        },
+        {
+            "tag": "moe_shared_drawer_close_vs_pick_place",
+            "task_a": "drawer_close",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.10947687922108525,
+                    0.08846315578860564,
+                    0.11554342392973815
+                ],
+                "probe_acc": [
+                    0.9925,
+                    0.990625,
+                    0.9893750000000001
+                ],
+                "maha": [
+                    82.01536889030326,
+                    52.130588997301956,
+                    76.49427254882745
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.10449448631314301,
+                "silhouette_std": 0.011603258449411066,
+                "probe_acc_mean": 0.9908333333333333,
+                "probe_acc_std": 0.001284252917285182,
+                "maha_mean": 70.21341014547755,
+                "maha_std": 12.983629223260202
+            }
+        },
+        {
+            "tag": "moe_shared_drawer_close_vs_push",
+            "task_a": "drawer_close",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.12499611179776143,
+                    0.09866310168884276,
+                    0.1097584928196755
+                ],
+                "probe_acc": [
+                    0.9962500000000001,
+                    0.9824999999999999,
+                    0.9731249999999999
+                ],
+                "maha": [
+                    74.15290327111776,
+                    57.58812905975697,
+                    74.32140475429215
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.11113923543542657,
+                "silhouette_std": 0.010794649692550364,
+                "probe_acc_mean": 0.9839583333333333,
+                "probe_acc_std": 0.009496892766701308,
+                "maha_mean": 68.68747902838896,
+                "maha_std": 7.84872709348831
+            }
+        },
+        {
+            "tag": "moe_shared_peg_insert_side_vs_pick_place",
+            "task_a": "peg_insert_side",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.14440929201522448,
+                    0.11357722247356446,
+                    0.16953615494181284
+                ],
+                "probe_acc": [
+                    0.975625,
+                    1.0,
+                    0.993125
+                ],
+                "maha": [
+                    38.8859611995497,
+                    29.60804910064782,
+                    52.832839884968486
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.14250755647686728,
+                "silhouette_std": 0.022884681620243763,
+                "probe_acc_mean": 0.9895833333333334,
+                "probe_acc_std": 0.01026134196335398,
+                "maha_mean": 40.442283395055334,
+                "maha_std": 9.545132470742498
+            }
+        },
+        {
+            "tag": "moe_shared_peg_insert_side_vs_push",
+            "task_a": "peg_insert_side",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.1487608669777129,
+                    0.11635384821361035,
+                    0.1384243210372234
+                ],
+                "probe_acc": [
+                    0.990625,
+                    0.9974999999999999,
+                    0.994375
+                ],
+                "maha": [
+                    60.00938805968604,
+                    46.316937780264,
+                    68.60152715210812
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.13451301207618221,
+                "silhouette_std": 0.01351610076010002,
+                "probe_acc_mean": 0.9941666666666666,
+                "probe_acc_std": 0.0028105703256733287,
+                "maha_mean": 58.30928433068605,
+                "maha_std": 9.176727644243952
+            }
+        },
+        {
+            "tag": "moe_shared_pick_place_vs_push",
+            "task_a": "pick_place",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.15525263128576114,
+                    0.10202531180154986,
+                    0.1506905071323776
+                ],
+                "probe_acc": [
+                    0.9868749999999998,
+                    0.98375,
+                    0.9875
+                ],
+                "maha": [
+                    45.3170378168536,
+                    28.629784799252374,
+                    46.35004662122806
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.1359894834065629,
+                "silhouette_std": 0.0240884060467382,
+                "probe_acc_mean": 0.9860416666666666,
+                "probe_acc_std": 0.001640418307085773,
+                "maha_mean": 40.09895641244468,
+                "maha_std": 8.120886647697239
+            }
+        }
+    ],
+    "moe_multihead": [
+        {
+            "tag": "moe_multihead_button_press_topdown_vs_door_open",
+            "task_a": "button_press_topdown",
+            "task_b": "door_open",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.06456207284759433,
+                    0.060331588977916635,
+                    0.07525908881976222
+                ],
+                "probe_acc": [
+                    0.95,
+                    0.983125,
+                    0.98375
+                ],
+                "maha": [
+                    12.598575349043973,
+                    11.871423113208415,
+                    12.001494348435452
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.06671758354842439,
+                "silhouette_std": 0.006281837983059824,
+                "probe_acc_mean": 0.9722916666666667,
+                "probe_acc_std": 0.015764653676993874,
+                "maha_mean": 12.15716427022928,
+                "maha_std": 0.31660957759111347
+            }
+        },
+        {
+            "tag": "moe_multihead_button_press_topdown_vs_drawer_close",
+            "task_a": "button_press_topdown",
+            "task_b": "drawer_close",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.06774311152712734,
+                    0.07805537820420655,
+                    0.0990966318733366
+                ],
+                "probe_acc": [
+                    0.938125,
+                    0.931875,
+                    0.9243750000000001
+                ],
+                "maha": [
+                    9.559839503161346,
+                    9.839395832826392,
+                    12.666718138132525
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.08163170720155682,
+                "silhouette_std": 0.013047436692009813,
+                "probe_acc_mean": 0.9314583333333334,
+                "probe_acc_std": 0.005621140651346655,
+                "maha_mean": 10.688651158040088,
+                "maha_std": 1.4033530486333936
+            }
+        },
+        {
+            "tag": "moe_multihead_button_press_topdown_vs_peg_insert_side",
+            "task_a": "button_press_topdown",
+            "task_b": "peg_insert_side",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.08138851013141965,
+                    0.07971581053574754,
+                    0.09365951892882844
+                ],
+                "probe_acc": [
+                    0.99375,
+                    0.9925,
+                    0.9800000000000001
+                ],
+                "maha": [
+                    13.619963864828962,
+                    13.888194817145978,
+                    17.024985723263804
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.08492127986533188,
+                "silhouette_std": 0.006216488689094158,
+                "probe_acc_mean": 0.98875,
+                "probe_acc_std": 0.006208193510729697,
+                "maha_mean": 14.844381468412914,
+                "maha_std": 1.5458035985964438
+            }
+        },
+        {
+            "tag": "moe_multihead_button_press_topdown_vs_pick_place",
+            "task_a": "button_press_topdown",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.07271319293835331,
+                    0.07032005102178554,
+                    0.07438390059595106
+                ],
+                "probe_acc": [
+                    0.975,
+                    0.99875,
+                    0.99
+                ],
+                "maha": [
+                    16.737566259975402,
+                    15.756886636744463,
+                    17.153991824275167
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.07247238151869663,
+                "silhouette_std": 0.001667775153758065,
+                "probe_acc_mean": 0.9879166666666667,
+                "probe_acc_std": 0.00980716857994987,
+                "maha_mean": 16.54948157366501,
+                "maha_std": 0.5856663516455192
+            }
+        },
+        {
+            "tag": "moe_multihead_button_press_topdown_vs_push",
+            "task_a": "button_press_topdown",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.07196689511546042,
+                    0.06301197893066762,
+                    0.07204364924065479
+                ],
+                "probe_acc": [
+                    0.9931249999999998,
+                    1.0,
+                    0.999375
+                ],
+                "maha": [
+                    19.337716933898083,
+                    16.153535232950336,
+                    21.58538132861254
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.06900750776226094,
+                "silhouette_std": 0.004239594892343975,
+                "probe_acc_mean": 0.9974999999999999,
+                "probe_acc_std": 0.0031040967553649526,
+                "maha_mean": 19.025544498486987,
+                "maha_std": 2.228501248793765
+            }
+        },
+        {
+            "tag": "moe_multihead_door_open_vs_drawer_close",
+            "task_a": "door_open",
+            "task_b": "drawer_close",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.047709135869386986,
+                    0.034707340300226194,
+                    0.04002962888444392
+                ],
+                "probe_acc": [
+                    0.968125,
+                    0.9668749999999999,
+                    0.911875
+                ],
+                "maha": [
+                    9.540256099557876,
+                    9.076062481519722,
+                    9.029099108827033
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.04081536835135236,
+                "silhouette_std": 0.005336959926647096,
+                "probe_acc_mean": 0.9489583333333332,
+                "probe_acc_std": 0.026226841636427016,
+                "maha_mean": 9.21513922996821,
+                "maha_std": 0.23069044737122776
+            }
+        },
+        {
+            "tag": "moe_multihead_door_open_vs_peg_insert_side",
+            "task_a": "door_open",
+            "task_b": "peg_insert_side",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.09135136319223934,
+                    0.09281079463762257,
+                    0.08612939360279231
+                ],
+                "probe_acc": [
+                    0.99,
+                    0.99375,
+                    0.98375
+                ],
+                "maha": [
+                    16.30976112515423,
+                    17.846385585647916,
+                    17.129936224043227
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.09009718381088473,
+                "silhouette_std": 0.0028682171451407403,
+                "probe_acc_mean": 0.9891666666666667,
+                "probe_acc_std": 0.004124789556921529,
+                "maha_mean": 17.095360978281793,
+                "maha_std": 0.6278005356594702
+            }
+        },
+        {
+            "tag": "moe_multihead_door_open_vs_pick_place",
+            "task_a": "door_open",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.07567349942802619,
+                    0.08432166471683221,
+                    0.0919622359369367
+                ],
+                "probe_acc": [
+                    0.993125,
+                    0.99875,
+                    0.996875
+                ],
+                "maha": [
+                    21.598968623510775,
+                    20.58206927706307,
+                    20.448373082481314
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.08398580002726504,
+                "silhouette_std": 0.006654088371392536,
+                "probe_acc_mean": 0.99625,
+                "probe_acc_std": 0.002338535866733703,
+                "maha_mean": 20.876470327685052,
+                "maha_std": 0.5137908191178681
+            }
+        },
+        {
+            "tag": "moe_multihead_door_open_vs_push",
+            "task_a": "door_open",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.07663223083217169,
+                    0.07490501143112381,
+                    0.07129402215941331
+                ],
+                "probe_acc": [
+                    0.9981249999999999,
+                    0.9981249999999999,
+                    0.999375
+                ],
+                "maha": [
+                    21.371160227320125,
+                    22.42400157509154,
+                    22.715639667994406
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.07427708814090295,
+                "silhouette_std": 0.002224085385393216,
+                "probe_acc_mean": 0.9985416666666667,
+                "probe_acc_std": 0.0005892556509888294,
+                "maha_mean": 22.170267156802026,
+                "maha_std": 0.5774611720670036
+            }
+        },
+        {
+            "tag": "moe_multihead_drawer_close_vs_peg_insert_side",
+            "task_a": "drawer_close",
+            "task_b": "peg_insert_side",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.055867120236973086,
+                    0.04547110245046879,
+                    0.06633073223196305
+                ],
+                "probe_acc": [
+                    0.9962500000000001,
+                    0.994375,
+                    0.9943750000000001
+                ],
+                "maha": [
+                    12.948124912533126,
+                    14.765712180441485,
+                    14.648373127116736
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.05588965163980164,
+                "silhouette_std": 0.008515923101396022,
+                "probe_acc_mean": 0.9950000000000001,
+                "probe_acc_std": 0.0008838834764831917,
+                "maha_mean": 14.12073674003045,
+                "maha_std": 0.8305443944982693
+            }
+        },
+        {
+            "tag": "moe_multihead_drawer_close_vs_pick_place",
+            "task_a": "drawer_close",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.079140389554571,
+                    0.07332858196813723,
+                    0.08567040933856948
+                ],
+                "probe_acc": [
+                    0.98375,
+                    0.9887499999999999,
+                    0.9825000000000002
+                ],
+                "maha": [
+                    13.571568238777097,
+                    14.563458111177482,
+                    17.69029072737463
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.0793797936204259,
+                "silhouette_std": 0.005041372924144677,
+                "probe_acc_mean": 0.985,
+                "probe_acc_std": 0.0027003086243365167,
+                "maha_mean": 15.27510569244307,
+                "maha_std": 1.7551449027474695
+            }
+        },
+        {
+            "tag": "moe_multihead_drawer_close_vs_push",
+            "task_a": "drawer_close",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.06732411718641496,
+                    0.05375451103068203,
+                    0.048443968897533295
+                ],
+                "probe_acc": [
+                    0.99875,
+                    0.9793749999999999,
+                    0.994375
+                ],
+                "maha": [
+                    23.886641376446708,
+                    29.726941387185665,
+                    15.002548453231023
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.05650753237154343,
+                "silhouette_std": 0.007949815290515413,
+                "probe_acc_mean": 0.9908333333333333,
+                "probe_acc_std": 0.008296794896558345,
+                "maha_mean": 22.872043738954464,
+                "maha_std": 6.053868905797734
+            }
+        },
+        {
+            "tag": "moe_multihead_peg_insert_side_vs_pick_place",
+            "task_a": "peg_insert_side",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.09282523394307812,
+                    0.08123053103205406,
+                    0.11437622861027925
+                ],
+                "probe_acc": [
+                    0.990625,
+                    0.976875,
+                    0.9949999999999999
+                ],
+                "maha": [
+                    12.667631094487325,
+                    10.943330944898248,
+                    17.15215841432618
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.09614399786180382,
+                "silhouette_std": 0.01373365604268015,
+                "probe_acc_mean": 0.9874999999999999,
+                "probe_acc_std": 0.0077223970803543705,
+                "maha_mean": 13.587706817903916,
+                "maha_std": 2.6169051872897677
+            }
+        },
+        {
+            "tag": "moe_multihead_peg_insert_side_vs_push",
+            "task_a": "peg_insert_side",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.04786422438303087,
+                    0.03587837925161889,
+                    0.037164888021678694
+                ],
+                "probe_acc": [
+                    0.976875,
+                    0.9893750000000001,
+                    0.975
+                ],
+                "maha": [
+                    10.381500877488511,
+                    10.111021664239473,
+                    9.117119869245935
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.04030249721877615,
+                "silhouette_std": 0.005372681793656434,
+                "probe_acc_mean": 0.9804166666666667,
+                "probe_acc_std": 0.006380580346297366,
+                "maha_mean": 9.869880803657972,
+                "maha_std": 0.5436153784203305
+            }
+        },
+        {
+            "tag": "moe_multihead_pick_place_vs_push",
+            "task_a": "pick_place",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.0459353275095078,
+                    0.035421258932553726,
+                    0.04290914668502189
+                ],
+                "probe_acc": [
+                    0.9824999999999999,
+                    0.994375,
+                    0.9887499999999999
+                ],
+                "maha": [
+                    13.788204891468006,
+                    12.290867909727288,
+                    13.058592070446613
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.04142191104236114,
+                "silhouette_std": 0.004419299484671273,
+                "probe_acc_mean": 0.9885416666666665,
+                "probe_acc_std": 0.004850186136176205,
+                "maha_mean": 13.045888290547303,
+                "maha_std": 0.6113512622270432
+            }
+        }
+    ],
+    "baseline_cnn": [
+        {
+            "tag": "baseline_cnn_button_press_topdown_vs_door_open",
+            "task_a": "button_press_topdown",
+            "task_b": "door_open",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.14400880865591487,
+                    0.09749875096547686,
+                    0.13412252041431302
+                ],
+                "probe_acc": [
+                    0.99125,
+                    1.0,
+                    0.983125
+                ],
+                "maha": [
+                    92.65027497555117,
+                    69.01196701572044,
+                    94.74281901557694
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.12521002667856826,
+                "silhouette_std": 0.020006178629517354,
+                "probe_acc_mean": 0.9914583333333334,
+                "probe_acc_std": 0.006890764753558834,
+                "maha_mean": 85.46835366894952,
+                "maha_std": 11.667738466966478
+            }
+        },
+        {
+            "tag": "baseline_cnn_button_press_topdown_vs_drawer_close",
+            "task_a": "button_press_topdown",
+            "task_b": "drawer_close",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.11395264546822224,
+                    0.05973880135629158,
+                    0.09773597321919057
+                ],
+                "probe_acc": [
+                    0.9962500000000001,
+                    0.969375,
+                    0.996875
+                ],
+                "maha": [
+                    41.07998933704359,
+                    36.39897798401202,
+                    46.367751256437714
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.0904758066812348,
+                "silhouette_std": 0.02272029543480629,
+                "probe_acc_mean": 0.9875000000000002,
+                "probe_acc_std": 0.012818850052429312,
+                "maha_mean": 41.28223952583111,
+                "maha_std": 4.072246635736892
+            }
+        },
+        {
+            "tag": "baseline_cnn_button_press_topdown_vs_peg_insert_side",
+            "task_a": "button_press_topdown",
+            "task_b": "peg_insert_side",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.1636638663083645,
+                    0.10410400318821247,
+                    0.16319619859848788
+                ],
+                "probe_acc": [
+                    0.9887499999999999,
+                    1.0,
+                    1.0
+                ],
+                "maha": [
+                    80.48837713395237,
+                    50.96860252217742,
+                    102.0174934010222
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.1436546893650216,
+                "silhouette_std": 0.027967210098781115,
+                "probe_acc_mean": 0.99625,
+                "probe_acc_std": 0.005303300858899151,
+                "maha_mean": 77.824824352384,
+                "maha_std": 20.925553756992922
+            }
+        },
+        {
+            "tag": "baseline_cnn_button_press_topdown_vs_pick_place",
+            "task_a": "button_press_topdown",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.15431270484414056,
+                    0.1041703307885637,
+                    0.15833548061732064
+                ],
+                "probe_acc": [
+                    0.9875,
+                    1.0,
+                    0.9974999999999999
+                ],
+                "maha": [
+                    114.61734430902567,
+                    84.66220888050125,
+                    130.1539762273114
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.13893950541667496,
+                "silhouette_std": 0.024640309920540004,
+                "probe_acc_mean": 0.995,
+                "probe_acc_std": 0.005400617248673188,
+                "maha_mean": 109.81117647227944,
+                "maha_std": 18.880318871606416
+            }
+        },
+        {
+            "tag": "baseline_cnn_button_press_topdown_vs_push",
+            "task_a": "button_press_topdown",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.1911729681189781,
+                    0.1202531148497095,
+                    0.16161472815048966
+                ],
+                "probe_acc": [
+                    0.9956250000000001,
+                    1.0,
+                    0.991875
+                ],
+                "maha": [
+                    134.6619508177329,
+                    104.00005079905856,
+                    156.43279846132089
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.1576802703730591,
+                "silhouette_std": 0.029086266695646762,
+                "probe_acc_mean": 0.9958333333333332,
+                "probe_acc_std": 0.0033202869688561064,
+                "maha_mean": 131.69826669270412,
+                "maha_std": 21.507918302311044
+            }
+        },
+        {
+            "tag": "baseline_cnn_door_open_vs_drawer_close",
+            "task_a": "door_open",
+            "task_b": "drawer_close",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.09977256326786241,
+                    0.07270419378121704,
+                    0.09814841377849716
+                ],
+                "probe_acc": [
+                    1.0,
+                    0.993125,
+                    0.990625
+                ],
+                "maha": [
+                    48.35540435061347,
+                    36.16314118235769,
+                    42.700834408412874
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.09020839027585886,
+                "silhouette_std": 0.012395083342014416,
+                "probe_acc_mean": 0.9945833333333334,
+                "probe_acc_std": 0.00396381199800843,
+                "maha_mean": 42.40645998046134,
+                "maha_std": 4.981821120759988
+            }
+        },
+        {
+            "tag": "baseline_cnn_door_open_vs_peg_insert_side",
+            "task_a": "door_open",
+            "task_b": "peg_insert_side",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.15420430627291107,
+                    0.11766916191015443,
+                    0.17002730162932755
+                ],
+                "probe_acc": [
+                    0.9974999999999999,
+                    1.0,
+                    1.0
+                ],
+                "maha": [
+                    78.10357310355934,
+                    53.530227364054056,
+                    79.469082233173
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.147300256604131,
+                "silhouette_std": 0.021925527360968235,
+                "probe_acc_mean": 0.9991666666666666,
+                "probe_acc_std": 0.0011785113019776065,
+                "maha_mean": 70.3676275669288,
+                "maha_std": 11.918883840069068
+            }
+        },
+        {
+            "tag": "baseline_cnn_door_open_vs_pick_place",
+            "task_a": "door_open",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.16002535961104822,
+                    0.1302657482641489,
+                    0.1790312671370652
+                ],
+                "probe_acc": [
+                    0.99,
+                    1.0,
+                    0.999375
+                ],
+                "maha": [
+                    128.68860668004552,
+                    90.84869080832384,
+                    119.20983011086773
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.15644079167075411,
+                "silhouette_std": 0.02006914386523296,
+                "probe_acc_mean": 0.9964583333333333,
+                "probe_acc_std": 0.004573853833354204,
+                "maha_mean": 112.91570919974568,
+                "maha_std": 16.076417030910243
+            }
+        },
+        {
+            "tag": "baseline_cnn_door_open_vs_push",
+            "task_a": "door_open",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.17656449528665008,
+                    0.14130191169580633,
+                    0.16741341181515904
+                ],
+                "probe_acc": [
+                    1.0,
+                    1.0,
+                    0.99875
+                ],
+                "maha": [
+                    137.90760038369564,
+                    113.61103419557739,
+                    135.97209533675198
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.16175993959920512,
+                "silhouette_std": 0.014940632772135915,
+                "probe_acc_mean": 0.9995833333333334,
+                "probe_acc_std": 0.000589255650988777,
+                "maha_mean": 129.16357663867498,
+                "maha_std": 11.025658779409376
+            }
+        },
+        {
+            "tag": "baseline_cnn_drawer_close_vs_peg_insert_side",
+            "task_a": "drawer_close",
+            "task_b": "peg_insert_side",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.09943709697957694,
+                    0.08682400694104402,
+                    0.11326688314515775
+                ],
+                "probe_acc": [
+                    0.9925,
+                    0.976875,
+                    0.96875
+                ],
+                "maha": [
+                    34.456190855177255,
+                    30.114686188616062,
+                    41.372270147908125
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.09984266235525957,
+                "silhouette_std": 0.010799067488815426,
+                "probe_acc_mean": 0.9793750000000001,
+                "probe_acc_std": 0.00985573014376241,
+                "maha_mean": 35.314382397233814,
+                "maha_std": 4.635778876828255
+            }
+        },
+        {
+            "tag": "baseline_cnn_drawer_close_vs_pick_place",
+            "task_a": "drawer_close",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.11802398245984491,
+                    0.09913552263875629,
+                    0.13951706698657843
+                ],
+                "probe_acc": [
+                    0.9887499999999999,
+                    1.0,
+                    0.99875
+                ],
+                "maha": [
+                    84.06718832971565,
+                    67.32794136741408,
+                    94.40242160604735
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.1188921906950599,
+                "silhouette_std": 0.016497123388307285,
+                "probe_acc_mean": 0.9958333333333332,
+                "probe_acc_std": 0.005034602488997788,
+                "maha_mean": 81.93251710105903,
+                "maha_std": 11.155700664947844
+            }
+        },
+        {
+            "tag": "baseline_cnn_drawer_close_vs_push",
+            "task_a": "drawer_close",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.13627006944266584,
+                    0.10815050712597156,
+                    0.12090332906444408
+                ],
+                "probe_acc": [
+                    0.9762500000000001,
+                    0.9949999999999999,
+                    0.9925
+                ],
+                "maha": [
+                    70.25312639388692,
+                    67.6971754799507,
+                    85.20777203342028
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.12177463521102716,
+                "silhouette_std": 0.011496284240902025,
+                "probe_acc_mean": 0.9879166666666667,
+                "probe_acc_std": 0.00831247389302495,
+                "maha_mean": 74.38602463575263,
+                "maha_std": 7.722947788800498
+            }
+        },
+        {
+            "tag": "baseline_cnn_peg_insert_side_vs_pick_place",
+            "task_a": "peg_insert_side",
+            "task_b": "pick_place",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.13984120244196055,
+                    0.12083125002399189,
+                    0.1766681444856613
+                ],
+                "probe_acc": [
+                    0.969375,
+                    0.99875,
+                    0.9956250000000001
+                ],
+                "maha": [
+                    38.06036131866505,
+                    38.42199186306964,
+                    61.21135289297421
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.14578019898387126,
+                "silhouette_std": 0.02317891938413756,
+                "probe_acc_mean": 0.9879166666666667,
+                "probe_acc_std": 0.013172862466281063,
+                "maha_mean": 45.89790202490297,
+                "maha_std": 10.829251352372287
+            }
+        },
+        {
+            "tag": "baseline_cnn_peg_insert_side_vs_push",
+            "task_a": "peg_insert_side",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.14609024715688018,
+                    0.12413309235817913,
+                    0.14848931339278665
+                ],
+                "probe_acc": [
+                    0.9881249999999999,
+                    0.9974999999999999,
+                    0.99875
+                ],
+                "maha": [
+                    43.1000247030262,
+                    50.971143284784745,
+                    63.672761646702824
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.1395708843026153,
+                "silhouette_std": 0.010960016569051979,
+                "probe_acc_mean": 0.9947916666666666,
+                "probe_acc_std": 0.0047415861153088015,
+                "maha_mean": 52.58130987817126,
+                "maha_std": 8.475606317830511
+            }
+        },
+        {
+            "tag": "baseline_cnn_pick_place_vs_push",
+            "task_a": "pick_place",
+            "task_b": "push",
+            "seeds": [
+                0,
+                1,
+                2
+            ],
+            "per_seed_results": {
+                "silhouette": [
+                    0.14976786085486643,
+                    0.10712987819140331,
+                    0.13855552069862043
+                ],
+                "probe_acc": [
+                    0.99125,
+                    0.9981249999999999,
+                    0.9675
+                ],
+                "maha": [
+                    58.64231419537495,
+                    41.67014683232081,
+                    81.81669840978539
+                ]
+            },
+            "summary": {
+                "silhouette_mean": 0.13181775324829673,
+                "silhouette_std": 0.01804711471054633,
+                "probe_acc_mean": 0.9856250000000001,
+                "probe_acc_std": 0.01312003874486145,
+                "maha_mean": 60.70971981249372,
+                "maha_std": 16.45482756680192
+            }
+        }
+    ]
+}

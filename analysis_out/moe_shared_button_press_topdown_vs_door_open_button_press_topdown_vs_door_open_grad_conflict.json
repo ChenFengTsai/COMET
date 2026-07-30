@@ -1,0 +1,9 @@
+{
+    "tag": "moe_shared_button_press_topdown_vs_door_open",
+    "task_a": "button_press_topdown",
+    "task_b": "door_open",
+    "cosine_similarities": {
+        "CNN Encoder": 0.05937822535634041,
+        "RSSM Core": 0.044138841331005096
+    }
+}

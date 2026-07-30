@@ -1,0 +1,11 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_drawer_close",
+    "task_a": "button_press_topdown",
+    "task_b": "drawer_close",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.0977594256401062,
+        0.08255085349082947
+    ]
+}

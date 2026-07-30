@@ -1,0 +1,9 @@
+{
+    "tag": "moe_multihead_button_press_topdown_vs_push",
+    "task_a": "button_press_topdown",
+    "task_b": "push",
+    "cosine_similarities": {
+        "CNN Encoder": -0.052203524857759476,
+        "RSSM Core": -0.06719367206096649
+    }
+}

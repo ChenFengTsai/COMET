@@ -1,0 +1,35 @@
+{
+    "tag": "baseline_cnn_door_open_vs_peg_insert_side",
+    "task_a": "door_open",
+    "task_b": "peg_insert_side",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.15420430627291107,
+            0.11766916191015443,
+            0.17002730162932755
+        ],
+        "probe_acc": [
+            0.9974999999999999,
+            1.0,
+            1.0
+        ],
+        "maha": [
+            78.10357310355934,
+            53.530227364054056,
+            79.469082233173
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.147300256604131,
+        "silhouette_std": 0.021925527360968235,
+        "probe_acc_mean": 0.9991666666666666,
+        "probe_acc_std": 0.0011785113019776065,
+        "maha_mean": 70.3676275669288,
+        "maha_std": 11.918883840069068
+    }
+}

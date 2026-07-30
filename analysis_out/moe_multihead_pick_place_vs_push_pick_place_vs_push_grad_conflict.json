@@ -1,0 +1,9 @@
+{
+    "tag": "moe_multihead_pick_place_vs_push",
+    "task_a": "pick_place",
+    "task_b": "push",
+    "cosine_similarities": {
+        "CNN Encoder": 0.02046392299234867,
+        "RSSM Core": 0.08378718048334122
+    }
+}

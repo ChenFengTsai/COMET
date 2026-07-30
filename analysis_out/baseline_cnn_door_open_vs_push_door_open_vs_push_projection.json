@@ -1,0 +1,11 @@
+{
+    "tag": "baseline_cnn_door_open_vs_push",
+    "task_a": "door_open",
+    "task_b": "push",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.13508620858192444,
+        0.09514491260051727
+    ]
+}

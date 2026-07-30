@@ -1,0 +1,9 @@
+{
+    "tag": "moe_multihead_button_press_topdown_vs_pick_place",
+    "task_a": "button_press_topdown",
+    "task_b": "pick_place",
+    "cosine_similarities": {
+        "CNN Encoder": 0.014863844029605389,
+        "RSSM Core": 0.08910845220088959
+    }
+}

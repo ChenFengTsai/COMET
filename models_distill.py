@@ -144,7 +144,7 @@ class WorldModelStudent(nn.Module):
       raise ValueError(f"Unknown teacher_encoder_mode: {teacher_encoder_mode}")
 
     # Task-conditional dynamics
-    if teacher_encoder_mode == 'original_cnn':
+    if teacher_encoder_mode == 'original_cnn' or config.teacher_dynamics_mode == "shared":
       self.dynamics_teachers = networks.RSSM(
         teacher_dyn_stoch, 
         teacher_dyn_deter, 
@@ -450,6 +450,7 @@ class WorldModelStudent(nn.Module):
         if self._config.is_adaptive:
           teacher_feat = []
           imp_weights = []
+          logvars = []
 
           # Get features from all teachers
           # for index in range(self._config.num_teachers):
@@ -462,46 +463,46 @@ class WorldModelStudent(nn.Module):
             
             teacher_feat.append(teacher_i)
 
-          #   # Compute importance weights
-          #   imp_input = torch.cat([teacher_i, feat], dim=-1)
-          #   imp_weight = self.imp(imp_input)
-          #   imp_weights.append(imp_weight)
-
-          # # Compute weighted distillation loss
-          # imp_weights = torch.stack(imp_weights, dim=0) # [Num_Active, B*T, 1]
-          # imp_weights = torch.squeeze(imp_weights, -1) # [Num_Active, B*T]
-          # imp_weights = self.softmax(imp_weights)
-
-          # # record metrics 
-          # self._record_distill_weight_metrics(imp_weights, distill_metrics)
-    
-          # # all_weight = imp_weights.reshape((self._config.num_teachers, self._config.batch_size * self._config.batch_length)) # 50*50=2500
-          # # out_weight = torch.argmax(all_weight, dim=0) # 2500
-          
-          # # For visualization
-          # all_weight = imp_weights.reshape((len(self.active_teachers), self._config.batch_size * self._config.batch_length))
-          # out_weight_local = torch.argmax(all_weight, dim=0) 
-          # out_weight_list = [self.active_teachers[i] for i in out_weight_local.tolist()]
-          
-            # Predict per-teacher log aleatoric variance s_i = log(sigma_i^2).
+            # Compute importance weights
             imp_input = torch.cat([teacher_i, feat], dim=-1)
-            logvar_i = self.imp(imp_input)
-            logvar_i = torch.clamp(logvar_i, self._logvar_min, self._logvar_max)
-            logvars.append(logvar_i)
+            imp_weight = self.imp(imp_input)
+            imp_weights.append(imp_weight)
 
-          # Stack predicted log-variances
-          logvars = torch.stack(logvars, dim=0)
-          logvars = torch.squeeze(logvars, -1)
+          # Compute weighted distillation loss
+          imp_weights = torch.stack(imp_weights, dim=0) # [Num_Active, B*T, 1]
+          imp_weights = torch.squeeze(imp_weights, -1) # [Num_Active, B*T]
+          imp_weights = self.softmax(imp_weights)
 
-          # For metrics/visualization, the "selected" teacher is the one with LOWEST variance
-          precision_map = (-logvars).reshape(
-              (len(self.active_teachers),
-               self._config.batch_size * self._config.batch_length))
-          out_weight_local = torch.argmax(precision_map, dim=0)
+          # record metrics 
+          self._record_distill_weight_metrics(imp_weights, distill_metrics)
+    
+          # all_weight = imp_weights.reshape((self._config.num_teachers, self._config.batch_size * self._config.batch_length)) # 50*50=2500
+          # out_weight = torch.argmax(all_weight, dim=0) # 2500
+          
+          # For visualization
+          all_weight = imp_weights.reshape((len(self.active_teachers), self._config.batch_size * self._config.batch_length))
+          out_weight_local = torch.argmax(all_weight, dim=0) 
           out_weight_list = [self.active_teachers[i] for i in out_weight_local.tolist()]
+          
+          #   # Predict per-teacher log aleatoric variance s_i = log(sigma_i^2).
+          #   imp_input = torch.cat([teacher_i, feat], dim=-1)
+          #   logvar_i = self.imp(imp_input)
+          #   logvar_i = torch.clamp(logvar_i, self._logvar_min, self._logvar_max)
+          #   logvars.append(logvar_i)
+
+          # # Stack predicted log-variances
+          # logvars = torch.stack(logvars, dim=0)
+          # logvars = torch.squeeze(logvars, -1)
+
+          # # For metrics/visualization, the "selected" teacher is the one with LOWEST variance
+          # precision_map = (-logvars).reshape(
+          #     (len(self.active_teachers),
+          #      self._config.batch_size * self._config.batch_length))
+          # out_weight_local = torch.argmax(precision_map, dim=0)
+          # out_weight_list = [self.active_teachers[i] for i in out_weight_local.tolist()]
 
           # record metrics (reuse: pass softmax-of-precision as a soft "weight" view)
-          self._record_distill_weight_metrics(self.softmax(-logvars), distill_metrics)
+          # self._record_distill_weight_metrics(self.softmax(-logvars), distill_metrics)
           
           d_loss_val = 0.0
           # for index in range(self._config.num_teachers):
@@ -531,37 +532,37 @@ class WorldModelStudent(nn.Module):
             elif self._config.use_distill:
               mse = torch.mean(self.l2_loss(teacher_feature, feat), dim=-1)
               
-            # # weight for this teacher (same shape as mse)
-            # # weight_raw = imp_weights[index]
-            # weight_raw = imp_weights[i]
-            # weight = torch.max(self.m, weight_raw)  
+            # weight for this teacher (same shape as mse)
+            # weight_raw = imp_weights[index]
+            weight_raw = imp_weights[i]
+            weight = torch.max(self.m, weight_raw)  
 
-            # # distillation objective
-            # contrib = mse * weight
-            # d_loss_val += torch.mean(contrib)
+            # distillation objective
+            contrib = mse * weight
+            d_loss_val += torch.mean(contrib)
             
-            # # --- Update Relevance Score (Moving Average) ---
-            # # Formula: r_i <- (1-eta)*r_i - eta * loss [cite: 391, 498]
-            # # Lower loss increases relevance.
-            # current_loss_scalar = torch.mean(mse).detach()
-            # self.relevance_scores[index] = (1.0 - self.relevance_decay) * self.relevance_scores[index] - \
-            #                                self.relevance_decay * current_loss_scalar
+            # --- Update Relevance Score (Moving Average) ---
+            # Formula: r_i <- (1-eta)*r_i - eta * loss [cite: 391, 498]
+            # Lower loss increases relevance.
+            current_loss_scalar = torch.mean(mse).detach()
+            self.relevance_scores[index] = (1.0 - self.relevance_decay) * self.relevance_scores[index] - \
+                                           self.relevance_decay * current_loss_scalar
                                            
-            # # ---------- NEW: per-teacher metrics ----------
-            # # mse_k: mean MSE to teacher k
-            # distill_metrics[f'distill/mse_{index}'] = float(torch.mean(mse).detach().cpu())
-            # # contrib_k: mean contribution of teacher k to distill loss
-            # distill_metrics[f'distill/contrib_{index}'] = float(torch.mean(contrib).detach().cpu())
-            # # optional: raw vs clipped weight means (useful for debugging collapse)
-            # distill_metrics[f'distill/mean_w_raw_{index}'] = float(torch.mean(weight_raw).detach().cpu())
-            # distill_metrics[f'distill/mean_w_clip_{index}'] = float(torch.mean(weight).detach().cpu())
-            # # ---------- /NEW ----------
+            # ---------- NEW: per-teacher metrics ----------
+            # mse_k: mean MSE to teacher k
+            distill_metrics[f'distill/mse_{index}'] = float(torch.mean(mse).detach().cpu())
+            # contrib_k: mean contribution of teacher k to distill loss
+            distill_metrics[f'distill/contrib_{index}'] = float(torch.mean(contrib).detach().cpu())
+            # optional: raw vs clipped weight means (useful for debugging collapse)
+            distill_metrics[f'distill/mean_w_raw_{index}'] = float(torch.mean(weight_raw).detach().cpu())
+            distill_metrics[f'distill/mean_w_clip_{index}'] = float(torch.mean(weight).detach().cpu())
+            # ---------- /NEW ----------
             
             # --- Heteroscedastic Gaussian negative log-likelihood ---
-            logvar = logvars[i]
-            inv_var = torch.exp(-logvar)                  # 1 / sigma_i^2
-            contrib = 0.5 * inv_var * mse + 0.5 * logvar
-            d_loss_val += torch.mean(contrib)
+            # logvar = logvars[i]
+            # inv_var = torch.exp(-logvar)                  # 1 / sigma_i^2
+            # contrib = 0.5 * inv_var * mse + 0.5 * logvar
+            # d_loss_val += torch.mean(contrib)
 
             # --- Update Relevance Score (Moving Average) ---
             current_loss_scalar = torch.mean(mse).detach()
@@ -571,8 +572,12 @@ class WorldModelStudent(nn.Module):
             # ---------- per-teacher metrics ----------
             distill_metrics[f'distill/mse_{index}'] = float(torch.mean(mse).detach().cpu())
             distill_metrics[f'distill/contrib_{index}'] = float(torch.mean(contrib).detach().cpu())
-            distill_metrics[f'distill/sigma2_{index}'] = float(torch.mean(torch.exp(logvar)).detach().cpu())
-            distill_metrics[f'distill/logvar_{index}'] = float(torch.mean(logvar).detach().cpu())
+            distill_metrics[f'distill/mean_w_raw_{index}'] = float(torch.mean(weight_raw).detach().cpu())
+            distill_metrics[f'distill/mean_w_clip_{index}'] = float(torch.mean(weight).detach().cpu())
+            
+            
+            # distill_metrics[f'distill/sigma2_{index}'] = float(torch.mean(torch.exp(logvar)).detach().cpu())
+            # distill_metrics[f'distill/logvar_{index}'] = float(torch.mean(logvar).detach().cpu())
             # ---------- /metrics ----------
 
           d_loss = d_loss_val

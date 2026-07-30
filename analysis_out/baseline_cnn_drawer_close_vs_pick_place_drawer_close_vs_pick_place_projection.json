@@ -1,0 +1,11 @@
+{
+    "tag": "baseline_cnn_drawer_close_vs_pick_place",
+    "task_a": "drawer_close",
+    "task_b": "pick_place",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.10686175525188446,
+        0.08616004884243011
+    ]
+}

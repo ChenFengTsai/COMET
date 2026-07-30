@@ -1,0 +1,9 @@
+{
+    "tag": "moe_multihead_drawer_close_vs_pick_place",
+    "task_a": "drawer_close",
+    "task_b": "pick_place",
+    "cosine_similarities": {
+        "CNN Encoder": -0.03576868027448654,
+        "RSSM Core": -0.020730331540107727
+    }
+}

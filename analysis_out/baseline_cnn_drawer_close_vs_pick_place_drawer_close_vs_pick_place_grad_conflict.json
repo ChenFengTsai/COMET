@@ -1,0 +1,9 @@
+{
+    "tag": "baseline_cnn_drawer_close_vs_pick_place",
+    "task_a": "drawer_close",
+    "task_b": "pick_place",
+    "cosine_similarities": {
+        "CNN Encoder": -0.001701326109468937,
+        "RSSM Core": -0.010454311966896057
+    }
+}

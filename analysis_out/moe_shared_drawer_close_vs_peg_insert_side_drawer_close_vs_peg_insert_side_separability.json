@@ -1,0 +1,35 @@
+{
+    "tag": "moe_shared_drawer_close_vs_peg_insert_side",
+    "task_a": "drawer_close",
+    "task_b": "peg_insert_side",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.09564638955779774,
+            0.07011933445824362,
+            0.10851463979319181
+        ],
+        "probe_acc": [
+            0.9887499999999999,
+            0.9831249999999999,
+            0.9762500000000001
+        ],
+        "maha": [
+            33.6689031019509,
+            30.96812796221361,
+            45.45450052729355
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.09142678793641106,
+        "silhouette_std": 0.01595626619489205,
+        "probe_acc_mean": 0.9827083333333334,
+        "probe_acc_std": 0.005111601727660476,
+        "maha_mean": 36.69717719715269,
+        "maha_std": 6.289757839553008
+    }
+}

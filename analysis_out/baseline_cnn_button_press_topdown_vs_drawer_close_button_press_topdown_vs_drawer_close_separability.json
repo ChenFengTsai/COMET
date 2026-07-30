@@ -1,0 +1,35 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_drawer_close",
+    "task_a": "button_press_topdown",
+    "task_b": "drawer_close",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.11395264546822224,
+            0.05973880135629158,
+            0.09773597321919057
+        ],
+        "probe_acc": [
+            0.9962500000000001,
+            0.969375,
+            0.996875
+        ],
+        "maha": [
+            41.07998933704359,
+            36.39897798401202,
+            46.367751256437714
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.0904758066812348,
+        "silhouette_std": 0.02272029543480629,
+        "probe_acc_mean": 0.9875000000000002,
+        "probe_acc_std": 0.012818850052429312,
+        "maha_mean": 41.28223952583111,
+        "maha_std": 4.072246635736892
+    }
+}

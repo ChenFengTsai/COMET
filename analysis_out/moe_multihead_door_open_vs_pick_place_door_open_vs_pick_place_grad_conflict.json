@@ -1,0 +1,9 @@
+{
+    "tag": "moe_multihead_door_open_vs_pick_place",
+    "task_a": "door_open",
+    "task_b": "pick_place",
+    "cosine_similarities": {
+        "CNN Encoder": 0.042784273624420166,
+        "RSSM Core": 0.1330791711807251
+    }
+}

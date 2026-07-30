@@ -1,0 +1,9 @@
+{
+    "tag": "baseline_cnn_door_open_vs_peg_insert_side",
+    "task_a": "door_open",
+    "task_b": "peg_insert_side",
+    "cosine_similarities": {
+        "CNN Encoder": 0.22174598276615143,
+        "RSSM Core": 0.013732479885220528
+    }
+}

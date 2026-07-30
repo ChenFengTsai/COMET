@@ -1,0 +1,11 @@
+{
+    "tag": "moe_shared_drawer_close_vs_pick_place",
+    "task_a": "drawer_close",
+    "task_b": "pick_place",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.09949230402708054,
+        0.08123940974473953
+    ]
+}

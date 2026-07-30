@@ -1,0 +1,11 @@
+{
+    "tag": "moe_multihead_button_press_topdown_vs_push",
+    "task_a": "button_press_topdown",
+    "task_b": "push",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.11500664800405502,
+        0.06483470648527145
+    ]
+}

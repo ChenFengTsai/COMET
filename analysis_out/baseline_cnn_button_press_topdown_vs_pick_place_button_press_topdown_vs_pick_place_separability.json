@@ -1,0 +1,35 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_pick_place",
+    "task_a": "button_press_topdown",
+    "task_b": "pick_place",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.15431270484414056,
+            0.1041703307885637,
+            0.15833548061732064
+        ],
+        "probe_acc": [
+            0.9875,
+            1.0,
+            0.9974999999999999
+        ],
+        "maha": [
+            114.61734430902567,
+            84.66220888050125,
+            130.1539762273114
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.13893950541667496,
+        "silhouette_std": 0.024640309920540004,
+        "probe_acc_mean": 0.995,
+        "probe_acc_std": 0.005400617248673188,
+        "maha_mean": 109.81117647227944,
+        "maha_std": 18.880318871606416
+    }
+}

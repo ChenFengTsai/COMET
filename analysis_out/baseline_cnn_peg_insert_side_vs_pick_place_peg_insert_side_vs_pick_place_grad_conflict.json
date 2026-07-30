@@ -1,0 +1,9 @@
+{
+    "tag": "baseline_cnn_peg_insert_side_vs_pick_place",
+    "task_a": "peg_insert_side",
+    "task_b": "pick_place",
+    "cosine_similarities": {
+        "CNN Encoder": 0.08395194262266159,
+        "RSSM Core": 0.046687886118888855
+    }
+}

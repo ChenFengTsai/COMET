@@ -1,0 +1,11 @@
+{
+    "tag": "moe_multihead_button_press_topdown_vs_door_open",
+    "task_a": "button_press_topdown",
+    "task_b": "door_open",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.09429056197404861,
+        0.06537079811096191
+    ]
+}

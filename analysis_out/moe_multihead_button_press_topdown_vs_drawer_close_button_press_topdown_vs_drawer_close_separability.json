@@ -1,0 +1,35 @@
+{
+    "tag": "moe_multihead_button_press_topdown_vs_drawer_close",
+    "task_a": "button_press_topdown",
+    "task_b": "drawer_close",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.06774311152712734,
+            0.07805537820420655,
+            0.0990966318733366
+        ],
+        "probe_acc": [
+            0.938125,
+            0.931875,
+            0.9243750000000001
+        ],
+        "maha": [
+            9.559839503161346,
+            9.839395832826392,
+            12.666718138132525
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.08163170720155682,
+        "silhouette_std": 0.013047436692009813,
+        "probe_acc_mean": 0.9314583333333334,
+        "probe_acc_std": 0.005621140651346655,
+        "maha_mean": 10.688651158040088,
+        "maha_std": 1.4033530486333936
+    }
+}

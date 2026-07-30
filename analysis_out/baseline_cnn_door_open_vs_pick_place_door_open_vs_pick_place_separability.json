@@ -1,0 +1,35 @@
+{
+    "tag": "baseline_cnn_door_open_vs_pick_place",
+    "task_a": "door_open",
+    "task_b": "pick_place",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.16002535961104822,
+            0.1302657482641489,
+            0.1790312671370652
+        ],
+        "probe_acc": [
+            0.99,
+            1.0,
+            0.999375
+        ],
+        "maha": [
+            128.68860668004552,
+            90.84869080832384,
+            119.20983011086773
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.15644079167075411,
+        "silhouette_std": 0.02006914386523296,
+        "probe_acc_mean": 0.9964583333333333,
+        "probe_acc_std": 0.004573853833354204,
+        "maha_mean": 112.91570919974568,
+        "maha_std": 16.076417030910243
+    }
+}

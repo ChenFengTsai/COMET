@@ -1,0 +1,11 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_door_open",
+    "task_a": "button_press_topdown",
+    "task_b": "door_open",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.10716181248426437,
+        0.0979829803109169
+    ]
+}

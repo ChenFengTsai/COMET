@@ -1,0 +1,35 @@
+{
+    "tag": "moe_multihead_door_open_vs_pick_place",
+    "task_a": "door_open",
+    "task_b": "pick_place",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.07567349942802619,
+            0.08432166471683221,
+            0.0919622359369367
+        ],
+        "probe_acc": [
+            0.993125,
+            0.99875,
+            0.996875
+        ],
+        "maha": [
+            21.598968623510775,
+            20.58206927706307,
+            20.448373082481314
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.08398580002726504,
+        "silhouette_std": 0.006654088371392536,
+        "probe_acc_mean": 0.99625,
+        "probe_acc_std": 0.002338535866733703,
+        "maha_mean": 20.876470327685052,
+        "maha_std": 0.5137908191178681
+    }
+}

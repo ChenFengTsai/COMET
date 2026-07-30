@@ -51,7 +51,7 @@ class WorldModelTeacher(nn.Module):
 
     
     # Task-conditional dynamics
-    if config.teacher_encoder_mode == 'original_cnn':
+    if config.teacher_encoder_mode == 'original_cnn' or config.teacher_dynamics_mode == "shared":
       self.dynamics = networks.RSSM(
         teacher_dyn_stoch, teacher_dyn_deter, teacher_dyn_hidden,
         config.dyn_input_layers, config.dyn_output_layers,

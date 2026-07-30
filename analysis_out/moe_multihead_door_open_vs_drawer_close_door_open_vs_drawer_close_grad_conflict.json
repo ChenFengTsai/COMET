@@ -1,0 +1,9 @@
+{
+    "tag": "moe_multihead_door_open_vs_drawer_close",
+    "task_a": "door_open",
+    "task_b": "drawer_close",
+    "cosine_similarities": {
+        "CNN Encoder": -0.05375302582979202,
+        "RSSM Core": 0.16962037980556488
+    }
+}

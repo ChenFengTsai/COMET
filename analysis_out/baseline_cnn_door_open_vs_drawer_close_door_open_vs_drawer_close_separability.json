@@ -1,0 +1,35 @@
+{
+    "tag": "baseline_cnn_door_open_vs_drawer_close",
+    "task_a": "door_open",
+    "task_b": "drawer_close",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.09977256326786241,
+            0.07270419378121704,
+            0.09814841377849716
+        ],
+        "probe_acc": [
+            1.0,
+            0.993125,
+            0.990625
+        ],
+        "maha": [
+            48.35540435061347,
+            36.16314118235769,
+            42.700834408412874
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.09020839027585886,
+        "silhouette_std": 0.012395083342014416,
+        "probe_acc_mean": 0.9945833333333334,
+        "probe_acc_std": 0.00396381199800843,
+        "maha_mean": 42.40645998046134,
+        "maha_std": 4.981821120759988
+    }
+}

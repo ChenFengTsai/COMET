@@ -1,0 +1,11 @@
+{
+    "tag": "moe_multihead_peg_insert_side_vs_push",
+    "task_a": "peg_insert_side",
+    "task_b": "push",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.08020661771297455,
+        0.06638257205486298
+    ]
+}

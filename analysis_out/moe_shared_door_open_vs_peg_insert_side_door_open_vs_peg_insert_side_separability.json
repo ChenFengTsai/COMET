@@ -1,0 +1,35 @@
+{
+    "tag": "moe_shared_door_open_vs_peg_insert_side",
+    "task_a": "door_open",
+    "task_b": "peg_insert_side",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.14013736727019319,
+            0.09509963502687865,
+            0.14546485792965044
+        ],
+        "probe_acc": [
+            0.9868750000000001,
+            0.993125,
+            1.0
+        ],
+        "maha": [
+            63.113019831169645,
+            43.36974055777197,
+            70.33414150314074
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.1269006200755741,
+        "silhouette_std": 0.02259162863735392,
+        "probe_acc_mean": 0.9933333333333333,
+        "probe_acc_std": 0.005360283470945229,
+        "maha_mean": 58.93896729736078,
+        "maha_std": 11.396981047683877
+    }
+}

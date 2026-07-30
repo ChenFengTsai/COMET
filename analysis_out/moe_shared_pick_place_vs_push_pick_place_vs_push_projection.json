@@ -1,0 +1,11 @@
+{
+    "tag": "moe_shared_pick_place_vs_push",
+    "task_a": "pick_place",
+    "task_b": "push",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.14545321464538574,
+        0.08279453217983246
+    ]
+}

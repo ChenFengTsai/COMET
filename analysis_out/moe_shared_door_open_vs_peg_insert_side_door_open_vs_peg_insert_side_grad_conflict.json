@@ -1,0 +1,9 @@
+{
+    "tag": "moe_shared_door_open_vs_peg_insert_side",
+    "task_a": "door_open",
+    "task_b": "peg_insert_side",
+    "cosine_similarities": {
+        "CNN Encoder": 0.017469359561800957,
+        "RSSM Core": 0.03177448362112045
+    }
+}

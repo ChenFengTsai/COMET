@@ -1,0 +1,9 @@
+{
+    "tag": "baseline_cnn_door_open_vs_drawer_close",
+    "task_a": "door_open",
+    "task_b": "drawer_close",
+    "cosine_similarities": {
+        "CNN Encoder": -0.23297052085399628,
+        "RSSM Core": 0.17095179855823517
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "tag": "moe_multihead_door_open_vs_pick_place",
+    "task_a": "door_open",
+    "task_b": "pick_place",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.08906324952840805,
+        0.06861750781536102
+    ]
+}

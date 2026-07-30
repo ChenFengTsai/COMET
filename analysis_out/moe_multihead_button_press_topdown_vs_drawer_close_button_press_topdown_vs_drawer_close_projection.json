@@ -1,0 +1,11 @@
+{
+    "tag": "moe_multihead_button_press_topdown_vs_drawer_close",
+    "task_a": "button_press_topdown",
+    "task_b": "drawer_close",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.11132039874792099,
+        0.05593011528253555
+    ]
+}

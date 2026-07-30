@@ -1,0 +1,11 @@
+{
+    "tag": "moe_shared_door_open_vs_peg_insert_side",
+    "task_a": "door_open",
+    "task_b": "peg_insert_side",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.09630640596151352,
+        0.08629266172647476
+    ]
+}

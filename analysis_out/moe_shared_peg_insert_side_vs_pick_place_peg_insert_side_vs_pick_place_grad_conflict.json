@@ -1,0 +1,9 @@
+{
+    "tag": "moe_shared_peg_insert_side_vs_pick_place",
+    "task_a": "peg_insert_side",
+    "task_b": "pick_place",
+    "cosine_similarities": {
+        "CNN Encoder": -0.00518551841378212,
+        "RSSM Core": 0.12181392312049866
+    }
+}

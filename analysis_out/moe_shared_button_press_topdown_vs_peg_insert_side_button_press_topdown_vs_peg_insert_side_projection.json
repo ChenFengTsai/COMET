@@ -1,0 +1,11 @@
+{
+    "tag": "moe_shared_button_press_topdown_vs_peg_insert_side",
+    "task_a": "button_press_topdown",
+    "task_b": "peg_insert_side",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.12790994346141815,
+        0.08727336674928665
+    ]
+}

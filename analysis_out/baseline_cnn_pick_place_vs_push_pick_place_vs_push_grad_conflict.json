@@ -1,0 +1,9 @@
+{
+    "tag": "baseline_cnn_pick_place_vs_push",
+    "task_a": "pick_place",
+    "task_b": "push",
+    "cosine_similarities": {
+        "CNN Encoder": 0.297472208738327,
+        "RSSM Core": 0.13119322061538696
+    }
+}

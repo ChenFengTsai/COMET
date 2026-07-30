@@ -1,0 +1,11 @@
+{
+    "tag": "baseline_cnn_door_open_vs_peg_insert_side",
+    "task_a": "door_open",
+    "task_b": "peg_insert_side",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.11765852570533752,
+        0.09911826997995377
+    ]
+}

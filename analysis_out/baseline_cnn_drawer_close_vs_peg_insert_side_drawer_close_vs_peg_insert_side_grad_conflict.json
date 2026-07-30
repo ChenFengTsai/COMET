@@ -1,0 +1,9 @@
+{
+    "tag": "baseline_cnn_drawer_close_vs_peg_insert_side",
+    "task_a": "drawer_close",
+    "task_b": "peg_insert_side",
+    "cosine_similarities": {
+        "CNN Encoder": 0.05841297283768654,
+        "RSSM Core": 0.011795036494731903
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "tag": "moe_shared_button_press_topdown_vs_drawer_close",
+    "task_a": "button_press_topdown",
+    "task_b": "drawer_close",
+    "cosine_similarities": {
+        "CNN Encoder": 0.036780696362257004,
+        "RSSM Core": -0.020977351814508438
+    }
+}

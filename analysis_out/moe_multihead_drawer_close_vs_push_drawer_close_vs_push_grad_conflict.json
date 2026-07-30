@@ -1,0 +1,9 @@
+{
+    "tag": "moe_multihead_drawer_close_vs_push",
+    "task_a": "drawer_close",
+    "task_b": "push",
+    "cosine_similarities": {
+        "CNN Encoder": 0.028479326516389847,
+        "RSSM Core": 0.2037205994129181
+    }
+}

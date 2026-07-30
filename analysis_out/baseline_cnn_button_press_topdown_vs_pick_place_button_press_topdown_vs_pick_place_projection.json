@@ -1,0 +1,11 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_pick_place",
+    "task_a": "button_press_topdown",
+    "task_b": "pick_place",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.13106973469257355,
+        0.0829995796084404
+    ]
+}

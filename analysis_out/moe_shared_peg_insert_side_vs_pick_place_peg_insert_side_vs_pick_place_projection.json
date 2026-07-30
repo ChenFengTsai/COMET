@@ -1,0 +1,11 @@
+{
+    "tag": "moe_shared_peg_insert_side_vs_pick_place",
+    "task_a": "peg_insert_side",
+    "task_b": "pick_place",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.09896855801343918,
+        0.07960163801908493
+    ]
+}

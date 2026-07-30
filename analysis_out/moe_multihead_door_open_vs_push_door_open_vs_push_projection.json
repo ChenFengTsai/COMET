@@ -1,0 +1,11 @@
+{
+    "tag": "moe_multihead_door_open_vs_push",
+    "task_a": "door_open",
+    "task_b": "push",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.09477411210536957,
+        0.07173692435026169
+    ]
+}

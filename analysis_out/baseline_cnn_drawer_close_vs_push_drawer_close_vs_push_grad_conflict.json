@@ -1,0 +1,9 @@
+{
+    "tag": "baseline_cnn_drawer_close_vs_push",
+    "task_a": "drawer_close",
+    "task_b": "push",
+    "cosine_similarities": {
+        "CNN Encoder": -0.06299585849046707,
+        "RSSM Core": 0.06356792151927948
+    }
+}

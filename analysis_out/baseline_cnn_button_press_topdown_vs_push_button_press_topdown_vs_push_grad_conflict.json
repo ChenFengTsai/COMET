@@ -1,0 +1,9 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_push",
+    "task_a": "button_press_topdown",
+    "task_b": "push",
+    "cosine_similarities": {
+        "CNN Encoder": 0.05131474882364273,
+        "RSSM Core": -0.041742242872714996
+    }
+}

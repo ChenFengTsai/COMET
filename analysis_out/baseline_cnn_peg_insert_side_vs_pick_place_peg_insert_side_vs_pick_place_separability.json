@@ -1,0 +1,35 @@
+{
+    "tag": "baseline_cnn_peg_insert_side_vs_pick_place",
+    "task_a": "peg_insert_side",
+    "task_b": "pick_place",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.13984120244196055,
+            0.12083125002399189,
+            0.1766681444856613
+        ],
+        "probe_acc": [
+            0.969375,
+            0.99875,
+            0.9956250000000001
+        ],
+        "maha": [
+            38.06036131866505,
+            38.42199186306964,
+            61.21135289297421
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.14578019898387126,
+        "silhouette_std": 0.02317891938413756,
+        "probe_acc_mean": 0.9879166666666667,
+        "probe_acc_std": 0.013172862466281063,
+        "maha_mean": 45.89790202490297,
+        "maha_std": 10.829251352372287
+    }
+}

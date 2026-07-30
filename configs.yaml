@@ -57,9 +57,9 @@ defaults:
   dyn_output_layers: 1
   dyn_rec_depth: 1
   dyn_shared: False
-  dyn_mean_act: 'none'
-  dyn_std_act: 'sigmoid2'
-  dyn_min_std: 0.1
+  dyn_mean_act: 'none' 
+  dyn_std_act: 'sigmoid2' 
+  dyn_min_std: 0.2 # modify this to handle inf issue in Uncertainty-Aware Student Distillation
   dyn_temp_post: True
   grad_heads: ['image', 'reward']
   units: 400
@@ -312,7 +312,6 @@ metaworld:
   eval_num: 5 # original 10
   num_teachers: 6 # teacher and expert are different, teacher are based on task number, expert does not
 
-  # target_tasks: ['door_close', 'faucet_open', 'handle_press', 'plate_slide', 'reach_wall', 'window_close']
   source_tasks: ['button_press_topdown', 'door_open', 'drawer_close', 'peg_insert_side', 'pick_place', 'push']
   source_task_dirs: [
     './pretrain_data/button-press-topdown',
@@ -375,6 +374,7 @@ metaworld_teacher_moe_pretrain: # assume multi-head, and this is for pretrain te
   use_orthogonal: True
   pretrain_iterations: 200000
   moe_temperature: '1.0'
+  teacher_dynamics_mode: 'multihead'
 
 metaworld_student_scale_down:
   

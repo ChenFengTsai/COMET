@@ -1,0 +1,35 @@
+{
+    "tag": "moe_multihead_drawer_close_vs_pick_place",
+    "task_a": "drawer_close",
+    "task_b": "pick_place",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.079140389554571,
+            0.07332858196813723,
+            0.08567040933856948
+        ],
+        "probe_acc": [
+            0.98375,
+            0.9887499999999999,
+            0.9825000000000002
+        ],
+        "maha": [
+            13.571568238777097,
+            14.563458111177482,
+            17.69029072737463
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.0793797936204259,
+        "silhouette_std": 0.005041372924144677,
+        "probe_acc_mean": 0.985,
+        "probe_acc_std": 0.0027003086243365167,
+        "maha_mean": 15.27510569244307,
+        "maha_std": 1.7551449027474695
+    }
+}

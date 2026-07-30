@@ -1,0 +1,35 @@
+{
+    "tag": "moe_multihead_button_press_topdown_vs_peg_insert_side",
+    "task_a": "button_press_topdown",
+    "task_b": "peg_insert_side",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.08138851013141965,
+            0.07971581053574754,
+            0.09365951892882844
+        ],
+        "probe_acc": [
+            0.99375,
+            0.9925,
+            0.9800000000000001
+        ],
+        "maha": [
+            13.619963864828962,
+            13.888194817145978,
+            17.024985723263804
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.08492127986533188,
+        "silhouette_std": 0.006216488689094158,
+        "probe_acc_mean": 0.98875,
+        "probe_acc_std": 0.006208193510729697,
+        "maha_mean": 14.844381468412914,
+        "maha_std": 1.5458035985964438
+    }
+}

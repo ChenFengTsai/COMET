@@ -1,0 +1,9 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_peg_insert_side",
+    "task_a": "button_press_topdown",
+    "task_b": "peg_insert_side",
+    "cosine_similarities": {
+        "CNN Encoder": 0.14608177542686462,
+        "RSSM Core": 0.00879797711968422
+    }
+}

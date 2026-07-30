@@ -1,0 +1,35 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_peg_insert_side",
+    "task_a": "button_press_topdown",
+    "task_b": "peg_insert_side",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.1636638663083645,
+            0.10410400318821247,
+            0.16319619859848788
+        ],
+        "probe_acc": [
+            0.9887499999999999,
+            1.0,
+            1.0
+        ],
+        "maha": [
+            80.48837713395237,
+            50.96860252217742,
+            102.0174934010222
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.1436546893650216,
+        "silhouette_std": 0.027967210098781115,
+        "probe_acc_mean": 0.99625,
+        "probe_acc_std": 0.005303300858899151,
+        "maha_mean": 77.824824352384,
+        "maha_std": 20.925553756992922
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_push",
+    "task_a": "button_press_topdown",
+    "task_b": "push",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.16423188149929047,
+        0.0805271789431572
+    ]
+}

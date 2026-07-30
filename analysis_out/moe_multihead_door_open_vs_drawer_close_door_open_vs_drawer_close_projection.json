@@ -1,0 +1,11 @@
+{
+    "tag": "moe_multihead_door_open_vs_drawer_close",
+    "task_a": "door_open",
+    "task_b": "drawer_close",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.09554202109575272,
+        0.0695866197347641
+    ]
+}

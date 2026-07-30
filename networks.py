@@ -170,8 +170,10 @@ class RSSM_Teacher(nn.Module):
       dist = torchd.independent.Independent(tools.OneHotDist(logit), 1)
     else:
       mean, std = state['mean'], state['std']
+      # dist = tools.ContDist(torchd.independent.Independent(
+      #     torchd.normal.Normal(mean, std), 1))
       dist = tools.ContDist(torchd.independent.Independent(
-          torchd.normal.Normal(mean, std), 1))
+          torchd.normal.Normal(mean.float(), std.float()), 1))
     return dist
 
   # ---------------------------------------------------------------------------
@@ -639,41 +641,71 @@ class OrthogonalLayer(nn.Module):
     Output: ortho  [B, N, F]  where the N experts for each batch element are
                               orthonormal across the feature axis.
     """
-    def __init__(self, eps: float = 1e-6):
+    def __init__(self, eps: float = 1e-3):
         super().__init__()
         self.eps = eps
 
     def forward(self, feats: torch.Tensor) -> torch.Tensor:
-      # feats: [B, N, F]. Treat each expert vector as a column of H_t in R^{F x N}.
-      B, N, Fdim = feats.shape
+        # feats: [B, N, F]
+        orig_dtype = feats.dtype
+        with torch.cuda.amp.autocast(enabled=False):
+            f = feats.float()
+            B, N, Fdim = f.shape
 
-      # eigh has no half-precision CUDA kernel and is sensitive to low precision,
-      # so run the whole orthogonalization in fp32 with autocast disabled, then
-      # cast the result back to the input dtype.
-      orig_dtype = feats.dtype
-      with torch.cuda.amp.autocast(enabled=False):
-        feats32 = feats.float()
+            gram = torch.matmul(f, f.transpose(-1, -2))                # [B, N, N]
+            eye = torch.eye(N, device=f.device, dtype=f.dtype).expand(B, N, N)
 
-        # Gram matrix over experts:  M = H_t^T H_t  with shape [B, N, N].
-        # feats is [B, N, F] (rows = experts), so H_t^T H_t = feats @ feats^T.
-        gram = torch.matmul(feats32, feats32.transpose(-1, -2))  # [B, N, N]
+            # relative regularization: scale eps by the average feature energy,
+            # so dead/zero experts get a well-conditioned identity block
+            diag_mean = gram.diagonal(dim1=-2, dim2=-1).mean(-1, keepdim=True)  # [B,1]
+            gram = gram + (1e-3 * diag_mean.clamp_min(1.0)).unsqueeze(-1) * eye
 
-        # Regularize:  M + eps I   (eps I guards against collapsing eigenvalues).
-        eye = torch.eye(N, device=feats32.device, dtype=feats32.dtype).unsqueeze(0)
-        gram = gram + self.eps * eye
+            # Newton–Schulz coupled iteration for A^{-1/2}
+            # normalize so the spectrum lies in (0, 1] (required for convergence)
+            norm = gram.norm(dim=(-2, -1), keepdim=True)               # Frobenius norm
+            Y = gram / norm
+            Z = eye.clone()
+            for _ in range(5):
+                T = 0.5 * (3.0 * eye - torch.matmul(Z, Y))
+                Y = torch.matmul(Y, T)
+                Z = torch.matmul(T, Z)
+            m_inv_sqrt = Z / norm.sqrt()                               # = gram^{-1/2}
 
-        # Symmetric inverse square root via eigendecomposition of the SPD Gram matrix.
-        # M = V diag(lam) V^T  =>  M^{-1/2} = V diag(lam^{-1/2}) V^T.
-        # eigh is differentiable and returns ascending real eigenvalues for symmetric input.
-        eigvals, eigvecs = torch.linalg.eigh(gram)            # [B, N], [B, N, N]
-        inv_sqrt = torch.rsqrt(eigvals.clamp_min(self.eps))   # [B, N]
-        m_inv_sqrt = torch.matmul(
-            eigvecs * inv_sqrt.unsqueeze(-2), eigvecs.transpose(-1, -2))  # [B, N, N]
+            Q = torch.matmul(m_inv_sqrt, f)
+        return Q.to(orig_dtype)
+    # def forward(self, feats: torch.Tensor) -> torch.Tensor:
+    #   # feats: [B, N, F]. Treat each expert vector as a column of H_t in R^{F x N}.
+    #   B, N, Fdim = feats.shape
 
-        # H~_t = (M + eps I)^{-1/2} H_t  applied on the expert axis -> [B, N, F].
-        Q = torch.matmul(m_inv_sqrt, feats32)
+    #   # eigh has no half-precision CUDA kernel and is sensitive to low precision,
+    #   # so run the whole orthogonalization in fp32 with autocast disabled, then
+    #   # cast the result back to the input dtype.
+    #   orig_dtype = feats.dtype
+    #   with torch.cuda.amp.autocast(enabled=False):
+    #     feats32 = feats.float()
 
-      return Q.to(orig_dtype)
+    #     # Gram matrix over experts:  M = H_t^T H_t  with shape [B, N, N].
+    #     # feats is [B, N, F] (rows = experts), so H_t^T H_t = feats @ feats^T.
+    #     gram = torch.matmul(feats32, feats32.transpose(-1, -2))  # [B, N, N]
+
+    #     # Regularize:  M + eps I   (eps I guards against collapsing eigenvalues).
+    #     eye = torch.eye(N, device=feats32.device, dtype=feats32.dtype).unsqueeze(0)
+    #     gram = gram + self.eps * eye
+
+    #     # Symmetric inverse square root via eigendecomposition of the SPD Gram matrix.
+    #     # M = V diag(lam) V^T  =>  M^{-1/2} = V diag(lam^{-1/2}) V^T.
+    #     # eigh is differentiable and returns ascending real eigenvalues for symmetric input.
+    #     eigvals, eigvecs = torch.linalg.eigh(gram)            # [B, N], [B, N, N]
+    #     inv_sqrt = torch.rsqrt(eigvals.clamp_min(self.eps))   # [B, N]
+        
+    #     m_inv_sqrt = torch.matmul(
+    #         eigvecs * inv_sqrt.unsqueeze(-2), eigvecs.transpose(-1, -2))  # [B, N, N]
+
+    #     # H~_t = (M + eps I)^{-1/2} H_t  applied on the expert axis -> [B, N, F].
+    #     Q = torch.matmul(m_inv_sqrt, feats32)
+    #     Q = Q.clamp(-30, 30)   # cheap safety net before casting back to fp16
+
+    #   return Q.to(orig_dtype)
 
     # @torch.no_grad()
     # def forward(self, feats: torch.Tensor) -> torch.Tensor:

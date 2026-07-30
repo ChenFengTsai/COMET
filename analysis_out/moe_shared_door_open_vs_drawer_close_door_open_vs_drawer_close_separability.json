@@ -1,0 +1,35 @@
+{
+    "tag": "moe_shared_door_open_vs_drawer_close",
+    "task_a": "door_open",
+    "task_b": "drawer_close",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.10110039796041377,
+            0.05460692603803255,
+            0.08001177501579612
+        ],
+        "probe_acc": [
+            0.99375,
+            0.994375,
+            1.0
+        ],
+        "maha": [
+            45.366932751516046,
+            33.88992968953177,
+            40.14855030069281
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.07857303300474748,
+        "silhouette_std": 0.019008124872977872,
+        "probe_acc_mean": 0.9960416666666667,
+        "probe_acc_std": 0.0028105703256733343,
+        "maha_mean": 39.80180424724688,
+        "maha_std": 4.691877693801233
+    }
+}

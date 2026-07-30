@@ -1,0 +1,35 @@
+{
+    "tag": "baseline_cnn_drawer_close_vs_peg_insert_side",
+    "task_a": "drawer_close",
+    "task_b": "peg_insert_side",
+    "seeds": [
+        0,
+        1,
+        2
+    ],
+    "per_seed_results": {
+        "silhouette": [
+            0.09943709697957694,
+            0.08682400694104402,
+            0.11326688314515775
+        ],
+        "probe_acc": [
+            0.9925,
+            0.976875,
+            0.96875
+        ],
+        "maha": [
+            34.456190855177255,
+            30.114686188616062,
+            41.372270147908125
+        ]
+    },
+    "summary": {
+        "silhouette_mean": 0.09984266235525957,
+        "silhouette_std": 0.010799067488815426,
+        "probe_acc_mean": 0.9793750000000001,
+        "probe_acc_std": 0.00985573014376241,
+        "maha_mean": 35.314382397233814,
+        "maha_std": 4.635778876828255
+    }
+}

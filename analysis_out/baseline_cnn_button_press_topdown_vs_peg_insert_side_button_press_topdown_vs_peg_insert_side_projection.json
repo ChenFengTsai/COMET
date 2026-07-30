@@ -1,0 +1,11 @@
+{
+    "tag": "baseline_cnn_button_press_topdown_vs_peg_insert_side",
+    "task_a": "button_press_topdown",
+    "task_b": "peg_insert_side",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.1340741217136383,
+        0.0876973420381546
+    ]
+}

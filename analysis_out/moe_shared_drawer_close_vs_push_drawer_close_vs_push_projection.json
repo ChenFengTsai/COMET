@@ -1,0 +1,11 @@
+{
+    "tag": "moe_shared_drawer_close_vs_push",
+    "task_a": "drawer_close",
+    "task_b": "push",
+    "timesteps": 800,
+    "feature_dim": 250,
+    "pca_explained_variance_ratio": [
+        0.12386290729045868,
+        0.08997546136379242
+    ]
+}
