@@ -1,6 +1,6 @@
-# COMET: Correlated tasks via Orthogonal experts and Multi-head world models for Efficient Teacher distillation
+# Rethinking Correlated Tasks in Multi-Task World Model Distillation: Beyond Gradient Conflict
 
-Official implementation of **COMET**. This framework leverages orthogonal experts and multi-head world models to improve the efficiency of teacher distillation across correlated tasks in reinforcement learning.
+Official implementation of Correlated Tasks in Multi-Task World Model Distillation and **COMET**. This framework leverages orthogonal experts and multi-head world models to improve the efficiency of teacher distillation across correlated tasks in reinforcement learning.
 
 ---
 
