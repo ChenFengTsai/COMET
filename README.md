@@ -6,10 +6,11 @@ Official implementation of Correlated Tasks in Multi-Task World Model Distillati
 
 ## 🛠 Installation
 
-### 1. Clone the Repository
+### 1. Set Up the Repository
+
+Unzip the provided code archive and navigate into the project directory:
 
 ```bash
-git clone https://github.com/ChenFengTsai/COMET.git
 cd COMET
 
 ```

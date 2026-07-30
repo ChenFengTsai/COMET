@@ -24,7 +24,7 @@ defaults:
   debug: False
   expl_gifs: False
   camera: corner2
-  num_teachers: 6
+  num_teachers: 6 # change to 8 if needed
   eval_num: 10
   is_adaptive: True
   source_tasks: null
@@ -310,8 +310,10 @@ metaworld:
   dataset_size: 500000
   # pretrain: 3000
   eval_num: 5 # original 10
+  # change to 8 if using 8 tasks with push and handle-press-side
   num_teachers: 6 # teacher and expert are different, teacher are based on task number, expert does not
-
+  # 
+  # add in push and handle-press-side
   source_tasks: ['button_press_topdown', 'door_open', 'drawer_close', 'peg_insert_side', 'pick_place', 'push']
   source_task_dirs: [
     './pretrain_data/button-press-topdown',
